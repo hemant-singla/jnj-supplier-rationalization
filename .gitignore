@@ -1,0 +1,4 @@
+# Large data: rebuilt from the public source (see data/README.md)
+data/procurement.db
+data/raw/*.csv
+__pycache__/

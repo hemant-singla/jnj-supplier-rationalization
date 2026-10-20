@@ -11,3 +11,12 @@
 - Set one goal: keep / consolidate / exit decision per supplier, ≥ $300M a year, no added supply risk.
 - Cut the method set to four decision questions, one method each (Pareto/ABC, Kraljic, duplicate detection + scorecard + rules, savings scenarios).
 - Kept one ML piece (fuzzy duplicate matching) and one dashboard; documented the methods left out and why.
+
+## 2026-10-20 — Switched to real data
+- Replaced the synthetic-data plan with real public procurement data (State of California purchase orders, FY2012–15) plus real J&J suppliers from SEC filings.
+
+## 2026-10-20 — Step 1: Load and clean real data
+- `scripts/01_clean_load.py`: cleaned 344,504 lines into SQLite; kept $21.9B addressable spend across 16,933 suppliers.
+- Excluded $128.8B of non-addressable spend (procurement-exempt methods, public bodies, Medi-Cal health plans), each line kept with a reason code.
+- First finding: top 1.9% of suppliers = 70% of spend, top 10.8% = 92% — matches the business case segment assumptions.
+- Started list of candidate real J&J suppliers from SEC full-text search.
