@@ -20,3 +20,9 @@
 - Excluded $128.8B of non-addressable spend (procurement-exempt methods, public bodies, Medi-Cal health plans), each line kept with a reason code.
 - First finding: top 1.9% of suppliers = 70% of spend, top 10.8% = 92% — matches the business case segment assumptions.
 - Started list of candidate real J&J suppliers from SEC full-text search.
+
+## 2026-10-20 — Step 2: Spend cube + Pareto / ABC
+- `sql/01_pareto_abc.sql`, `sql/02_category_fragmentation.sql`, `scripts/02_spend_cube.py`; write-up in `docs/03_step2_spend_cube.md`.
+- A: 327 suppliers (1.9%) = 70% of spend; B: 1,497 (8.8%) = 22%; C: 15,109 (89.2%) = 8%.
+- 59% of tail suppliers are inactive (18+ months) or one-time — matches the business case's 60% tail-cut assumption.
+- Most fragmented categories: refuse disposal, measuring instruments, batteries/generators, material handling.
