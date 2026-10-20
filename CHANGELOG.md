@@ -36,3 +36,9 @@
 ## 2026-10-20 — Outputs workbook
 - `scripts/build_outputs_workbook.py` → `outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`: one tab per completed step (business case with live formulas, cleaning, segments, fragmented categories, full 16,933-supplier list, Kraljic).
 - Corrected excluded-line counts in `data/README.md` (44,341 / 15,276 / 6,255; they sum with the 278,632 kept lines to 344,504).
+
+## 2026-10-20 — Step 4: Keep / consolidate / exit list
+- `scripts/04a_duplicates.py`: TF-IDF character n-gram duplicate detection (threshold 0.88 chosen from sampled pairs) → 858 duplicate records in 644 groups.
+- `scripts/04b_decisions.py`: scorecard + rules R1–R8 → decision and reason code for all 16,933 suppliers.
+- 4,648 kept (−73% of records, −59% of active base); $1.2B over 3 years to re-route; 96.6% of active small/diverse spend retained.
+- Workbook gains tabs `4_Decision_Summary` and `4_Supplier_Decisions`; write-up in `docs/05_step4_decisions.md`.

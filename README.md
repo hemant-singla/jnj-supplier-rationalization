@@ -18,10 +18,14 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 | 1 | Load real data | — | Clean California purchase orders, addressable-spend rules | pandas, SQLite | ✅ [data/README.md](data/README.md) |
 | 2 | Spend cube + Pareto / ABC | Where does the spend sit? | SQL window functions | SQL | ✅ [docs/03_step2_spend_cube.md](docs/03_step2_spend_cube.md) |
 | 3 | Kraljic matrix | How should each category be handled? | Value vs supply risk 2x2 | Python | ✅ [docs/04_step3_kraljic.md](docs/04_step3_kraljic.md) |
-| 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules 1–5 | rapidfuzz, SQL | ⬜ Next |
-| 5 | Savings model on real list | What is it worth? | Low / base / high scenarios | Python | ⬜ |
+| 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules | scikit-learn, SQL | ✅ [docs/05_step4_decisions.md](docs/05_step4_decisions.md) |
+| 5 | Savings model on real list | What is it worth? | Low / base / high scenarios | Python | ⬜ Next |
 | 6 | Dashboard | — | One view per question | Power BI or Tableau | ⬜ |
 | 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ |
+
+## All outputs in one file
+
+[`outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`](outputs/JnJ_Supplier_Rationalization_Outputs.xlsx): one tab per completed step.
 
 ## Repository layout
 

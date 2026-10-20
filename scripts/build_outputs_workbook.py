@@ -72,13 +72,15 @@ rows = [
     ("2_Fragmented_Categories", "2 Spend cube", "Which categories have too many suppliers?", "SQL category cube"),
     ("2_Supplier_List", "2 Spend cube", "Segment of every supplier", "SQL (16,933 rows)"),
     ("3_Kraljic", "3 Kraljic matrix", "How should each category be handled?", "Value vs supply-risk scoring"),
+    ("4_Decision_Summary", "4 Keep / consolidate / exit", "Which suppliers stay and which go?", "Duplicate detection (ML) + scorecard + rules"),
+    ("4_Supplier_Decisions", "4 Keep / consolidate / exit", "Decision and reason for every supplier", "16,933 rows, filterable"),
 ]
 for r, rec in enumerate(rows, start=4):
     for c, v in enumerate(rec, start=1):
         ws.cell(row=r, column=c, value=v).font = font(bold=(r == 4))
 header(ws, 4, list(rows[0]))
-ws["A12"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
-ws["A12"].font = font(italic=True)
+ws["A14"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
+ws["A14"].font = font(italic=True)
 widths(ws, [26, 26, 40, 44])
 
 # ---------------------------------------------------------------- Step 0
@@ -290,6 +292,48 @@ write_df(ws, kc, s, {"Spend ($)": USD, "Suppliers": NUM, "Active suppliers": NUM
                      "% non-competitive": PCT, "% with top 3 suppliers": PCT, "Risk score (0-1)": "0.00"})
 ws.auto_filter.ref = f"A{s}:J{s + len(kc)}"
 widths(ws, [52, 40, 13, 46, 15, 11, 11, 14, 14, 12])
+
+# ---------------------------------------------------------------- Step 4
+if Path("outputs/step4_supplier_decisions.csv").exists():
+    ws = wb.create_sheet("4_Decision_Summary")
+    title(ws, "Step 4 — Which suppliers stay and which go?",
+          "Rules applied in order; the first rule that matches sets the decision. Duplicates found by TF-IDF "
+          "name matching (cosine >= 0.88).")
+    br = pd.read_csv("outputs/step4_decisions_by_rule.csv")
+    br.columns = ["Rule", "Decision", "Reason", "Suppliers", "Spend 3 yrs ($M)"]
+    end = write_df(ws, br, 4, {"Suppliers": NUM, "Spend 3 yrs ($M)": USD_M})
+    t = end + 1
+    ws.cell(row=t, column=1, value="Total").font = font(bold=True)
+    for col, fmt in [(4, NUM), (5, USD_M)]:
+        L = get_column_letter(col)
+        c = ws.cell(row=t, column=col, value=f"=SUM({L}5:{L}{end})")
+        c.font, c.number_format = font(bold=True), fmt
+    h = pd.read_csv("outputs/step4_headline.csv")
+    r = t + 3
+    ws.cell(row=r - 1, column=1, value="Headline").font = font(bold=True)
+    header(ws, r, ["Metric", "Value"])
+    for i, rec in enumerate(h.itertuples(index=False), start=r + 1):
+        ws.cell(row=i, column=1, value=rec.metric).font = font()
+        c = ws.cell(row=i, column=2, value=float(rec.value))
+        c.number_format = PCT if rec.value < 1 else (USD_M if "$M" in rec.metric else NUM)
+    seg = pd.read_csv("outputs/step4_decisions_by_segment.csv")
+    r = r + len(h) + 3
+    ws.cell(row=r - 1, column=1, value="Decisions by segment").font = font(bold=True)
+    write_df(ws, seg, r, {c: NUM for c in seg.columns[1:]})
+    widths(ws, [66, 14, 70, 12, 16])
+
+    ws = wb.create_sheet("4_Supplier_Decisions")
+    title(ws, "Step 4 — Decision and reason code for every supplier (16,933 real suppliers)",
+          "Filter by Decision or Rule. Score = 0-100 scorecard within the supplier's primary category.")
+    sd = pd.read_csv("outputs/step4_supplier_decisions.csv")
+    sd.columns = ["Supplier code", "Supplier", "Segment", "Primary category", "Kraljic quadrant", "Spend 3 yrs ($)",
+                  "POs", "Departments", "Last PO", "Small or diverse", "Score", "Rule", "Decision", "Reason",
+                  "Merge into (master)", "Agreement if kept"]
+    sd["Last PO"] = sd["Last PO"].astype(str).str[:10]
+    write_df(ws, sd, 4, {"Spend 3 yrs ($)": USD, "POs": NUM, "Score": "0.0"})
+    ws.freeze_panes = "C5"
+    ws.auto_filter.ref = f"A4:{get_column_letter(len(sd.columns))}{4 + len(sd)}"
+    widths(ws, [12, 42, 12, 36, 13, 15, 7, 11, 11, 10, 8, 6, 13, 60, 36, 34])
 
 OUT.parent.mkdir(exist_ok=True)
 wb.save(OUT)

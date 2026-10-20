@@ -1,0 +1,13 @@
+metric,value
+Suppliers before,16933.0
+Suppliers kept,4648.0
+Supplier reduction (all records),0.726
+Active suppliers before (excl. inactive 18m),11319.0
+Supplier reduction (active base),0.589
+"Spend with kept suppliers, 3 yrs ($M)",19033.8
+"Spend to re-route to kept suppliers: consolidate + one-time, 3 yrs ($M)",1203.7
+"Spend on merged duplicates (same company, admin only), 3 yrs ($M)",341.0
+"Spend with inactive suppliers (already stopped), 3 yrs ($M)",1294.2
+"Small/diverse spend, active suppliers ($M)",5965.0
+Small/diverse spend kept ($M),5763.0
+Small/diverse active spend retained,0.966
