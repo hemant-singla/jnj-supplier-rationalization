@@ -6,22 +6,22 @@ A supply chain case study: how Johnson & Johnson could cut its supplier base fro
 
 > Built on J&J's public reporting plus a synthetic dataset and clearly labeled assumptions. J&J's internal supplier data is not public.
 
+## Goal
+
+Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a data reason behind every exit, and show the result saves at least $300M a year without adding supply risk. Full method: [docs/02_methodology.md](docs/02_methodology.md).
+
 ## Project steps
 
-| # | Step | Method | Tools | Status |
-| --- | --- | --- | --- | --- |
-| 0 | Business case | Top-down savings model, scenarios, NPV | Python | ✅ Done — [docs/01_business_case.md](docs/01_business_case.md) |
-| 1 | Set the baseline | Public figures + assumptions register | J&J reports, Excel | ✅ Done (in business case) |
-| 2 | Build the dataset | Synthetic data calibrated to $35B / 29,000 suppliers | pandas, numpy, Faker | ⬜ Next |
-| 3 | Clean and deduplicate suppliers | Name normalization, fuzzy matching | rapidfuzz, SQL | ⬜ |
-| 4 | Classify spend | Invoice line → category | TF-IDF + logistic regression / LLM | ⬜ |
-| 5 | Build the spend cube | Pareto / ABC segmentation | SQL window functions | ⬜ ([draft query](sql/01_pareto_abc.sql)) |
-| 6 | Segment categories | Kraljic matrix | Python, scatter plot | ⬜ |
-| 7 | Score and cluster suppliers | Weighted scorecard (AHP) + K-means, PCA | scikit-learn | ⬜ |
-| 8 | Predict supplier risk | Random forest / XGBoost + SHAP | scikit-learn, xgboost, shap | ⬜ |
-| 9 | Decide keep vs exit | Rules + linear programming | SQL, PuLP | ⬜ |
-| 10 | Value it and show it | Monte Carlo + dashboard | Python, Power BI / Tableau / Streamlit | ⬜ |
-| 11 | Agreements | Template MOU and MSA term sheet | Markdown / Word | ⬜ |
+| # | Step | Answers | Method | Tools | Status |
+| --- | --- | --- | --- | --- | --- |
+| 0 | Business case | Is this worth doing? | Top-down savings model | Python | ✅ [docs/01_business_case.md](docs/01_business_case.md) |
+| 1 | Build the dataset | — | Synthetic data calibrated to $35B / 29,000 suppliers | pandas, numpy, Faker | ⬜ Next |
+| 2 | Spend cube + Pareto / ABC | Where does the spend sit? | SQL window functions | SQL | ⬜ ([draft query](sql/01_pareto_abc.sql)) |
+| 3 | Kraljic matrix | How should each category be handled? | Value vs supply risk 2x2 | Python | ⬜ |
+| 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules 1–5 | rapidfuzz, SQL | ⬜ |
+| 5 | Savings model on real list | What is it worth? | Low / base / high scenarios | Python | ⬜ |
+| 6 | Dashboard | — | One view per question | Power BI or Tableau | ⬜ |
+| 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ |
 
 ## Repository layout
 
@@ -29,8 +29,8 @@ A supply chain case study: how Johnson & Johnson could cut its supplier base fro
 docs/        business case, methodology, agreement templates, chart images
 model/       business case financial model
 sql/         spend cube and rationalization queries
-data/        synthetic dataset (generated, step 2)
-notebooks/   analysis and ML notebooks (steps 3–10)
+data/        synthetic dataset (generated, step 1)
+notebooks/   analysis notebooks (steps 2–5)
 ```
 
 ## Run the business case model
