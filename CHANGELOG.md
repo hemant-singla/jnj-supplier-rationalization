@@ -32,3 +32,7 @@
 - Value = category spend (top categories = 80% of spend); risk = non-competitive share + top-3 concentration + thin supply base, ranked within size bands.
 - Leverage 59% of spend (20 categories), Strategic 21% (21), Bottleneck 13% (183), Non-critical 7% (185, but 21,991 supplier relationships).
 - Fixed a first-pass bias where small categories scored high-risk just for having few suppliers.
+
+## 2026-10-20 — Outputs workbook
+- `scripts/build_outputs_workbook.py` → `outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`: one tab per completed step (business case with live formulas, cleaning, segments, fragmented categories, full 16,933-supplier list, Kraljic).
+- Corrected excluded-line counts in `data/README.md` (44,341 / 15,276 / 6,255; they sum with the 278,632 kept lines to 344,504).

@@ -15,9 +15,9 @@
 | | Lines | Spend |
 | --- | --- | --- |
 | Raw file | 344,504 | $150.7B |
-| Excluded: procurement-exempt methods | 44,135 | $60.7B |
-| Excluded: public bodies and health plans (pass-through funds) | 15,166 | $68.1B |
-| Excluded: missing or zero amount | 5,103 | $0 |
+| Excluded: procurement-exempt methods | 44,341 | $60.7B |
+| Excluded: public bodies and health plans (pass-through funds) | 15,276 | $68.1B |
+| Excluded: missing or zero amount | 6,255 | $0 |
 | **Addressable** | **278,632** | **$21.9B** (3 years) |
 
 Addressable suppliers: 16,933 supplier codes / 16,567 distinct names.
