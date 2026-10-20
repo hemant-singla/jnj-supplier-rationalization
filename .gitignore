@@ -2,3 +2,4 @@
 data/procurement.db
 data/raw/*.csv
 __pycache__/
+outputs/JnJ_Data_Raw_to_Decision.xlsx

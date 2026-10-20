@@ -60,8 +60,17 @@ def main() -> None:
             "segment", "segment_title", "family", "family_title", "class", "class_title", "commodity_title"]
     lines = lines[keep]
 
+    # outcome of every raw row (row 1 = first data row of the CSV), so the raw file can be audited line by line
+    status = pd.DataFrame({
+        "raw_row": range(1, len(df) + 1),
+        "status": (reason == "").map({True: "KEPT", False: "EXCLUDED"}).values,
+        "exclusion_reason": reason.values,
+        "amount_usd_parsed": df["amount_usd"].values,
+    })
+
     DB.parent.mkdir(parents=True, exist_ok=True)
     with sqlite3.connect(DB) as con:
+        status.to_sql("raw_line_status", con, if_exists="replace", index=False)
         lines.to_sql("spend_lines", con, if_exists="replace", index=False)
         excluded[["supplier_code", "supplier_name", "acquisition_method", "fiscal_year", "amount_usd",
                   "exclusion_reason"]].to_sql("excluded_lines", con, if_exists="replace", index=False)

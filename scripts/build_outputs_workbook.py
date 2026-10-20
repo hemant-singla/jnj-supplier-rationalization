@@ -66,6 +66,7 @@ title(ws, "J&J Supplier Rationalization — outputs by step",
       "Real data: State of California purchase orders FY2012-15 (data.gov); J&J figures from J&J's public reports")
 rows = [
     ("Tab", "Step", "Question it answers", "Method"),
+    ("Files_and_Sources", "All", "Where every number comes from", "Data sources, code, SQL, outputs with links"),
     ("0_Business_Case", "0 Business case", "Is this worth doing for J&J?", "Top-down savings model with live formulas"),
     ("1_Data_Cleaning", "1 Load real data", "What spend is addressable?", "Exclusion rules with reason codes"),
     ("2_Segments", "2 Spend cube + Pareto/ABC", "Where does the spend sit?", "SQL window functions"),
@@ -74,13 +75,14 @@ rows = [
     ("3_Kraljic", "3 Kraljic matrix", "How should each category be handled?", "Value vs supply-risk scoring"),
     ("4_Decision_Summary", "4 Keep / consolidate / exit", "Which suppliers stay and which go?", "Duplicate detection (ML) + scorecard + rules"),
     ("4_Supplier_Decisions", "4 Keep / consolidate / exit", "Decision and reason for every supplier", "16,933 rows, filterable"),
+    ("SQL_Code", "2", "The SQL behind the segmentation", "Full query text"),
 ]
 for r, rec in enumerate(rows, start=4):
     for c, v in enumerate(rec, start=1):
         ws.cell(row=r, column=c, value=v).font = font(bold=(r == 4))
 header(ws, 4, list(rows[0]))
-ws["A14"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
-ws["A14"].font = font(italic=True)
+ws["A16"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
+ws["A16"].font = font(italic=True)
 widths(ws, [26, 26, 40, 44])
 
 # ---------------------------------------------------------------- Step 0
@@ -334,6 +336,76 @@ if Path("outputs/step4_supplier_decisions.csv").exists():
     ws.freeze_panes = "C5"
     ws.auto_filter.ref = f"A4:{get_column_letter(len(sd.columns))}{4 + len(sd)}"
     widths(ws, [12, 42, 12, 36, 13, 15, 7, 11, 11, 10, 8, 6, 13, 60, 36, 34])
+
+# ---------------------------------------------------------------- Files and sources
+REPO = "https://github.com/hemant-singla/jnj-supplier-rationalization/blob/main/"
+ws = wb.create_sheet("Files_and_Sources", 1)
+title(ws, "Files and sources used in this workbook",
+      "Every number traces to one of these. Code links point to the project's GitHub repository.")
+files = [
+    ("Data source", "All", "State of California DGS — Purchase Order Data FY2012-15 (CSV, 157 MB, public)",
+     "https://catalog.data.gov/dataset/purchase-order-data", "Real purchase orders: suppliers, amounts, UNSPSC categories"),
+    ("Data source", "0", "J&J 2024 Health for Humanity Report",
+     "https://healthforhumanityreport.jnj.com/2024/_assets/downloads/johnson-johnson-2024-health-for-humanity-report.pdf?h=EDX6Vl9g",
+     "29,000+ suppliers (2024)"),
+    ("Data source", "0", "J&J 2023 Health for Humanity Report",
+     "https://healthforhumanityreport.jnj.com/2023/_assets/downloads/johnson-johnson-2023-health-for-humanity-report.pdf?h=Ka9OvM1t",
+     "38,500+ suppliers (2023)"),
+    ("Data source", "0", "J&J careers: Director, Procurement Global Process Owner",
+     "https://www.careers.jnj.com/en/jobs/r-088156/director-procurement-global-process-owner/",
+     "~$35B spend across ~35,000 suppliers"),
+    ("Data source", "0", "J&J: DEI in our supply base (2022)",
+     "https://belong.jnj.com/2022/driving-innovation/dei-in-our-supply-base.html", "$3B Tier 1 diverse spend (2022)"),
+    ("Data source", "—", "SEC EDGAR full-text search (10-K / 20-F, 2023-2026)", "https://efts.sec.gov/LATEST/search-index",
+     "Candidate real J&J suppliers (data/raw/jnj_supplier_candidates_sec.md), being verified"),
+    ("Code", "0", "model/business_case_model.py", REPO + "model/business_case_model.py",
+     "Business case model (same logic as tab 0_Business_Case)"),
+    ("Code", "1", "scripts/01_clean_load.py", REPO + "scripts/01_clean_load.py", "Cleans the CSV, applies exclusion rules, loads SQLite"),
+    ("SQL", "2", "sql/01_pareto_abc.sql", REPO + "sql/01_pareto_abc.sql", "Pareto / ABC segment per supplier"),
+    ("SQL", "2", "sql/02_category_fragmentation.sql", REPO + "sql/02_category_fragmentation.sql", "Category cube"),
+    ("Code", "2", "scripts/02_spend_cube.py", REPO + "scripts/02_spend_cube.py", "Runs the step 2 SQL, saves outputs"),
+    ("Code", "3", "scripts/03_kraljic.py", REPO + "scripts/03_kraljic.py", "Kraljic scoring and 2x2 chart"),
+    ("Code", "4", "scripts/04a_duplicates.py", REPO + "scripts/04a_duplicates.py", "TF-IDF duplicate detection"),
+    ("Code", "4", "scripts/04b_decisions.py", REPO + "scripts/04b_decisions.py", "Scorecard and decision rules"),
+    ("Code", "All", "scripts/build_outputs_workbook.py", REPO + "scripts/build_outputs_workbook.py", "Builds this workbook"),
+    ("Code", "1-4", "scripts/build_data_workbook.py", REPO + "scripts/build_data_workbook.py",
+     "Builds the raw-data workbook (every raw row traced through steps 1-4)"),
+    ("Output", "1-4", "outputs/JnJ_Data_Raw_to_Decision.xlsx (100 MB, shared separately; too large for GitHub)",
+     REPO + "scripts/build_data_workbook.py",
+     "All 344,504 raw rows as downloaded + status, exclusion reason, segment, quadrant, decision per row"),
+    ("Output", "2", "outputs/step2_*.csv", REPO + "outputs", "Segment summary, Pareto curve, fragmented categories"),
+    ("Output", "3", "outputs/step3_kraljic_*.csv; docs/images/kraljic_matrix.png", REPO + "outputs", "Quadrant per category; chart"),
+    ("Output", "4", "outputs/step4_*.csv", REPO + "outputs",
+     "Supplier decisions, decisions by rule/segment, headline, duplicate pairs for review"),
+    ("Write-up", "0", "docs/01_business_case.md", REPO + "docs/01_business_case.md", "Business case"),
+    ("Write-up", "—", "docs/02_methodology.md", REPO + "docs/02_methodology.md", "Goal and methods"),
+    ("Write-up", "2", "docs/03_step2_spend_cube.md", REPO + "docs/03_step2_spend_cube.md", "Step 2 findings"),
+    ("Write-up", "3", "docs/04_step3_kraljic.md", REPO + "docs/04_step3_kraljic.md", "Step 3 findings"),
+    ("Write-up", "4", "docs/05_step4_decisions.md", REPO + "docs/05_step4_decisions.md", "Step 4 findings"),
+    ("Database", "1-4", "data/procurement.db (SQLite, rebuilt locally, not in git)", REPO + "data/README.md",
+     "Tables: spend_lines, excluded_lines, supplier_segments, category_cube, supplier_duplicates, supplier_decisions"),
+]
+header(ws, 4, ["Type", "Step", "File / source", "Link", "What it provides"])
+for i, rec in enumerate(files, start=5):
+    for c, v in enumerate(rec, start=1):
+        cell = ws.cell(row=i, column=c, value=v)
+        cell.font = font()
+        if c == 4:
+            cell.hyperlink = v
+            cell.font = Font(name=F, size=10, color="0563C1", underline="single")
+widths(ws, [11, 6, 52, 60, 70])
+
+ws = wb.create_sheet("SQL_Code")
+title(ws, "SQL used in step 2 (runs on SQLite)", "Full text of the queries; also in the repo's sql/ folder.")
+r = 4
+for fname in ["sql/01_pareto_abc.sql", "sql/02_category_fragmentation.sql"]:
+    ws.cell(row=r, column=1, value=fname).font = font(bold=True)
+    r += 1
+    for ln in Path(fname).read_text().splitlines():
+        ws.cell(row=r, column=1, value=ln).font = Font(name="Consolas", size=9)
+        r += 1
+    r += 2
+widths(ws, [130])
 
 OUT.parent.mkdir(exist_ok=True)
 wb.save(OUT)

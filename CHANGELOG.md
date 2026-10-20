@@ -42,3 +42,8 @@
 - `scripts/04b_decisions.py`: scorecard + rules R1–R8 → decision and reason code for all 16,933 suppliers.
 - 4,648 kept (−73% of records, −59% of active base); $1.2B over 3 years to re-route; 96.6% of active small/diverse spend retained.
 - Workbook gains tabs `4_Decision_Summary` and `4_Supplier_Decisions`; write-up in `docs/05_step4_decisions.md`.
+
+## 2026-10-20 — Full data traceability
+- `scripts/01_clean_load.py` now records the outcome of every raw row (`raw_line_status` table).
+- `scripts/build_data_workbook.py` → `JnJ_Data_Raw_to_Decision.xlsx`: all 344,504 raw rows exactly as downloaded, plus trace columns (step 1 status / reason / parsed amount, step 2 segment, step 3 quadrant, step 4 decision / rule), a cleaning-steps tab and the top 100 excluded payees. 100 MB, so shared outside git; rebuild with the script.
+- Outputs workbook gains `Files_and_Sources` (every data source, script, SQL file and output with links) and `SQL_Code` tabs.
