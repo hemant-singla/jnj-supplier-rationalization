@@ -26,3 +26,9 @@
 - A: 327 suppliers (1.9%) = 70% of spend; B: 1,497 (8.8%) = 22%; C: 15,109 (89.2%) = 8%.
 - 59% of tail suppliers are inactive (18+ months) or one-time — matches the business case's 60% tail-cut assumption.
 - Most fragmented categories: refuse disposal, measuring instruments, batteries/generators, material handling.
+
+## 2026-10-20 — Step 3: Kraljic matrix
+- `scripts/03_kraljic.py`; write-up in `docs/04_step3_kraljic.md`; chart `docs/images/kraljic_matrix.png`.
+- Value = category spend (top categories = 80% of spend); risk = non-competitive share + top-3 concentration + thin supply base, ranked within size bands.
+- Leverage 59% of spend (20 categories), Strategic 21% (21), Bottleneck 13% (183), Non-critical 7% (185, but 21,991 supplier relationships).
+- Fixed a first-pass bias where small categories scored high-risk just for having few suppliers.

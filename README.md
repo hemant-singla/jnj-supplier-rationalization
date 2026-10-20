@@ -17,8 +17,8 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 | 0 | Business case | Is this worth doing? | Top-down savings model | Python | ✅ [docs/01_business_case.md](docs/01_business_case.md) |
 | 1 | Load real data | — | Clean California purchase orders, addressable-spend rules | pandas, SQLite | ✅ [data/README.md](data/README.md) |
 | 2 | Spend cube + Pareto / ABC | Where does the spend sit? | SQL window functions | SQL | ✅ [docs/03_step2_spend_cube.md](docs/03_step2_spend_cube.md) |
-| 3 | Kraljic matrix | How should each category be handled? | Value vs supply risk 2x2 | Python | ⬜ Next |
-| 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules 1–5 | rapidfuzz, SQL | ⬜ |
+| 3 | Kraljic matrix | How should each category be handled? | Value vs supply risk 2x2 | Python | ✅ [docs/04_step3_kraljic.md](docs/04_step3_kraljic.md) |
+| 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules 1–5 | rapidfuzz, SQL | ⬜ Next |
 | 5 | Savings model on real list | What is it worth? | Low / base / high scenarios | Python | ⬜ |
 | 6 | Dashboard | — | One view per question | Power BI or Tableau | ⬜ |
 | 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ |
