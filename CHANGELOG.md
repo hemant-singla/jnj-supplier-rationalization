@@ -47,3 +47,10 @@
 - `scripts/01_clean_load.py` now records the outcome of every raw row (`raw_line_status` table).
 - `scripts/build_data_workbook.py` → `JnJ_Data_Raw_to_Decision.xlsx`: all 344,504 raw rows exactly as downloaded, plus trace columns (step 1 status / reason / parsed amount, step 2 segment, step 3 quadrant, step 4 decision / rule), a cleaning-steps tab and the top 100 excluded payees. 100 MB, so shared outside git; rebuild with the script.
 - Outputs workbook gains `Files_and_Sources` (every data source, script, SQL file and output with links) and `SQL_Code` tabs.
+
+## 2026-10-21 — Step 5: Savings on the real list
+- `scripts/05_savings.py`; write-up `docs/06_step5_savings.md`; chart `docs/images/savings_bridge_real.png`; workbook tab `5_Savings_Real_List` with live formulas.
+- Price-gap test (127 goods items bought from both kept and exiting suppliers): exiting suppliers dearer by 9.8% in Leverage and 5.2% in Non-critical categories, but cheaper in Bottleneck (−10%) and Strategic (−7%).
+- First pass mixed in services (unit = whole project) and was discarded; goods only.
+- J&J base case $366M/yr (low $105M, high $721M), one-time $40M, NPV $572M. Only $86M/yr is measured in the data; goal of $300M needs ≥1.15% re-tender saving on kept leverage spend.
+- Fixed: process savings scale with supplier count, not spend.

@@ -2,7 +2,7 @@
 
 A supply chain case study: how Johnson & Johnson could cut its supplier base from ~29,000 to ~13,300 suppliers, justify every exit with data, and put the remaining suppliers on MOUs and tiered agreements.
 
-**Headline (base case):** $385M a year in run-rate savings for $59M one-time cost; 3-year NPV $584M.
+**Headline (base case, on the real supplier list):** $366M a year in run-rate savings for $40M one-time cost; 3-year NPV $572M. Only $86M of it is measured in the data; reaching the $300M goal needs a ≥1.15% re-tender saving on kept leverage suppliers.
 
 > Built on J&J's public reporting plus a synthetic dataset and clearly labeled assumptions. J&J's internal supplier data is not public.
 
@@ -19,8 +19,8 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 | 2 | Spend cube + Pareto / ABC | Where does the spend sit? | SQL window functions | SQL | ✅ [docs/03_step2_spend_cube.md](docs/03_step2_spend_cube.md) |
 | 3 | Kraljic matrix | How should each category be handled? | Value vs supply risk 2x2 | Python | ✅ [docs/04_step3_kraljic.md](docs/04_step3_kraljic.md) |
 | 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules | scikit-learn, SQL | ✅ [docs/05_step4_decisions.md](docs/05_step4_decisions.md) |
-| 5 | Savings model on real list | What is it worth? | Low / base / high scenarios | Python | ⬜ Next |
-| 6 | Dashboard | — | One view per question | Power BI or Tableau | ⬜ |
+| 5 | Savings model on real list | What is it worth? | Measured price gap + low / base / high scenarios | Python | ✅ [docs/06_step5_savings.md](docs/06_step5_savings.md) |
+| 6 | Dashboard | — | One view per question | Power BI or Tableau | ⬜ Next |
 | 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ |
 
 ## All outputs in one file

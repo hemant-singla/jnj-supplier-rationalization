@@ -75,14 +75,15 @@ rows = [
     ("3_Kraljic", "3 Kraljic matrix", "How should each category be handled?", "Value vs supply-risk scoring"),
     ("4_Decision_Summary", "4 Keep / consolidate / exit", "Which suppliers stay and which go?", "Duplicate detection (ML) + scorecard + rules"),
     ("4_Supplier_Decisions", "4 Keep / consolidate / exit", "Decision and reason for every supplier", "16,933 rows, filterable"),
+    ("5_Savings_Real_List", "5 Savings on real list", "What is it worth?", "Measured price gap + scenarios, live formulas"),
     ("SQL_Code", "2", "The SQL behind the segmentation", "Full query text"),
 ]
 for r, rec in enumerate(rows, start=4):
     for c, v in enumerate(rec, start=1):
         ws.cell(row=r, column=c, value=v).font = font(bold=(r == 4))
 header(ws, 4, list(rows[0]))
-ws["A16"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
-ws["A16"].font = font(italic=True)
+ws["A17"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
+ws["A17"].font = font(italic=True)
 widths(ws, [26, 26, 40, 44])
 
 # ---------------------------------------------------------------- Step 0
@@ -337,6 +338,128 @@ if Path("outputs/step4_supplier_decisions.csv").exists():
     ws.auto_filter.ref = f"A4:{get_column_letter(len(sd.columns))}{4 + len(sd)}"
     widths(ws, [12, 42, 12, 36, 13, 15, 7, 11, 11, 10, 8, 6, 13, 60, 36, 34])
 
+# ---------------------------------------------------------------- Step 5
+if Path("outputs/step5_model_inputs.csv").exists():
+    ws = wb.create_sheet("5_Savings_Real_List")
+    title(ws, "Step 5 — What is it worth? Savings on the real keep / exit list",
+          "Blue = input. Data inputs come from steps 4-5; rates marked 'measured' come from the price-gap test. "
+          "All $ in millions per year.")
+    inp = dict(pd.read_csv("outputs/step5_model_inputs.csv").values)
+    gap = pd.read_csv("outputs/step5_measured_price_gap.csv").set_index("quadrant")
+
+    header(ws, 4, ["Data input (from the real list)", "Value", "Source"])
+    data_rows = [
+        ("CA addressable spend per year ($M)", inp["CA addressable spend per year ($M)"], USD_M, "Step 1, 3-yr / 3"),
+        ("Re-routed spend, Leverage ($M/yr)", inp["Re-routed spend per year, Leverage ($M)"], USD_M, "Step 4 rules R5+R8"),
+        ("Re-routed spend, Non-critical ($M/yr)", inp["Re-routed spend per year, Non-critical ($M)"], USD_M, "Step 4 rules R5+R8"),
+        ("Re-routed spend, Bottleneck ($M/yr)", inp["Re-routed spend per year, Bottleneck ($M)"], USD_M, "Step 4 rules R5+R8"),
+        ("Re-routed spend, Strategic ($M/yr)", inp["Re-routed spend per year, Strategic ($M)"], USD_M, "Step 4 rules R5+R8"),
+        ("Kept spend, Leverage categories ($M/yr)", inp["Kept spend per year, Leverage categories ($M)"], USD_M, "Step 4 KEEP"),
+        ("Active supplier records removed", inp["Active supplier records removed (R3+R5+R8)"], NUM, "Step 4 R3+R5+R8"),
+        ("Suppliers consolidated (R8)", inp["Suppliers under R8"], NUM, "Step 4"),
+        ("One-time vendors exited (R5)", inp["Suppliers under R5"], NUM, "Step 4"),
+        ("Duplicates merged (R3)", inp["Suppliers under R3"], NUM, "Step 4"),
+        ("Inactive records closed (R4)", inp["Suppliers under R4"], NUM, "Step 4"),
+        ("CA suppliers", inp["CA suppliers"], NUM, "Step 1"),
+        ("Measured price gap, Leverage", gap.loc["Leverage", "rate_used_high"], PCT,
+         f"Price-gap test: median of {int(gap.loc['Leverage', 'items'])} goods items"),
+        ("Measured price gap, Non-critical", gap.loc["Non-critical", "rate_used_high"], PCT,
+         f"Price-gap test: median of {int(gap.loc['Non-critical', 'items'])} goods items"),
+        ("Measured price gap, Bottleneck (exiting suppliers cheaper → 0)", 0, PCT,
+         f"Measured {gap.loc['Bottleneck', 'median_gap']:.1%}, floored at 0"),
+        ("Measured price gap, Strategic (exiting suppliers cheaper → 0)", 0, PCT,
+         f"Measured {gap.loc['Strategic', 'median_gap']:.1%}, floored at 0"),
+        ("J&J addressable spend ($M/yr)", 35000, USD, "J&J careers posting"),
+        ("J&J suppliers", 29000, NUM, "J&J 2024 Health for Humanity Report"),
+        ("Program cost as % of spend", 20 / 35000, '0.000%', "Business case: $20M on $35B"),
+        ("Transition cost per R8 supplier ($)", 2500, USD, "Assumption"),
+        ("Transition cost per R5 supplier ($)", 500, USD, "Assumption"),
+        ("Transition cost per R3 supplier ($)", 200, USD, "Assumption"),
+        ("Transition cost per R4 supplier ($)", 50, USD, "Assumption"),
+        ("Contingency", 0.15, PCT, "Assumption"),
+        ("Discount rate", 0.08, PCT, "Assumption"),
+        ("Savings goal, J&J ($M/yr)", 300, USD, "Project goal"),
+    ]
+    ref = {}
+    for i, (lab, v, fmt, src) in enumerate(data_rows, start=5):
+        ws.cell(row=i, column=1, value=lab).font = font()
+        c = ws.cell(row=i, column=2, value=float(v))
+        c.font, c.number_format = font(BLUE), fmt
+        ws.cell(row=i, column=3, value=src).font = font(italic=True, color="595959")
+        ref[lab] = f"$B${i}"
+    R = lambda k: ref[k]
+    spend_ratio = f"({R('J&J addressable spend ($M/yr)')}/{R('CA addressable spend per year ($M)')})"
+    sup_ratio = f"({R('J&J suppliers')}/{R('CA suppliers')})"
+
+    s0 = 5 + len(data_rows) + 2
+    ws.cell(row=s0 - 1, column=1, value="Scenario levers (change these)").font = font(bold=True)
+    header(ws, s0, ["Lever", "Low", "Base", "High", "Basis"])
+    levers = [("Share of measured price gap captured", (0, 0.5, 1), PCT, "Data shows the gap; low assumes none is captured"),
+              ("Re-tender saving on kept Leverage spend", (0.005, 0.015, 0.03), PCT, "ASSUMPTION — not measurable in this data"),
+              ("Cost to maintain one active supplier ($/yr)", (1000, 2000, 3000), USD, "Assumption")]
+    for i, (lab, vals, fmt, basis) in enumerate(levers, start=s0 + 1):
+        ws.cell(row=i, column=1, value=lab).font = font()
+        for j, v in enumerate(vals, start=2):
+            c = ws.cell(row=i, column=j, value=v)
+            c.font, c.number_format, c.fill = font(BLUE), fmt, KEY_FILL
+        ws.cell(row=i, column=5, value=basis).font = font(italic=True, color="595959")
+    L_CAP, L_RET, L_COST = s0 + 1, s0 + 2, s0 + 3
+
+    r0 = L_COST + 3
+    ws.cell(row=r0 - 1, column=1, value="Results").font = font(bold=True)
+    header(ws, r0, ["Result ($M per year unless stated)", "Low", "Base", "High", "How it's calculated"])
+    price_ca = (f"({R('Re-routed spend, Leverage ($M/yr)')}*{R('Measured price gap, Leverage')}"
+                f"+{R('Re-routed spend, Non-critical ($M/yr)')}*{R('Measured price gap, Non-critical')}"
+                f"+{R('Re-routed spend, Bottleneck ($M/yr)')}*{R('Measured price gap, Bottleneck (exiting suppliers cheaper → 0)')}"
+                f"+{R('Re-routed spend, Strategic ($M/yr)')}*{R('Measured price gap, Strategic (exiting suppliers cheaper → 0)')})")
+    trans_ca = (f"({R('Suppliers consolidated (R8)')}*{R('Transition cost per R8 supplier ($)')}"
+                f"+{R('One-time vendors exited (R5)')}*{R('Transition cost per R5 supplier ($)')}"
+                f"+{R('Duplicates merged (R3)')}*{R('Transition cost per R3 supplier ($)')}"
+                f"+{R('Inactive records closed (R4)')}*{R('Transition cost per R4 supplier ($)')})/1000000")
+    res_rows = [
+        ("CA: price gap on re-routed spend", lambda c: f"={price_ca}*{c}{L_CAP}", USD_M, "Re-routed spend × measured gap × share captured"),
+        ("CA: re-tender of kept Leverage suppliers", lambda c: f"={R('Kept spend, Leverage categories ($M/yr)')}*{c}{L_RET}", USD_M, "Kept leverage spend × re-tender %"),
+        ("CA: process savings", lambda c: f"={R('Active supplier records removed')}*{c}{L_COST}/1000000", USD_M, "Active records removed × cost per supplier"),
+        ("CA: run-rate savings", lambda c: f"=SUM({c}{r0+1}:{c}{r0+3})", USD_M, "Sum"),
+        ("CA: savings as % of spend", lambda c: f"={c}{r0+4}/{R('CA addressable spend per year ($M)')}", PCT, ""),
+        ("J&J: price gap", lambda c: f"={c}{r0+1}*{spend_ratio}", USD_M, "Scaled by spend"),
+        ("J&J: re-tender", lambda c: f"={c}{r0+2}*{spend_ratio}", USD_M, "Scaled by spend"),
+        ("J&J: process", lambda c: f"={c}{r0+3}*{sup_ratio}", USD_M, "Scaled by supplier count"),
+        ("J&J: run-rate savings", lambda c: f"=SUM({c}{r0+6}:{c}{r0+8})", USD_M, "Sum"),
+        ("J&J: measured in data (price gap + process)", lambda c: f"={c}{r0+6}+{c}{r0+8}", USD_M, "Excludes the re-tender assumption"),
+        ("J&J: share of savings measured in data", lambda c: f"=IF({c}{r0+9}=0,0,{c}{r0+10}/{c}{r0+9})", PCT, ""),
+        ("J&J: one-time cost ($M)", lambda c: f"=({R('Program cost as % of spend')}*{R('J&J addressable spend ($M/yr)')}+{trans_ca}*{sup_ratio})*(1+{R('Contingency')})", USD_M,
+         "Program (scaled by spend) + transition (scaled by suppliers) + contingency"),
+        ("J&J: 3-yr NPV ($M)", lambda c: f"=-{c}{r0+12}+0.3*{c}{r0+9}/(1+{R('Discount rate')})+0.7*{c}{r0+9}/(1+{R('Discount rate')})^2+{c}{r0+9}/(1+{R('Discount rate')})^3",
+         USD_M, "Ramp 30% / 70% / 100%"),
+        ("Meets $300M goal?", lambda c: f'=IF({c}{r0+9}>={R("Savings goal, J&J ($M/yr)")},"Yes","No")', None, ""),
+        ("Re-tender % needed to reach the goal", lambda c: f"=MAX(0,({R('Savings goal, J&J ($M/yr)')}-{c}{r0+10})/({R('Kept spend, Leverage categories ($M/yr)')}*{spend_ratio}))",
+         '0.00%', "What has to be true"),
+    ]
+    for i, (lab, fn, fmt, how) in enumerate(res_rows, start=r0 + 1):
+        bold = lab in ("CA: run-rate savings", "J&J: run-rate savings", "Meets $300M goal?")
+        ws.cell(row=i, column=1, value=lab).font = font(bold=bold)
+        for col in "BCD":
+            c = ws[f"{col}{i}"]
+            c.value = fn(col)
+            c.font = font(bold=bold)
+            if fmt:
+                c.number_format = fmt
+        ws.cell(row=i, column=5, value=how).font = font(italic=True, color="595959")
+
+    g0 = r0 + len(res_rows) + 3
+    ws.cell(row=g0 - 1, column=1, value="Price-gap evidence: goods items bought from both kept and exiting suppliers").font = font(bold=True)
+    pg = pd.read_csv("outputs/step5_price_gap_goods.csv").sort_values("exiting_spend", ascending=False)
+    pg = pg[["unspsc", "item", "quadrant", "kept_median_price", "exiting_median_price", "gap", "kept_lines",
+             "exiting_lines", "exiting_spend"]]
+    pg.columns = ["UNSPSC", "Item", "Quadrant", "Kept suppliers: median unit price ($)",
+                  "Exiting suppliers: median unit price ($)", "Gap (exiting dearer = +)", "Kept lines",
+                  "Exiting lines", "Exiting spend, 3 yrs ($)"]
+    write_df(ws, pg, g0, {"Kept suppliers: median unit price ($)": '$#,##0.00',
+                          "Exiting suppliers: median unit price ($)": '$#,##0.00',
+                          "Gap (exiting dearer = +)": PCT, "Exiting spend, 3 yrs ($)": USD})
+    widths(ws, [58, 30, 14, 26, 60, 14, 12, 12, 18])
+
 # ---------------------------------------------------------------- Files and sources
 REPO = "https://github.com/hemant-singla/jnj-supplier-rationalization/blob/main/"
 ws = wb.create_sheet("Files_and_Sources", 1)
@@ -367,6 +490,7 @@ files = [
     ("Code", "3", "scripts/03_kraljic.py", REPO + "scripts/03_kraljic.py", "Kraljic scoring and 2x2 chart"),
     ("Code", "4", "scripts/04a_duplicates.py", REPO + "scripts/04a_duplicates.py", "TF-IDF duplicate detection"),
     ("Code", "4", "scripts/04b_decisions.py", REPO + "scripts/04b_decisions.py", "Scorecard and decision rules"),
+    ("Code", "5", "scripts/05_savings.py", REPO + "scripts/05_savings.py", "Price-gap test and savings model"),
     ("Code", "All", "scripts/build_outputs_workbook.py", REPO + "scripts/build_outputs_workbook.py", "Builds this workbook"),
     ("Code", "1-4", "scripts/build_data_workbook.py", REPO + "scripts/build_data_workbook.py",
      "Builds the raw-data workbook (every raw row traced through steps 1-4)"),
@@ -377,11 +501,14 @@ files = [
     ("Output", "3", "outputs/step3_kraljic_*.csv; docs/images/kraljic_matrix.png", REPO + "outputs", "Quadrant per category; chart"),
     ("Output", "4", "outputs/step4_*.csv", REPO + "outputs",
      "Supplier decisions, decisions by rule/segment, headline, duplicate pairs for review"),
+    ("Output", "5", "outputs/step5_*.csv; docs/images/savings_bridge_real.png", REPO + "outputs",
+     "Price-gap items, measured gap by quadrant, model inputs, scenarios; chart"),
     ("Write-up", "0", "docs/01_business_case.md", REPO + "docs/01_business_case.md", "Business case"),
     ("Write-up", "—", "docs/02_methodology.md", REPO + "docs/02_methodology.md", "Goal and methods"),
     ("Write-up", "2", "docs/03_step2_spend_cube.md", REPO + "docs/03_step2_spend_cube.md", "Step 2 findings"),
     ("Write-up", "3", "docs/04_step3_kraljic.md", REPO + "docs/04_step3_kraljic.md", "Step 3 findings"),
     ("Write-up", "4", "docs/05_step4_decisions.md", REPO + "docs/05_step4_decisions.md", "Step 4 findings"),
+    ("Write-up", "5", "docs/06_step5_savings.md", REPO + "docs/06_step5_savings.md", "Step 5 findings"),
     ("Database", "1-4", "data/procurement.db (SQLite, rebuilt locally, not in git)", REPO + "data/README.md",
      "Tables: spend_lines, excluded_lines, supplier_segments, category_cube, supplier_duplicates, supplier_decisions"),
 ]
