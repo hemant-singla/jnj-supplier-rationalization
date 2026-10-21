@@ -1,10 +1,10 @@
 # J&J Supplier Rationalization
 
-A supply chain case study: how Johnson & Johnson could cut its supplier base from ~29,000 to ~13,300 suppliers, justify every exit with data, and put the remaining suppliers on MOUs and tiered agreements.
+A supply chain case study: how Johnson & Johnson could cut its active supplier base by more than half (~29,000 today), justify every exit with data, and put the remaining suppliers on MOUs and tiered agreements.
 
 **Headline (base case, on the real supplier list):** $366M a year in run-rate savings for $40M one-time cost; 3-year NPV $572M. Only $86M of it is measured in the data; reaching the $300M goal needs a ≥1.15% re-tender saving on kept leverage suppliers.
 
-> Built on J&J's public reporting plus a synthetic dataset and clearly labeled assumptions. J&J's internal supplier data is not public.
+> J&J does not publish supplier-level data, so the methods run on **real public procurement data** (State of California purchase orders FY2012–15: 344,504 lines, 16,933 addressable suppliers) and the results are scaled to J&J's published totals. Every assumption is labeled.
 
 ## Goal
 
