@@ -1,0 +1,59 @@
+table TopFragmented
+	lineageTag: 8c70e53f-f594-4423-a344-5c82af044a12
+
+	column Category
+		dataType: string
+		lineageTag: 9ff87ff1-2758-4b16-88c0-546e88786afb
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quadrant
+		dataType: string
+		lineageTag: 4c11ba6b-601c-4bb9-aebe-a580117eb423
+		summarizeBy: none
+		sourceColumn: Quadrant
+
+		annotation SummarizationSetBy = Automatic
+
+	column Suppliers
+		dataType: int64
+		formatString: 0
+		lineageTag: a7faf5f4-e101-4018-9edd-eb5192b71b14
+		summarizeBy: sum
+		sourceColumn: Suppliers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend 3yr'
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 25181ca5-fbff-4464-ad4e-6089a89b19eb
+		summarizeBy: sum
+		sourceColumn: Spend 3yr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Fragmentation Rank'
+		dataType: int64
+		formatString: 0
+		lineageTag: 50df2c08-246e-4cdb-9320-8169bf25454c
+		summarizeBy: none
+		sourceColumn: Fragmentation Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	partition TopFragmented = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "TopFragmented", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Category", type text}, {"Quadrant", type text}, {"Suppliers", Int64.Type}, {"Spend 3yr", type number}, {"Fragmentation Rank", Int64.Type}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

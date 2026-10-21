@@ -1,0 +1,40 @@
+table Rules
+	lineageTag: f07ca0e5-019b-4251-abea-1f879f73c845
+
+	column Rule
+		dataType: string
+		lineageTag: d2ea100d-6b88-4fb0-b75a-7d6faf8bb92a
+		summarizeBy: none
+		sourceColumn: Rule
+
+		annotation SummarizationSetBy = Automatic
+
+	column Decision
+		dataType: string
+		lineageTag: a4901774-f6e0-4a5d-b9ca-3b9014c0addb
+		summarizeBy: none
+		sourceColumn: Decision
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reason
+		dataType: string
+		lineageTag: 7563115d-10e3-46b4-ab45-9e8e8f2be2e1
+		summarizeBy: none
+		sourceColumn: Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Rules = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Rules", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Rule", type text}, {"Decision", type text}, {"Reason", type text}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

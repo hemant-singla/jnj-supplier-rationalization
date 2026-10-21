@@ -20,8 +20,8 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 | 3 | Kraljic matrix | How should each category be handled? | Value vs supply risk 2x2 | Python | ✅ [docs/04_step3_kraljic.md](docs/04_step3_kraljic.md) |
 | 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules | scikit-learn, SQL | ✅ [docs/05_step4_decisions.md](docs/05_step4_decisions.md) |
 | 5 | Savings model on real list | What is it worth? | Measured price gap + low / base / high scenarios | Python | ✅ [docs/06_step5_savings.md](docs/06_step5_savings.md) |
-| 6 | Dashboard | — | One view per question | Power BI or Tableau | ⬜ Next |
-| 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ |
+| 6 | Dashboard | — | 4-page Power BI report (star schema, 21 DAX measures) | Power BI | ✅ [powerbi/](powerbi/README.md) |
+| 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ Next |
 
 ## All outputs in one file
 
@@ -32,6 +32,7 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 ```
 docs/        business case, methodology, agreement templates, chart images
 model/       business case financial model
+powerbi/     Power BI dashboard project (.pbip) + its data file
 sql/         spend cube and rationalization queries
 data/        synthetic dataset (generated, step 1)
 notebooks/   analysis notebooks (steps 2–5)

@@ -1,0 +1,234 @@
+table Suppliers
+	lineageTag: b048a681-feda-46fd-9413-8102c4d1d2dc
+
+	measure 'Suppliers Today' = COUNTROWS(Suppliers)
+		formatString: #,0
+		lineageTag: c7b598e5-acd2-419a-b144-00a573a4f1bf
+
+	measure 'Suppliers Kept' = CALCULATE(COUNTROWS(Suppliers), Suppliers[Decision] = "KEEP")
+		formatString: #,0
+		lineageTag: 61cef76b-3942-45ed-952e-292e5ac1f794
+
+	measure 'Supplier Reduction %' = 1 - DIVIDE([Suppliers Kept], [Suppliers Today])
+		formatString: 0.0%
+		lineageTag: 94018f5b-0812-475e-8945-656441ada680
+
+	measure 'Annual Spend ($M)' = DIVIDE(SUM(Suppliers[Spend per Year]), 1000000)
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: c30f4015-f20e-4b4a-a879-5fcbe332ed22
+
+	measure 'Spend Retained %' = DIVIDE(CALCULATE(SUM(Suppliers[Spend per Year]), Suppliers[Decision] = "KEEP"), SUM(Suppliers[Spend per Year]))
+		formatString: 0.0%
+		lineageTag: ac934a53-018e-4244-b5db-e59ba35c1d36
+
+	measure 'Diverse Spend Retained %' = DIVIDE(CALCULATE(SUM(Suppliers[Spend per Year]), Suppliers[Small or Diverse] = "Yes", Suppliers[Decision] = "KEEP"), CALCULATE(SUM(Suppliers[Spend per Year]), Suppliers[Small or Diverse] = "Yes", Suppliers[Rule] <> "R4"))
+		formatString: 0.0%
+		lineageTag: eb65732c-a192-4aab-afe4-eda60dd538e8
+
+	measure 'Re-routed Spend ($M)' = DIVIDE(CALCULATE(SUM(Suppliers[Spend per Year]), Suppliers[Rule] IN {"R5", "R8"}), 1000000)
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 2a700834-d83b-4446-b697-363268d65271
+
+	column 'Supplier Code'
+		dataType: string
+		lineageTag: a972972a-41e8-4530-aec3-91a5821df47f
+		summarizeBy: none
+		sourceColumn: Supplier Code
+
+		annotation SummarizationSetBy = Automatic
+
+	column Supplier
+		dataType: string
+		lineageTag: 9eef07a3-6ed1-4a06-8352-e76784f750e1
+		summarizeBy: none
+		sourceColumn: Supplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column Segment
+		dataType: string
+		lineageTag: fed550c6-3887-410a-8feb-85ec98362574
+		summarizeBy: none
+		sourceColumn: Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Category
+		dataType: string
+		lineageTag: 0096f5c8-5753-4506-b02e-4963812d1d65
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quadrant
+		dataType: string
+		lineageTag: f82d6fb1-211b-4dbe-8b57-3907e2ee4d85
+		summarizeBy: none
+		sourceColumn: Quadrant
+
+		annotation SummarizationSetBy = Automatic
+
+	column Decision
+		dataType: string
+		lineageTag: 4aeab167-20d8-40af-aaf6-b9e05de489a2
+		summarizeBy: none
+		sourceColumn: Decision
+		sortByColumn: 'Decision Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Rule
+		dataType: string
+		lineageTag: 68c5dcf0-73ee-4263-9f44-bae19c8caf28
+		summarizeBy: none
+		sourceColumn: Rule
+
+		annotation SummarizationSetBy = Automatic
+
+	column Reason
+		dataType: string
+		lineageTag: e4d49527-dd50-4be4-98f3-f881021148d0
+		summarizeBy: none
+		sourceColumn: Reason
+
+		annotation SummarizationSetBy = Automatic
+
+	column Agreement
+		dataType: string
+		lineageTag: 965607ff-077b-422c-8eed-6e40c8d6823b
+		summarizeBy: none
+		sourceColumn: Agreement
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Merge Into'
+		dataType: string
+		lineageTag: fe16568b-9011-4972-b015-2a524808601e
+		summarizeBy: none
+		sourceColumn: Merge Into
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend 3yr'
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 557d1104-fee0-458a-86cb-6f5df5ba2b3f
+		summarizeBy: sum
+		sourceColumn: Spend 3yr
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend per Year'
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 895fe2c4-d1d9-4d55-b32d-7b9f7803e898
+		summarizeBy: sum
+		sourceColumn: Spend per Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column POs
+		dataType: int64
+		formatString: 0
+		lineageTag: 8337639a-e92e-49ee-a70d-691bde46acf7
+		summarizeBy: sum
+		sourceColumn: POs
+
+		annotation SummarizationSetBy = Automatic
+
+	column Departments
+		dataType: int64
+		formatString: 0
+		lineageTag: 98458965-a088-4637-b2a2-1c098532ce22
+		summarizeBy: sum
+		sourceColumn: Departments
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Last PO'
+		dataType: dateTime
+		formatString: yyyy-mm-dd
+		lineageTag: 7a7e9a22-995a-46da-879a-d403c8b0601f
+		summarizeBy: none
+		sourceColumn: Last PO
+
+		annotation SummarizationSetBy = Automatic
+
+	column Score
+		dataType: double
+		formatString: 0.0
+		lineageTag: dfe57b1d-2e36-4f24-9ed8-0d11025295f4
+		summarizeBy: sum
+		sourceColumn: Score
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Small or Diverse'
+		dataType: string
+		lineageTag: e76db0c1-e5a7-4582-8b4d-9eb469f30cc2
+		summarizeBy: none
+		sourceColumn: Small or Diverse
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Inactive 18m'
+		dataType: int64
+		formatString: 0
+		lineageTag: f35be2c3-abbf-4442-83fc-f4b0ac5cfd3b
+		summarizeBy: sum
+		sourceColumn: Inactive 18m
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'One Time'
+		dataType: int64
+		formatString: 0
+		lineageTag: e24e557a-bd9f-4f39-a944-760f99bb1202
+		summarizeBy: sum
+		sourceColumn: One Time
+
+		annotation SummarizationSetBy = Automatic
+
+	column Kept
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 62e7df76-3332-4846-aa4c-f05210d52ac4
+		summarizeBy: sum
+		sourceColumn: Kept
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend Rank'
+		dataType: int64
+		formatString: 0
+		lineageTag: 1c425e5c-61b6-466b-9e53-6869b7725765
+		summarizeBy: none
+		sourceColumn: Spend Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Decision Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 6399ce76-327d-48fc-a3e8-74c7773a6bde
+		summarizeBy: none
+		sourceColumn: Decision Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Suppliers = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Suppliers", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Supplier Code", type text}, {"Supplier", type text}, {"Segment", type text}, {"Category", type text}, {"Quadrant", type text}, {"Decision", type text}, {"Rule", type text}, {"Reason", type text}, {"Agreement", type text}, {"Merge Into", type text}, {"Spend 3yr", type number}, {"Spend per Year", type number}, {"POs", Int64.Type}, {"Departments", Int64.Type}, {"Last PO", type datetime}, {"Score", type number}, {"Small or Diverse", type text}, {"Inactive 18m", Int64.Type}, {"One Time", Int64.Type}, {"Kept", Int64.Type}, {"Spend Rank", Int64.Type}, {"Decision Order", Int64.Type}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

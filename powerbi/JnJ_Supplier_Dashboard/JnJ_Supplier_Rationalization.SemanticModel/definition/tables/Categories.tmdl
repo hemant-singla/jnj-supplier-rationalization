@@ -1,0 +1,122 @@
+table Categories
+	lineageTag: 00c95f1f-4f5a-4621-95b9-bc2678aa029b
+
+	measure 'Categories Count' = COUNTROWS(Categories)
+		formatString: #,0
+		lineageTag: 43fc3483-2143-49f4-bd1d-1e5ae78812f0
+
+	measure 'Category Spend ($M)' = DIVIDE(SUM(Categories[Spend 3yr]), 3000000)
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 13422889-0e26-4d49-a50f-005602c68095
+
+	measure 'Supplier Relationships' = SUM(Categories[Suppliers])
+		formatString: #,0
+		lineageTag: 6fb46b0b-766c-495c-a0e7-c718813b164c
+
+	measure 'Avg Risk Score' = AVERAGE(Categories[Risk Score])
+		formatString: 0.00
+		lineageTag: 362c52fb-1470-4c2c-bbe5-61a4978b109a
+
+	measure 'Share of Spend %' = DIVIDE(SUM(Categories[Spend 3yr]), CALCULATE(SUM(Categories[Spend 3yr]), ALL(Categories), ALL(Quadrants)))
+		formatString: 0.0%
+		lineageTag: 7ee6bf56-ad76-4a4d-9218-dffe5be5bff8
+
+	column Category
+		dataType: string
+		lineageTag: 51a50b25-8255-4215-b430-e0213d9e17fd
+		summarizeBy: none
+		sourceColumn: Category
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'UNSPSC Segment'
+		dataType: string
+		lineageTag: 90859098-2bdd-48b9-a34d-95eccf6637ae
+		summarizeBy: none
+		sourceColumn: UNSPSC Segment
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quadrant
+		dataType: string
+		lineageTag: 033313b2-33e6-4a9e-a1d1-2ed01faa0475
+		summarizeBy: none
+		sourceColumn: Quadrant
+
+		annotation SummarizationSetBy = Automatic
+
+	column Agreement
+		dataType: string
+		lineageTag: c575d7cc-53e4-49f9-ba82-2f75af9ddb55
+		summarizeBy: none
+		sourceColumn: Agreement
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Spend 3yr'
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 4aae2df4-f294-4268-aab6-9b41b15030b3
+		summarizeBy: sum
+		sourceColumn: Spend 3yr
+
+		annotation SummarizationSetBy = Automatic
+
+	column Suppliers
+		dataType: int64
+		formatString: 0
+		lineageTag: 4cdfde31-1260-4838-85d8-98eaa676041a
+		summarizeBy: sum
+		sourceColumn: Suppliers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Active Suppliers'
+		dataType: int64
+		formatString: 0
+		lineageTag: b9ecb6e6-4972-4a0a-99b0-e8950444f9b3
+		summarizeBy: sum
+		sourceColumn: Active Suppliers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pct Noncompetitive'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f76b1221-1f7f-4692-88a9-bcabd7339776
+		summarizeBy: sum
+		sourceColumn: Pct Noncompetitive
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pct Top 3'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: fff5202e-d697-4189-8369-a494d8828011
+		summarizeBy: sum
+		sourceColumn: Pct Top 3
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Risk Score'
+		dataType: double
+		formatString: 0.00
+		lineageTag: 8e7ab972-b5a0-415b-a131-5cd153aca319
+		summarizeBy: sum
+		sourceColumn: Risk Score
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Categories = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Categories", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Category", type text}, {"UNSPSC Segment", type text}, {"Quadrant", type text}, {"Agreement", type text}, {"Spend 3yr", type number}, {"Suppliers", Int64.Type}, {"Active Suppliers", Int64.Type}, {"Pct Noncompetitive", type number}, {"Pct Top 3", type number}, {"Risk Score", type number}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

@@ -54,3 +54,10 @@
 - First pass mixed in services (unit = whole project) and was discarded; goods only.
 - J&J base case $366M/yr (low $105M, high $721M), one-time $40M, NPV $572M. Only $86M/yr is measured in the data; goal of $300M needs ≥1.15% re-tender saving on kept leverage spend.
 - Fixed: process savings scale with supplier count, not spend.
+
+## 2026-10-21 — Step 6: Power BI dashboard
+- `scripts/06_powerbi_data.py` → `JnJ_PowerBI_Data.xlsx` (9 tables incl. Quadrants dimension and sort-order columns).
+- `scripts/07_build_pbip.py` generates the Power BI project (TMDL model: 9 tables, 6 relationships, 21 DAX measures; PBIR report: 4 pages, 38 visuals) using the file format saved by the user's Power BI Desktop.
+- Pages: Executive Summary, Category Strategy (log-scale Kraljic), Savings Case (scenarios vs $300M goal, price-gap evidence), Supplier Explorer.
+- Opened, refreshed and checked in Power BI Desktop; fixed log axis property (`logAxisScale`), removed auto subtitles, removed meaningless totals.
+- Saved project committed under `powerbi/`.

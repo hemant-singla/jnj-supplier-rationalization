@@ -1,0 +1,78 @@
+table Savings
+	lineageTag: 2a7081e6-612b-4044-99d9-ba84d72ab442
+
+	measure 'Savings ($M/yr)' = SUM(Savings[Savings $M per Year])
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 86d37c4b-d832-4da6-b094-92a650727700
+
+	measure 'Goal ($M/yr)' = 300
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 197d328c-8450-4da2-894c-b60f4f30bd4b
+
+	column Scenario
+		dataType: string
+		lineageTag: ef9a451e-16a0-4a35-952c-7e06fde1ace8
+		summarizeBy: none
+		sourceColumn: Scenario
+		sortByColumn: 'Scenario Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Lever
+		dataType: string
+		lineageTag: c2ffe72d-d198-4282-9554-bcad803b6293
+		summarizeBy: none
+		sourceColumn: Lever
+		sortByColumn: 'Lever Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column Basis
+		dataType: string
+		lineageTag: dcb313f0-d97c-42f6-8247-837d5e5ea000
+		summarizeBy: none
+		sourceColumn: Basis
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Lever Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 78dbafcf-2f34-4d34-9460-d4d5d5563a1d
+		summarizeBy: none
+		sourceColumn: Lever Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Savings $M per Year'
+		dataType: double
+		lineageTag: 86eab3b0-ac65-4707-be41-342ac2433dc8
+		summarizeBy: sum
+		sourceColumn: Savings $M per Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scenario Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: aff3b2bc-868b-41e0-a252-08aadd5d4276
+		summarizeBy: none
+		sourceColumn: Scenario Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Savings = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Savings", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Scenario", type text}, {"Lever", type text}, {"Basis", type text}, {"Lever Order", Int64.Type}, {"Savings $M per Year", type number}, {"Scenario Order", Int64.Type}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

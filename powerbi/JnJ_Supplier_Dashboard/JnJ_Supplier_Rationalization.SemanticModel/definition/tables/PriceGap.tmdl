@@ -1,0 +1,102 @@
+table PriceGap
+	lineageTag: 4f0f6ec0-9520-4cca-a86b-95dd72defcc1
+
+	measure 'Median Price Gap' = MEDIAN(PriceGap[Price Gap])
+		formatString: 0.0%
+		lineageTag: 1b71e1c1-b254-4dca-afe4-82ff9efd2172
+
+	measure 'Items Compared' = COUNTROWS(PriceGap)
+		formatString: #,0
+		lineageTag: 86495d4d-b1f5-4cae-af0d-614bea2e2f25
+
+	column UNSPSC
+		dataType: string
+		lineageTag: a11b0326-2c57-45b5-9ac7-dd11b4c6ba42
+		summarizeBy: none
+		sourceColumn: UNSPSC
+
+		annotation SummarizationSetBy = Automatic
+
+	column Item
+		dataType: string
+		lineageTag: 90b66114-a8f0-47c3-8d51-842035b327ee
+		summarizeBy: none
+		sourceColumn: Item
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quadrant
+		dataType: string
+		lineageTag: 107f95bf-9b6e-41f1-9fc2-79ebbea1f09c
+		summarizeBy: none
+		sourceColumn: Quadrant
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Kept Median Price'
+		dataType: double
+		formatString: \$#,0.00
+		lineageTag: f1464196-641a-49ea-bf15-014d11917568
+		summarizeBy: sum
+		sourceColumn: Kept Median Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Exiting Median Price'
+		dataType: double
+		formatString: \$#,0.00
+		lineageTag: 6628c384-5166-4b8c-ba2e-0a0940584c21
+		summarizeBy: sum
+		sourceColumn: Exiting Median Price
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Price Gap'
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 16d7a865-d2b9-47e0-a084-a955a86262a3
+		summarizeBy: sum
+		sourceColumn: Price Gap
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Kept Lines'
+		dataType: int64
+		formatString: 0
+		lineageTag: 77395394-e386-4ea2-ae4a-d1049e3e574c
+		summarizeBy: sum
+		sourceColumn: Kept Lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Exiting Lines'
+		dataType: int64
+		formatString: 0
+		lineageTag: 18a0e687-5bed-45db-a473-b128a9a3e279
+		summarizeBy: sum
+		sourceColumn: Exiting Lines
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Exiting Spend'
+		dataType: double
+		formatString: \$#,0
+		lineageTag: 29095304-0d10-496a-affe-79f191c9f87b
+		summarizeBy: sum
+		sourceColumn: Exiting Spend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition PriceGap = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "PriceGap", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"UNSPSC", type text}, {"Item", type text}, {"Quadrant", type text}, {"Kept Median Price", type number}, {"Exiting Median Price", type number}, {"Price Gap", type number}, {"Kept Lines", Int64.Type}, {"Exiting Lines", Int64.Type}, {"Exiting Spend", type number}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

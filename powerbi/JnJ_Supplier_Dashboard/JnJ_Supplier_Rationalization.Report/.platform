@@ -1,0 +1,11 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/gitIntegration/platformProperties/2.0.0/schema.json",
+  "metadata": {
+    "type": "Report",
+    "displayName": "JnJ_Supplier_Rationalization"
+  },
+  "config": {
+    "version": "2.0",
+    "logicalId": "1b09e7b6-21b8-4d62-b145-9b065e4c4641"
+  }
+}

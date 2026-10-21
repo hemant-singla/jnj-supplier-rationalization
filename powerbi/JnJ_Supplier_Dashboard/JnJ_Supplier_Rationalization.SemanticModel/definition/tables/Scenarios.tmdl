@@ -1,0 +1,111 @@
+table Scenarios
+	lineageTag: 9120d68d-c6fe-4334-9379-6659de25100b
+
+	measure 'Base Run-rate ($M)' = CALCULATE(SUM(Scenarios[Run Rate $M]), Scenarios[Scenario] = "Base")
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: cc365367-231b-42e9-8048-90203fac76bc
+
+	measure 'Base Measured ($M)' = CALCULATE(SUM(Scenarios[Measured $M]), Scenarios[Scenario] = "Base")
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: f889d8d8-bd64-4b1f-b539-98a8ca0aad14
+
+	measure 'One-time Cost ($M)' = CALCULATE(SUM(Scenarios[One Time Cost $M]), Scenarios[Scenario] = "Base")
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: 59631f28-3cdb-45e5-8295-7ff392379fca
+
+	measure 'Base NPV ($M)' = CALCULATE(SUM(Scenarios[NPV 3yr $M]), Scenarios[Scenario] = "Base")
+		formatString: \$#,0.0;(\$#,0.0);\$#,0.0
+		lineageTag: b7456b79-5b4b-4c37-beb2-a83d3e7ea5b3
+
+	measure 'Re-tender Needed %' = CALCULATE(MAX(Scenarios[Retender Needed]), Scenarios[Scenario] = "Base")
+		formatString: 0.00%
+		lineageTag: 1de13563-a635-4f6d-a3e2-039699e81013
+
+	column Scenario
+		dataType: string
+		lineageTag: 08592856-64b1-4bb6-a6fe-7f045e7444e3
+		summarizeBy: none
+		sourceColumn: Scenario
+		sortByColumn: 'Scenario Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Run Rate $M'
+		dataType: double
+		lineageTag: 717bf435-3664-4597-b96d-ee252fce411c
+		summarizeBy: sum
+		sourceColumn: Run Rate $M
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'One Time Cost $M'
+		dataType: double
+		lineageTag: ad191c35-b05f-451c-b0eb-29eec50a4d25
+		summarizeBy: sum
+		sourceColumn: One Time Cost $M
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'NPV 3yr $M'
+		dataType: double
+		lineageTag: 11639df1-1dc4-4b63-a137-461bf152560a
+		summarizeBy: sum
+		sourceColumn: NPV 3yr $M
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Share Measured'
+		dataType: double
+		lineageTag: 46cb851f-ef77-4c8d-a9e4-d2550a9eb50c
+		summarizeBy: sum
+		sourceColumn: Share Measured
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Goal $M'
+		dataType: double
+		lineageTag: bf4f6339-b218-46a9-8145-26e335565584
+		summarizeBy: sum
+		sourceColumn: Goal $M
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Measured $M'
+		dataType: double
+		lineageTag: c9bfc48e-48f8-4a68-9135-36c99fc0e08c
+		summarizeBy: sum
+		sourceColumn: Measured $M
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Retender Needed'
+		dataType: double
+		lineageTag: 42b82849-d5e6-4ef7-b080-3c735bcd15fc
+		summarizeBy: sum
+		sourceColumn: Retender Needed
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Scenario Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: fb49153c-69eb-42d0-95ab-c39692ff6913
+		summarizeBy: none
+		sourceColumn: Scenario Order
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Scenarios = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Scenarios", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Scenario", type text}, {"Run Rate $M", type number}, {"One Time Cost $M", type number}, {"NPV 3yr $M", type number}, {"Share Measured", type number}, {"Goal $M", type number}, {"Measured $M", type number}, {"Retender Needed", type number}, {"Scenario Order", Int64.Type}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

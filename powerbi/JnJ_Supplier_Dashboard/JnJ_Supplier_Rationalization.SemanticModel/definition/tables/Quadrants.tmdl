@@ -1,0 +1,43 @@
+table Quadrants
+	lineageTag: 40b45c4e-c1be-4513-91fe-b80c9debe48a
+
+	column Quadrant
+		dataType: string
+		lineageTag: 10809426-4138-42b3-b6a4-0fb134e79a71
+		summarizeBy: none
+		sourceColumn: Quadrant
+		sortByColumn: 'Quadrant Order'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Quadrant Order'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 4f918add-0da0-4328-94fc-95d5eb7bc129
+		summarizeBy: none
+		sourceColumn: Quadrant Order
+
+		annotation SummarizationSetBy = Automatic
+
+	column Approach
+		dataType: string
+		lineageTag: ca6b316d-b459-4fa7-94d7-045620d03efc
+		summarizeBy: none
+		sourceColumn: Approach
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Quadrants = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Quadrants", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Quadrant", type text}, {"Quadrant Order", Int64.Type}, {"Approach", type text}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

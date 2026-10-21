@@ -1,0 +1,641 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "suppliers.suppliers_today": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Suppliers Today"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Suppliers": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.annual_spend_m": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Annual Spend ($M)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Spend $M/yr": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.supplier": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Supplier"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Supplier": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.segment": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Segment"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Segment": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.category": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Category"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Primary category": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.quadrant": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Quadrant"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Quadrant": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.decision": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Decision"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Decision": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.rule": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Rule"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rule": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.reason": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Reason"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reason": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.last_po": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Last PO"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Last PO": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.merge_into": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Merge Into"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Merge into": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "suppliers.agreement": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Suppliers",
+			          "ConceptualProperty": "Agreement"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Agreement if kept": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rules.rule": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Rules",
+			          "ConceptualProperty": "Rule"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Rule": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rules.decision": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Rules",
+			          "ConceptualProperty": "Decision"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Decision": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "rules.reason": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Rules",
+			          "ConceptualProperty": "Reason"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Reason": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.category_spend_m": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Category Spend ($M)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Spend $M/yr": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.avg_risk_score": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Avg Risk Score"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Supply risk score": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.supplier_relationships": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Supplier Relationships"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Suppliers": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.categories_count": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Categories Count"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Categories": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.share_of_spend_": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Share of Spend %"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Share of spend": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.category": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Category"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Category": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.quadrant": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Quadrant"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Quadrant": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "categories.agreement": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Categories",
+			          "ConceptualProperty": "Agreement"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Agreement type": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "quadrants.quadrant": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Quadrants",
+			          "ConceptualProperty": "Quadrant"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Quadrant": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "quadrants.approach": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Quadrants",
+			          "ConceptualProperty": "Approach"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Approach": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "savings.savings_m_yr": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Savings",
+			          "ConceptualProperty": "Savings ($M/yr)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Savings $M/yr": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "savings.goal_m_yr": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "Savings",
+			          "ConceptualProperty": "Goal ($M/yr)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Goal $M/yr": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "pricegap.median_price_gap": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "PriceGap",
+			          "ConceptualProperty": "Median Price Gap"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Median price gap": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "pricegap.item": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "PriceGap",
+			          "ConceptualProperty": "Item"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Item": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "pricegap.quadrant": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "PriceGap",
+			          "ConceptualProperty": "Quadrant"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Quadrant": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

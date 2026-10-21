@@ -1,0 +1,43 @@
+table Pareto
+	lineageTag: 95ceefdc-4f7f-42ad-8dd4-d4ca9aa0add0
+
+	column 'Supplier Rank'
+		dataType: int64
+		formatString: 0
+		lineageTag: 352f9010-eb5b-48c9-94a0-4e9e1c1da411
+		summarizeBy: none
+		sourceColumn: Supplier Rank
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pct Suppliers'
+		dataType: double
+		formatString: 0%
+		lineageTag: e4914eb8-5355-46f1-9db0-4c72ca7465ca
+		summarizeBy: sum
+		sourceColumn: Pct Suppliers
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Pct Spend'
+		dataType: double
+		formatString: 0%
+		lineageTag: ad5bcb0b-ac12-452b-b28c-09cc96f3a9f9
+		summarizeBy: sum
+		sourceColumn: Pct Spend
+
+		annotation SummarizationSetBy = Automatic
+
+	partition Pareto = m
+		mode: import
+		source =
+				let
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Sheet = Source{[Item = "Pareto", Kind = "Sheet"]}[Data],
+				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
+				  Typed = Table.TransformColumnTypes(Promoted, {{"Supplier Rank", Int64.Type}, {"Pct Suppliers", type number}, {"Pct Spend", type number}})
+				in
+				  Typed
+
+	annotation PBI_ResultType = Table
+

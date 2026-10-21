@@ -1,0 +1,24 @@
+relationship 83fcdd86-accf-4d04-9ecd-7690efac4f81
+	fromColumn: Suppliers.Quadrant
+	toColumn: Quadrants.Quadrant
+
+relationship 98487ef1-d09d-488e-8d97-69ee3e85e5b6
+	fromColumn: Categories.Quadrant
+	toColumn: Quadrants.Quadrant
+
+relationship d42c87c9-ca95-40e8-908d-515bce65fff2
+	fromColumn: PriceGap.Quadrant
+	toColumn: Quadrants.Quadrant
+
+relationship 907014d9-6b64-4aa9-b805-602892c7f371
+	fromColumn: TopFragmented.Quadrant
+	toColumn: Quadrants.Quadrant
+
+relationship 3d4cd2b1-8504-47a7-a1ed-b6e5b5d6783f
+	fromColumn: Suppliers.Rule
+	toColumn: Rules.Rule
+
+relationship d153c60d-1cf8-4c3b-bf97-18bff359aebd
+	fromColumn: Savings.Scenario
+	toColumn: Scenarios.Scenario
+

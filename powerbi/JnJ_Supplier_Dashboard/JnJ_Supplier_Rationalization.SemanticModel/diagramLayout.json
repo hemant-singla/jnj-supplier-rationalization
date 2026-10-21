@@ -1,0 +1,139 @@
+{
+  "version": "1.1.0",
+  "diagrams": [
+    {
+      "ordinal": 0,
+      "scrollPosition": {
+        "x": 0,
+        "y": 0
+      },
+      "nodes": [
+        {
+          "location": {
+            "x": 868.11899593631665,
+            "y": 143.62908712987564
+          },
+          "nodeIndex": "Categories",
+          "nodeLineageTag": "00c95f1f-4f5a-4621-95b9-bc2678aa029b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1670.1189959363167,
+            "y": 355.74923782587052
+          },
+          "nodeIndex": "Pareto",
+          "nodeLineageTag": "95ceefdc-4f7f-42ad-8dd4-d4ca9aa0add0",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 78.0003610609001,
+            "y": 513.498475651741
+          },
+          "nodeIndex": "PriceGap",
+          "nodeLineageTag": "4f0f6ec0-9520-4cca-a86b-95dd72defcc1",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 292.4530155310506,
+            "y": 305.76489403733558
+          },
+          "nodeIndex": "Quadrants",
+          "nodeLineageTag": "40b45c4e-c1be-4513-91fe-b80c9debe48a",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 551.526367281961,
+            "y": 99.894930672791247
+          },
+          "nodeIndex": "Rules",
+          "nodeLineageTag": "f07ca0e5-019b-4251-abea-1f879f73c845",
+          "size": {
+            "height": 152,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1436.1189959363167,
+            "y": 245.74923782587052
+          },
+          "nodeIndex": "Savings",
+          "nodeLineageTag": "2a7081e6-612b-4044-99d9-ba84d72ab442",
+          "size": {
+            "height": 272,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 1152.1189959363167,
+            "y": 231.74923782587052
+          },
+          "nodeIndex": "Scenarios",
+          "nodeLineageTag": "9120d68d-c6fe-4334-9379-6659de25100b",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 50,
+            "y": -50
+          },
+          "nodeIndex": "Suppliers",
+          "nodeLineageTag": "b048a681-feda-46fd-9413-8102c4d1d2dc",
+          "size": {
+            "height": 300,
+            "width": 234
+          },
+          "zIndex": 0
+        },
+        {
+          "location": {
+            "x": 581.57109865048744,
+            "y": 466.75598248905067
+          },
+          "nodeIndex": "TopFragmented",
+          "nodeLineageTag": "8c70e53f-f594-4423-a344-5c82af044a12",
+          "size": {
+            "height": 200,
+            "width": 234
+          },
+          "zIndex": 0
+        }
+      ],
+      "name": "All tables",
+      "zoomValue": 100,
+      "pinKeyFieldsToTop": false,
+      "showExtraHeaderInfo": false,
+      "hideKeyFieldsWhenCollapsed": false,
+      "tablesLocked": false
+    }
+  ],
+  "selectedDiagram": "All tables",
+  "defaultDiagram": "All tables"
+}
