@@ -47,3 +47,15 @@ python model/business_case_model.py
 ## Progress log
 
 See [CHANGELOG.md](CHANGELOG.md) — one entry per step.
+
+## Status (paused 2026-10-21)
+
+**Done:** steps 0–7: business case, real-data cleaning, spend cube, Kraljic, keep/consolidate/exit list, savings model, Power BI dashboard, agreement templates.
+
+**Open items when resuming:**
+1. Add the dashboard PDF export (`docs/JnJ_Supplier_Dashboard.pdf`).
+2. Verify the candidate real J&J suppliers from SEC filings (`data/raw/jnj_supplier_candidates_sec.md`) and add them to the strategic-supplier story.
+3. Final presentation deck (problem → method → findings → recommendation → roadmap), reusing the charts and the `Files_and_Sources` list.
+4. Update the business case doc with the real-data results (base $366M/yr; $86M measured; ≥ 1.15% re-tender hurdle).
+
+**To rebuild locally:** download the California CSV (see `data/README.md`), then run `scripts/01_clean_load.py` → `02_spend_cube.py` → `03_kraljic.py` → `04a_duplicates.py` → `04b_decisions.py` → `05_savings.py` → `build_outputs_workbook.py` → `06_powerbi_data.py` → `07_build_pbip.py`.
