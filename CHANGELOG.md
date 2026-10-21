@@ -61,3 +61,8 @@
 - Pages: Executive Summary, Category Strategy (log-scale Kraljic), Savings Case (scenarios vs $300M goal, price-gap evidence), Supplier Explorer.
 - Opened, refreshed and checked in Power BI Desktop; fixed log axis property (`logAxisScale`), removed auto subtitles, removed meaningless totals.
 - Saved project committed under `powerbi/`.
+
+## 2026-10-21 — Step 7: Agreements for retained suppliers
+- `docs/agreements/`: strategic partnership MOU (417 suppliers), leverage MSA term sheet with volume tiers and benchmark clause (1,648), bottleneck long-term supply agreement with second-source plan (1,061), catalog / purchasing-card terms (1,522).
+- Transition notices for the 12,285 suppliers not kept: closure (R4, R5), consolidation (R8), duplicate merge (R3).
+- MSA clauses tied to the step 5 hurdle (≥ 1.15% re-tender saving) and tracked against the price-gap baseline.

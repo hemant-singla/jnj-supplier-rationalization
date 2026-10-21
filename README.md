@@ -21,7 +21,7 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 | 4 | Keep / consolidate / exit list | Which suppliers stay and which go? | Duplicate detection (ML) + scorecard + rules | scikit-learn, SQL | ✅ [docs/05_step4_decisions.md](docs/05_step4_decisions.md) |
 | 5 | Savings model on real list | What is it worth? | Measured price gap + low / base / high scenarios | Python | ✅ [docs/06_step5_savings.md](docs/06_step5_savings.md) |
 | 6 | Dashboard | — | 4-page Power BI report (star schema, 21 DAX measures) | Power BI | ✅ [powerbi/](powerbi/README.md) |
-| 7 | Agreements | — | Template MOU + MSA term sheet | Markdown | ⬜ Next |
+| 7 | Agreements | — | MOU, MSA, bottleneck supply and catalog terms + transition notices | Markdown | ✅ [docs/agreements/](docs/agreements/README.md) |
 
 ## All outputs in one file
 

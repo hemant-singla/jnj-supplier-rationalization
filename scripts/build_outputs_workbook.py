@@ -509,6 +509,9 @@ files = [
     ("Write-up", "3", "docs/04_step3_kraljic.md", REPO + "docs/04_step3_kraljic.md", "Step 3 findings"),
     ("Write-up", "4", "docs/05_step4_decisions.md", REPO + "docs/05_step4_decisions.md", "Step 4 findings"),
     ("Write-up", "5", "docs/06_step5_savings.md", REPO + "docs/06_step5_savings.md", "Step 5 findings"),
+    ("Code", "6", "scripts/06_powerbi_data.py; scripts/07_build_pbip.py", REPO + "powerbi/README.md", "Power BI data file and project generator"),
+    ("Output", "6", "powerbi/JnJ_Supplier_Dashboard (Power BI project)", REPO + "powerbi", "4-page dashboard"),
+    ("Write-up", "7", "docs/agreements/", REPO + "docs/agreements/README.md", "MOU, MSA, bottleneck supply, catalog terms, transition notices"),
     ("Database", "1-4", "data/procurement.db (SQLite, rebuilt locally, not in git)", REPO + "data/README.md",
      "Tables: spend_lines, excluded_lines, supplier_segments, category_cube, supplier_duplicates, supplier_decisions"),
 ]
