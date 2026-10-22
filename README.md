@@ -24,19 +24,26 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 | 6b | Real J&J suppliers | Who are J&J's strategic suppliers? | SEC 10-K full-text search, filings read | EDGAR | ✅ [docs/07_real_jnj_suppliers.md](docs/07_real_jnj_suppliers.md) |
 | 7 | Agreements | — | MOU, MSA, bottleneck supply and catalog terms + transition notices | Markdown | ✅ [docs/agreements/](docs/agreements/README.md) |
 
-## All outputs in one file
+## Final deliverables
 
-[`outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`](outputs/JnJ_Supplier_Rationalization_Outputs.xlsx): one tab per completed step.
+| Deliverable | Where |
+| --- | --- |
+| Final presentation (13 slides: problem → method → findings → recommendation → roadmap → sources) | [Slide deck](https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK) (downloadable as PPTX / PDF) |
+| Business case, updated with the real-data results | [Business case doc](https://claude.ai/artifact/4igvcEzcavrtJf1t9koTqZ) · first draft in [docs/01_business_case.md](docs/01_business_case.md) |
+| Power BI dashboard, 4 pages | [powerbi/](powerbi/README.md) · PDF export [docs/JnJ_Supplier_Dashboard.pdf](docs/JnJ_Supplier_Dashboard.pdf) |
+| All step outputs in one workbook | [`outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`](outputs/JnJ_Supplier_Rationalization_Outputs.xlsx), one tab per step + `Files_and_Sources` |
+| Agreement templates | [docs/agreements/](docs/agreements/README.md) |
 
 ## Repository layout
 
 ```
-docs/        business case, methodology, agreement templates, chart images
-model/       business case financial model
+docs/        business case, methodology, step write-ups, agreements, dashboard PDF, charts
+model/       original top-down business case model (step 0)
+scripts/     pipeline scripts 01–07 + workbook builders
+sql/         spend cube and fragmentation queries
+data/        data README, SEC supplier candidates (raw CSV downloaded, not committed)
+outputs/     step CSVs and the outputs workbook
 powerbi/     Power BI dashboard project (.pbip) + its data file
-sql/         spend cube and rationalization queries
-data/        synthetic dataset (generated, step 1)
-notebooks/   analysis notebooks (steps 2–5)
 ```
 
 ## Run the business case model
@@ -49,14 +56,10 @@ python model/business_case_model.py
 
 See [CHANGELOG.md](CHANGELOG.md) — one entry per step.
 
-## Status (paused 2026-10-21)
+## Status: complete (2026-10-22)
 
-**Done:** steps 0–7: business case, real-data cleaning, spend cube, Kraljic, keep/consolidate/exit list, savings model, Power BI dashboard, agreement templates.
+All steps 0–7 are done, the business case is updated with the real-data results, the final deck is built, and the dashboard PDF is in `docs/`.
 
-**Open items when resuming:**
-1. Add the dashboard PDF export (`docs/JnJ_Supplier_Dashboard.pdf`).
-2. ~~Verify the candidate real J&J suppliers from SEC filings~~ ✅ done 2026-10-22: [docs/07_real_jnj_suppliers.md](docs/07_real_jnj_suppliers.md)
-3. Final presentation deck (problem → method → findings → recommendation → roadmap), reusing the charts and the `Files_and_Sources` list.
-4. Update the business case doc with the real-data results (base $366M/yr; $86M measured; ≥ 1.15% re-tender hurdle).
+**Possible extensions:** apply the rules to a real company's spend file; add a supplier-risk feed (financial health, ESG) to the scorecard; track the ≥1.15% re-tender hurdle against actual MSA results.
 
 **To rebuild locally:** download the California CSV (see `data/README.md`), then run `scripts/01_clean_load.py` → `02_spend_cube.py` → `03_kraljic.py` → `04a_duplicates.py` → `04b_decisions.py` → `05_savings.py` → `build_outputs_workbook.py` → `06_powerbi_data.py` → `07_build_pbip.py`.

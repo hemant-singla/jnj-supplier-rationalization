@@ -71,3 +71,9 @@
 - Read the 10-K of each of 9 candidates to confirm the direction of the relationship; write-up `docs/07_real_jnj_suppliers.md`.
 - Confirmed suppliers: Alkermes (exclusive RISPERDAL CONSTA manufacturer), MeiraGTx (RPGR gene therapy, 4+1-year supply agreement), Mersana (clinical ADC manufacturing, tech-transfer clause), Emergent (former COVID-19 vaccine CDMO, ended 2022 over GMP breaches, settled 2024 for $50M).
 - Legend is a collaboration partner; ORIC and Coherus are reverse-direction (J&J supplies them); XBiotech and Viscogliosi unconfirmed.
+
+## 2026-10-22 — Project closed out
+- Business case doc updated with the real-data results: new executive summary, "What the real data shows", verified J&J suppliers, real-data savings model and chart ($366M base, $86M measured, ≥1.15% re-tender hurdle), agreement counts, deliverables, KPI targets.
+- Final 13-slide presentation built (problem → method → findings → recommendation → roadmap → sources).
+- Power BI dashboard PDF export added: `docs/JnJ_Supplier_Dashboard.pdf` (4 pages).
+- README: final deliverables table, corrected repo layout, status set to complete.
