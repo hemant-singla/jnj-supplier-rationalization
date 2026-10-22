@@ -1,7 +1,7 @@
 # Candidate real J&J suppliers from SEC full-text search (10-K / 20-F, 2023–2026)
 
-Status: candidates only. Each needs its filing read to confirm direction
-(company supplies J&J vs J&J supplies the company, e.g. clinical drug supply for combination trials).
+Status: **verified 2026-10-22**, results in [docs/07_real_jnj_suppliers.md](../../docs/07_real_jnj_suppliers.md).
+Confirmed suppliers: Alkermes, MeiraGTx, Mersana, Emergent (former). Partner: Legend. Reverse direction: ORIC, Coherus. Unconfirmed: XBiotech, Viscogliosi.
 
 | Company | Ticker | Matched phrase | Likely relationship (to verify) |
 | --- | --- | --- | --- |
