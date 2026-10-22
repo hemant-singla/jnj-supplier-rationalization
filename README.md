@@ -28,8 +28,8 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 
 | Deliverable | Where |
 | --- | --- |
-| Final presentation (13 slides: problem → method → findings → recommendation → roadmap → sources) | [Slide deck](https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK) (downloadable as PPTX / PDF) |
-| Business case, updated with the real-data results | [Business case doc](https://claude.ai/artifact/4igvcEzcavrtJf1t9koTqZ) · first draft in [docs/01_business_case.md](docs/01_business_case.md) |
+| Final presentation (17 slides: problem → method → findings → dashboard → recommendation → roadmap → sources) | [Slide deck](https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK) (downloadable as PPTX / PDF) |
+| Business case, updated with the real-data results | [PDF](docs/JnJ_Business_Case_Final.pdf) · [Word](docs/JnJ_Business_Case_Final.docx) · [live doc](https://claude.ai/artifact/4igvcEzcavrtJf1t9koTqZ) · first draft in [docs/01_business_case.md](docs/01_business_case.md) |
 | Power BI dashboard, 4 pages | [powerbi/](powerbi/README.md) · PDF export [docs/JnJ_Supplier_Dashboard.pdf](docs/JnJ_Supplier_Dashboard.pdf) |
 | All step outputs in one workbook | [`outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`](outputs/JnJ_Supplier_Rationalization_Outputs.xlsx), one tab per step + `Files_and_Sources` |
 | Agreement templates | [docs/agreements/](docs/agreements/README.md) |
