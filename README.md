@@ -2,6 +2,8 @@
 
 A supply chain case study: how Johnson & Johnson could cut its active supplier base by more than half (~29,000 today), justify every exit with data, and put the remaining suppliers on MOUs and tiered agreements.
 
+**Portfolio page:** https://hemant-singla.github.io/projects/jnj-supplier-rationalization.html
+
 **Headline (base case, on the real supplier list):** $366M a year in run-rate savings for $40M one-time cost; 3-year NPV $572M. Only $86M of it is measured in the data; reaching the $300M goal needs a ≥1.15% re-tender saving on kept leverage suppliers.
 
 > J&J does not publish supplier-level data, so the methods run on **real public procurement data** (State of California purchase orders FY2012–15: 344,504 lines, 16,933 addressable suppliers) and the results are scaled to J&J's published totals. Every assumption is labeled.
@@ -28,7 +30,7 @@ Decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a dat
 
 | Deliverable | Where |
 | --- | --- |
-| Final presentation (17 slides: problem → method → findings → dashboard → recommendation → roadmap → sources) | [Slide deck](https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK) (downloadable as PPTX / PDF) |
+| Final presentation (17 slides: problem → method → findings → dashboard → recommendation → roadmap → sources) | [PDF](docs/JnJ_Supplier_Rationalization_Deck.pdf) · [live deck](https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK) |
 | Business case, updated with the real-data results | [PDF](docs/JnJ_Business_Case_Final.pdf) · [Word](docs/JnJ_Business_Case_Final.docx) · [live doc](https://claude.ai/artifact/4igvcEzcavrtJf1t9koTqZ) · first draft in [docs/01_business_case.md](docs/01_business_case.md) |
 | Power BI dashboard, 4 pages | [powerbi/](powerbi/README.md) · PDF export [docs/JnJ_Supplier_Dashboard.pdf](docs/JnJ_Supplier_Dashboard.pdf) |
 | All step outputs in one workbook | [`outputs/JnJ_Supplier_Rationalization_Outputs.xlsx`](outputs/JnJ_Supplier_Rationalization_Outputs.xlsx), one tab per step + `Files_and_Sources` |
