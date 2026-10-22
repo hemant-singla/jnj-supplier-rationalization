@@ -46,6 +46,20 @@ Does an exiting supplier charge more than a kept supplier for the **same item**?
 3. **What has to be true:** to reach the $300M goal, the re-tender must save **at least 1.15%** on kept leverage spend in the base case. That's the number to test first in a pilot sourcing wave.
 4. **The program pays back fast in every scenario:** one-time cost is $40M; even the low case returns a positive NPV ($135M).
 
+## How much rests on the re-tender assumption?
+
+$280M of the $366M base case is the re-tender saving on kept Leverage suppliers, which this data cannot measure. `scripts/05b_retender_sensitivity.py` makes it a testable claim: J&J run-rate savings = measured savings ($86M: price gap + fewer suppliers) + re-tender rate × kept Leverage spend at J&J scale ($18.7B a year).
+
+![Savings vs re-tender rate](images/retender_sensitivity.png)
+
+| | Measured savings | Re-tender rate needed for $300M |
+| --- | --- | --- |
+| Low measured savings | $11M | 1.54% |
+| **Base** | **$86M** | **1.15%** |
+| High measured savings | $160M | 0.75% |
+
+Every 0.1 point of re-tender saving adds about $19M a year. A first sourcing wave on a few Leverage categories, run under the MSA template's benchmark clause, shows whether the 1.15% is real before the rest is committed.
+
 ## Limitations
 
 - Unit prices are noisy (units differ: "diesel fuel" can be a gallon or a load), so the gap is a median over a small sample (127 items).

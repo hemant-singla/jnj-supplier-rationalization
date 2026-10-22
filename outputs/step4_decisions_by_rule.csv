@@ -1,9 +1,9 @@
 rule,decision,reason,suppliers,spend_m
 R1,KEEP,Strategic (A-segment) supplier,327,15318.6
-R2,KEEP,Supply protection: top-3 active supplier in a Strategic/Bottleneck category,369,719.9
+R2,KEEP,"Supply protection: top-3 active supplier in a Strategic/Bottleneck category, or the only active supplier in any category",375,729.5
 R3,MERGE,Duplicate record: fold into master supplier,838,341.0
 R4,EXIT,Inactive: no PO in 18+ months,5614,1294.2
 R5,EXIT,One-time vendor: 1 PO in 3 years; route future buys to preferred/catalog,3210,636.6
-R6,KEEP,Preferred supplier: core of category spend or top-10% scorecard,1785,2427.8
-R7,KEEP,Small/diverse guardrail: move to preferred-supplier development program,2167,567.4
-R8,CONSOLIDATE,Volume moves to the category's preferred suppliers,2623,567.1
+R6,KEEP,Preferred supplier: core of category spend or top-10% scorecard,1781,2418.4
+R7,KEEP,Small/diverse guardrail: move to preferred-supplier development program,2166,567.4
+R8,CONSOLIDATE,Volume moves to the category's preferred suppliers,2622,567.0

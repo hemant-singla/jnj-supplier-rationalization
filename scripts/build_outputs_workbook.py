@@ -75,15 +75,18 @@ rows = [
     ("3_Kraljic", "3 Kraljic matrix", "How should each category be handled?", "Value vs supply-risk scoring"),
     ("4_Decision_Summary", "4 Keep / consolidate / exit", "Which suppliers stay and which go?", "Duplicate detection (ML) + scorecard + rules"),
     ("4_Supplier_Decisions", "4 Keep / consolidate / exit", "Decision and reason for every supplier", "16,933 rows, filterable"),
+    ("4_Concentration", "4c Supply-risk check", "Does consolidation concentrate spend?", "Top-supplier share per category, before vs after"),
+    ("4_Duplicate_Check", "4d Duplicate precision", "How often is a matched pair really one company?", "70 accepted pairs judged by hand"),
     ("5_Savings_Real_List", "5 Savings on real list", "What is it worth?", "Measured price gap + scenarios, live formulas"),
+    ("5b_Retender_Sensitivity", "5b Sensitivity", "How much rests on the re-tender assumption?", "Savings vs re-tender rate, break-even, live formulas"),
     ("SQL_Code", "2", "The SQL behind the segmentation", "Full query text"),
 ]
 for r, rec in enumerate(rows, start=4):
     for c, v in enumerate(rec, start=1):
         ws.cell(row=r, column=c, value=v).font = font(bold=(r == 4))
 header(ws, 4, list(rows[0]))
-ws["A17"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
-ws["A17"].font = font(italic=True)
+ws["A20"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
+ws["A20"].font = font(italic=True)
 widths(ws, [26, 26, 40, 44])
 
 # ---------------------------------------------------------------- Step 0
@@ -460,6 +463,78 @@ if Path("outputs/step5_model_inputs.csv").exists():
                           "Gap (exiting dearer = +)": PCT, "Exiting spend, 3 yrs ($)": USD})
     widths(ws, [58, 30, 14, 26, 60, 14, 12, 12, 18])
 
+
+# ---------------------------------------------------------------- Step 4c / 4d / 5b
+if Path("outputs/step4c_concentration_summary.csv").exists():
+    ws = wb.create_sheet("4_Concentration")
+    title(ws, "Step 4c — Does consolidation add supply risk? Top-supplier share per category, before vs after",
+          "Active spend only (inactive R4 suppliers left out of both views); duplicate records folded into their "
+          "master; R5/R8 spend moved to kept suppliers in the same category in proportion to their spend.")
+    cs = pd.read_csv("outputs/step4c_concentration_summary.csv")
+    cs.columns = ["Group", "Categories", "Top supplier >50%: before", "Top supplier >50%: after",
+                  "Single supplier: before", "Single supplier: after", "Median top share: before",
+                  "Median top share: after", "Median HHI: before", "Median HHI: after",
+                  "Spend in >50% categories, 3 yrs ($M): before", "Spend in >50% categories, 3 yrs ($M): after"]
+    end = write_df(ws, cs, 4, {**{c: NUM for c in cs.columns[1:6]}, **{c: PCT for c in cs.columns[6:8]},
+                                **{c: "0.000" for c in cs.columns[8:10]}, **{c: USD_M for c in cs.columns[10:]}})
+    wl = pd.read_csv("outputs/step4c_concentration_watchlist.csv")
+    wl.columns = ["Category", "Quadrant", "Spend after, 3 yrs ($)", "Suppliers before", "Suppliers after",
+                  "Top share before", "Top share after"]
+    r = end + 3
+    ws.cell(row=r - 1, column=1, value="Watch-list: categories where the top supplier crosses 50% after "
+            "consolidation (add a second-source clause)").font = font(bold=True)
+    end = write_df(ws, wl, r, {"Spend after, 3 yrs ($)": USD, "Suppliers before": NUM, "Suppliers after": NUM,
+                               "Top share before": PCT, "Top share after": PCT})
+    ss = pd.read_csv("outputs/step4c_sole_source_suppliers.csv")
+    ss.columns = ["Category", "Supplier code (master)", "Spend, 3 yrs ($)", "Decision", "Quadrant"]
+    r = end + 3
+    ws.cell(row=r - 1, column=1, value="Sole-source suppliers (only active company in the category): all kept "
+            "by rule R2").font = font(bold=True)
+    write_df(ws, ss, r, {"Spend, 3 yrs ($)": USD})
+    widths(ws, [56, 16, 16, 14, 14, 14, 14, 14, 12, 12, 18, 18])
+
+if Path("outputs/step4_duplicate_review_sample.csv").exists():
+    ws = wb.create_sheet("4_Duplicate_Check")
+    title(ws, "Step 4d — Precision of duplicate matching at the 0.88 threshold",
+          "Fixed random sample (seed 42) of accepted pairs, judged by hand from name, ZIP code, main category "
+          "and department. Uncertain pairs counted as wrong.")
+    pr = pd.read_csv("outputs/step4d_duplicate_precision.csv")
+    pr.columns = ["Pair type", "Sampled", "Correct", "Precision", "Precision if uncertain = correct",
+                  "Accepted pairs in data"]
+    end = write_df(ws, pr, 4, {"Sampled": NUM, "Correct": NUM, "Precision": PCT,
+                               "Precision if uncertain = correct": PCT, "Accepted pairs in data": NUM})
+    rv = pd.read_csv("outputs/step4_duplicate_review_sample.csv")
+    rv = rv[["id", "kind", "similarity", "name_a", "name_b", "ctx_a", "ctx_b", "verdict", "uncertain", "note"]]
+    rv.columns = ["#", "Type", "Similarity", "Name A", "Name B", "A: ZIP | category | department",
+                  "B: ZIP | category | department", "Verdict", "Uncertain", "Note"]
+    write_df(ws, rv, end + 3, {"Similarity": "0.000"})
+    widths(ws, [24, 9, 10, 40, 40, 52, 52, 10, 10, 60])
+
+if Path("outputs/step5b_retender_sensitivity.csv").exists():
+    ws = wb.create_sheet("5b_Retender_Sensitivity")
+    title(ws, "Step 5b — How much of the case rests on the re-tender assumption?",
+          "J&J run-rate savings = measured savings + re-tender rate x kept Leverage spend. Blue = input.")
+    sc = pd.read_csv("outputs/step5_savings_scenarios.csv").set_index("scenario")
+    inp = pd.read_csv("outputs/step5_model_inputs.csv").set_index("input").value
+    kept_lev = inp["Kept spend per year, Leverage categories ($M)"] * 35000 / inp["CA addressable spend per year ($M)"]
+    rows_in = [("Measured savings, base: price gap + fewer suppliers ($M/yr)", sc.loc["Base", "jnj_price_m"] + sc.loc["Base", "jnj_process_m"], USD_M),
+               ("Kept Leverage spend at J&J scale ($M/yr)", kept_lev, USD_M),
+               ("Goal ($M/yr)", 300, USD_M)]
+    header(ws, 4, ["Input", "Value"])
+    for i, (lab, v, fmt) in enumerate(rows_in, start=5):
+        ws.cell(row=i, column=1, value=lab).font = font()
+        c = ws.cell(row=i, column=2, value=round(float(v), 3))
+        c.font, c.number_format = font(color=BLUE), fmt
+    ws.cell(row=9, column=1, value="Break-even re-tender rate for the goal").font = font(bold=True)
+    c = ws.cell(row=9, column=2, value="=(B7-B5)/B6")
+    c.font, c.number_format, c.fill = font(bold=True), '0.00%', KEY_FILL
+    header(ws, 11, ["Re-tender rate", "J&J run-rate savings ($M/yr)", "Meets goal?"])
+    for i, r_ in enumerate([x / 1000 for x in range(0, 31, 1)], start=12):
+        ws.cell(row=i, column=1, value=r_).number_format = '0.0%'
+        ws.cell(row=i, column=2, value=f"=$B$5+A{i}*$B$6").number_format = USD_M
+        ws.cell(row=i, column=3, value=f'=IF(B{i}>=$B$7,"Yes","No")')
+    widths(ws, [58, 28, 14])
+
 # ---------------------------------------------------------------- Files and sources
 REPO = "https://github.com/hemant-singla/jnj-supplier-rationalization/blob/main/"
 ws = wb.create_sheet("Files_and_Sources", 1)
@@ -480,7 +555,7 @@ files = [
     ("Data source", "0", "J&J: DEI in our supply base (2022)",
      "https://belong.jnj.com/2022/driving-innovation/dei-in-our-supply-base.html", "$3B Tier 1 diverse spend (2022)"),
     ("Data source", "—", "SEC EDGAR full-text search (10-K / 20-F, 2023-2026)", "https://efts.sec.gov/LATEST/search-index",
-     "Candidate real J&J suppliers (data/raw/jnj_supplier_candidates_sec.md), being verified"),
+     "Real J&J suppliers verified from their 10-K filings (docs/07_real_jnj_suppliers.md)"),
     ("Code", "0", "model/business_case_model.py", REPO + "model/business_case_model.py",
      "Business case model (same logic as tab 0_Business_Case)"),
     ("Code", "1", "scripts/01_clean_load.py", REPO + "scripts/01_clean_load.py", "Cleans the CSV, applies exclusion rules, loads SQLite"),
@@ -490,19 +565,23 @@ files = [
     ("Code", "3", "scripts/03_kraljic.py", REPO + "scripts/03_kraljic.py", "Kraljic scoring and 2x2 chart"),
     ("Code", "4", "scripts/04a_duplicates.py", REPO + "scripts/04a_duplicates.py", "TF-IDF duplicate detection"),
     ("Code", "4", "scripts/04b_decisions.py", REPO + "scripts/04b_decisions.py", "Scorecard and decision rules"),
+    ("Code", "4", "scripts/04c_concentration.py", REPO + "scripts/04c_concentration.py", "Supplier concentration before vs after; sole-source list"),
+    ("Code", "4", "scripts/04d_duplicate_precision.py", REPO + "scripts/04d_duplicate_precision.py", "Precision of duplicate matching from a hand-checked sample"),
     ("Code", "5", "scripts/05_savings.py", REPO + "scripts/05_savings.py", "Price-gap test and savings model"),
+    ("Code", "5", "scripts/05b_retender_sensitivity.py", REPO + "scripts/05b_retender_sensitivity.py", "Savings vs re-tender rate; break-even"),
+    ("Tests", "All", "tests/", REPO + "tests", "Checks: no strategic or sole-source exits, a reason code on every row, totals match the raw data"),
     ("Code", "All", "scripts/build_outputs_workbook.py", REPO + "scripts/build_outputs_workbook.py", "Builds this workbook"),
     ("Code", "1-4", "scripts/build_data_workbook.py", REPO + "scripts/build_data_workbook.py",
      "Builds the raw-data workbook (every raw row traced through steps 1-4)"),
-    ("Output", "1-4", "outputs/JnJ_Data_Raw_to_Decision.xlsx (100 MB, shared separately; too large for GitHub)",
+    ("Output", "1-4", "outputs/JnJ_Data_Raw_to_Decision_part1of5.xlsx ... part5of5 (100 MB in total, not in GitHub)",
      REPO + "scripts/build_data_workbook.py",
      "All 344,504 raw rows as downloaded + status, exclusion reason, segment, quadrant, decision per row"),
     ("Output", "2", "outputs/step2_*.csv", REPO + "outputs", "Segment summary, Pareto curve, fragmented categories"),
     ("Output", "3", "outputs/step3_kraljic_*.csv; docs/images/kraljic_matrix.png", REPO + "outputs", "Quadrant per category; chart"),
-    ("Output", "4", "outputs/step4_*.csv", REPO + "outputs",
-     "Supplier decisions, decisions by rule/segment, headline, duplicate pairs for review"),
-    ("Output", "5", "outputs/step5_*.csv; docs/images/savings_bridge_real.png", REPO + "outputs",
-     "Price-gap items, measured gap by quadrant, model inputs, scenarios; chart"),
+    ("Output", "4", "outputs/step4_*.csv, step4c_*.csv, step4d_*.csv", REPO + "outputs",
+     "Supplier decisions, decisions by rule/segment, headline, duplicate pairs, concentration, duplicate precision"),
+    ("Output", "5", "outputs/step5_*.csv, step5b_*.csv; docs/images/savings_bridge_real.png, retender_sensitivity.png", REPO + "outputs",
+     "Price-gap items, measured gap by quadrant, model inputs, scenarios, sensitivity; charts"),
     ("Write-up", "0", "docs/01_business_case.md", REPO + "docs/01_business_case.md", "Business case"),
     ("Write-up", "—", "docs/02_methodology.md", REPO + "docs/02_methodology.md", "Goal and methods"),
     ("Write-up", "2", "docs/03_step2_spend_cube.md", REPO + "docs/03_step2_spend_cube.md", "Step 2 findings"),
@@ -539,6 +618,10 @@ for fname in ["sql/01_pareto_abc.sql", "sql/02_category_fragmentation.sql"]:
     r += 2
 widths(ws, [130])
 
+# keep tabs in step order
+for name, after in [("4_Concentration", "4_Supplier_Decisions"), ("4_Duplicate_Check", "4_Concentration")]:
+    if name in wb.sheetnames and after in wb.sheetnames:
+        wb.move_sheet(name, offset=wb.sheetnames.index(after) + 1 - wb.sheetnames.index(name))
 OUT.parent.mkdir(exist_ok=True)
 wb.save(OUT)
 print("saved", OUT)

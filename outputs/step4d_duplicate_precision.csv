@@ -1,0 +1,4 @@
+kind,sampled,correct,precision,precision_if_uncertain_correct,accepted_pairs
+exact,20.0,20.0,1.0,1.0,868.0
+fuzzy,50.0,39.0,0.78,0.86,197.0
+all accepted (weighted),70.0,59.0,0.9593051643192488,0.9741032863849766,1065.0

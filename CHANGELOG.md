@@ -77,3 +77,12 @@
 - Final 13-slide presentation built (problem → method → findings → recommendation → roadmap → sources).
 - Power BI dashboard PDF export added: `docs/JnJ_Supplier_Dashboard.pdf` (4 pages).
 - README: final deliverables table, corrected repo layout, status set to complete.
+
+## 2026-10-22 — Checks on the conclusion
+- **Re-tender sensitivity** (`scripts/05b_retender_sensitivity.py`, chart `docs/images/retender_sensitivity.png`): savings vs re-tender rate; the $300M goal needs 1.15% in the base case (0.75–1.54% across the measured range); +$19M a year per 0.1 point.
+- **Concentration before vs after** (`scripts/04c_concentration.py`): categories with a >50% top supplier go from 129 to 136 of 406 (Strategic 9 → 9, Leverage 0 → 0); 10 categories newly cross 50% ($64M over 3 years) and form a second-source watch-list.
+- **Sole-source rule fix:** the new test found one sole supplier in a Bottleneck category marked CONSOLIDATE; rule R2 now keeps the only active supplier in any category (kept 4,648 → 4,649; R8 2,623 → 2,622; MSA suppliers 1,648 → 1,649). Savings unchanged at the reported precision.
+- **Duplicate precision** (`scripts/04d_duplicate_precision.py`): 70 accepted pairs judged by hand: exact matches 20/20, fuzzy matches 39/50 (78%), ≈96% overall; fuzzy matches now go to a review queue before merging.
+- **"What carries over and what doesn't"** section in the README: the method transfers to J&J, the exact percentages don't.
+- **Tests** (`tests/`): no strategic or sole-source exits, a reason code on every supplier and raw row, totals reconcile raw → decisions, savings add up and the break-even reproduces. 18 tests pass.
+- Repo cleanup: README and docs link to PDFs only; removed START_HERE.md and the empty notebooks folder; added requirements.txt; outputs workbook gains tabs 4_Concentration, 4_Duplicate_Check, 5b_Retender_Sensitivity.

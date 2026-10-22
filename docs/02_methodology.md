@@ -1,6 +1,6 @@
 # Goal and method
 
-**Goal:** decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a data reason behind every exit, and show the result saves at least $300M a year without adding supply risk.
+**Goal:** decide which of J&J's ~29,000 suppliers to keep, consolidate or exit, with a data reason behind every exit, and show whether the result can save at least $300M a year, with any added supply risk measured (concentration before vs after) and covered by an agreement.
 
 We answer four questions, one method each. Each answer feeds the next; together they produce the exit list and the business case numbers.
 

@@ -1,12 +1,12 @@
 # Supplier Transition Notices
 
-**Template for:** the 12,285 suppliers that are not kept (step 4). One notice per decision type. Tone follows the business case guardrail: clear, respectful, with time to wind down.
+**Template for:** the 12,284 suppliers that are not kept (step 4). One notice per decision type. Tone follows the business case guardrail: clear, respectful, with time to wind down.
 
 | Decision | Rule | Suppliers | Notice |
 | --- | --- | --- | --- |
 | Exit — inactive | R4 | 5,614 | A: supplier record closed (no purchase order in 18+ months) |
 | Exit — one-time vendor | R5 | 3,210 | A: supplier record closed; future buys via catalog |
-| Consolidate | R8 | 2,623 | B: category consolidating; wind-down period |
+| Consolidate | R8 | 2,622 | B: category consolidating; wind-down period |
 | Merge duplicate record | R3 | 838 | C: admin notice, no change to the relationship |
 
 ---

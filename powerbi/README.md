@@ -4,7 +4,7 @@
 
 | Page | Answers |
 | --- | --- |
-| 1 Executive Summary | 16,933 → 4,648 suppliers, spend retained, diversity guardrail, decision by rule, Pareto curve |
+| 1 Executive Summary | 16,933 → 4,649 suppliers, spend retained, diversity guardrail, decision by rule, Pareto curve |
 | 2 Category Strategy | Kraljic matrix of 409 categories (log scale), quadrant summary, most fragmented categories |
 | 3 Savings Case | $366M base run-rate vs $300M goal, measured vs assumed savings, price-gap evidence |
 | 4 Supplier Explorer | Decision and reason code for every supplier, with slicers |

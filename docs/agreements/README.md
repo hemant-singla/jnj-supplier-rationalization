@@ -5,14 +5,14 @@ Every kept supplier gets the agreement its Kraljic quadrant calls for (step 3). 
 | Quadrant | Agreement | Template | Kept suppliers | Spend / yr | Share of kept spend |
 | --- | --- | --- | --- | --- | --- |
 | Strategic | Partnership MOU + supply agreement | [01_MOU_strategic_partnership.md](01_MOU_strategic_partnership.md) | 417 | $1,350M | 21% |
-| Leverage | Master supply/services agreement (MSA) with volume-tiered pricing | [02_MSA_term_sheet_leverage.md](02_MSA_term_sheet_leverage.md) | 1,648 | $3,892M | 61% |
+| Leverage | Master supply/services agreement (MSA) with volume-tiered pricing | [02_MSA_term_sheet_leverage.md](02_MSA_term_sheet_leverage.md) | 1,649 | $3,892M | 61% |
 | Bottleneck | Long-term supply agreement + second-source plan | [03_supply_agreement_bottleneck.md](03_supply_agreement_bottleneck.md) | 1,061 | $791M | 13% |
 | Non-critical | Catalog / purchasing-card terms | [04_catalog_terms_noncritical.md](04_catalog_terms_noncritical.md) | 1,522 | $312M | 5% |
-| **Total** | | | **4,648** | **$6,345M** | **100%** |
+| **Total** | | | **4,649** | **$6,345M** | **100%** |
 
 (California case-study data. At J&J scale, every regulated supplier also keeps its GMP quality agreement, whatever the commercial agreement.)
 
-For the 12,285 suppliers that are not kept, [05_supplier_transition_notice.md](05_supplier_transition_notice.md) has a notice for each decision type: exit (inactive or one-time vendors), consolidate, and merge duplicate records.
+For the 12,284 suppliers that are not kept, [05_supplier_transition_notice.md](05_supplier_transition_notice.md) has a notice for each decision type: exit (inactive or one-time vendors), consolidate, and merge duplicate records.
 
 ## How the templates tie back to the analysis
 

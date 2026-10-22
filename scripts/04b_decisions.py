@@ -6,7 +6,8 @@ Scorecard (0-100, percentile ranks within the supplier's primary category):
 
 Rules, applied in order — the first rule that matches sets the decision and the reason code:
   R1 KEEP        A-segment (strategic) supplier
-  R2 KEEP        Supply protection: one of the top-3 active suppliers in a Strategic or Bottleneck category
+  R2 KEEP        Supply protection: one of the top-3 active suppliers in a Strategic or Bottleneck category,
+                 or the only active supplier (sole source) in any category it sells into
   R3 MERGE       Duplicate record of another supplier (step 4a) — fold into the master record
   R4 EXIT        Inactive: no PO in the last 18 months
   R5 EXIT        One-time vendor: one PO in three years — future buys go to catalog / preferred suppliers
@@ -68,11 +69,20 @@ active = sup[sup.inactive_18m == 0]
 sup["active_rank_in_cat"] = active.groupby("primary_category").spend_in_primary.rank(ascending=False, method="first")
 sup = sup.merge(dups, on="supplier_code", how="left")
 
+# sole-source: the only active company (duplicate records folded into their master) selling into a category
+company = dict(zip(dups.supplier_code.astype(str), dups.master_code.astype(str)))
+act_lines = lines[lines.supplier_code.isin(active.supplier_code)].assign(
+    company=lambda d: d.supplier_code.astype(str).map(lambda s: company.get(s, s)))
+n_comp = act_lines.groupby("family_title").company.nunique()
+sole_companies = set(act_lines[act_lines.family_title.isin(n_comp[n_comp == 1].index)].company)
+sup["sole_source"] = sup.supplier_code.astype(str).isin(sole_companies) & sup.master_code.isna()
+
 # ---- rules -----------------------------------------------------------------------------
 rules = [
     ("R1", "KEEP", "Strategic (A-segment) supplier", sup.segment == "A Strategic"),
-    ("R2", "KEEP", "Supply protection: top-3 active supplier in a Strategic/Bottleneck category",
-     sup.quadrant.isin(["Strategic", "Bottleneck"]) & (sup.active_rank_in_cat <= 3)),
+    ("R2", "KEEP", "Supply protection: top-3 active supplier in a Strategic/Bottleneck category, "
+                   "or the only active supplier in any category",
+     (sup.quadrant.isin(["Strategic", "Bottleneck"]) & (sup.active_rank_in_cat <= 3)) | sup.sole_source),
     ("R3", "MERGE", "Duplicate record: fold into master supplier", sup.master_code.notna()),
     ("R4", "EXIT", "Inactive: no PO in 18+ months", sup.inactive_18m == 1),
     ("R5", "EXIT", "One-time vendor: 1 PO in 3 years; route future buys to preferred/catalog", sup.one_time == 1),
