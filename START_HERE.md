@@ -8,7 +8,7 @@ Everything for the project lives in this one folder (a copy of the GitHub repo p
 | --- | --- |
 | Final presentation (17 slides, incl. 4 dashboard pages) | https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK (Share › Export to download PPTX or PDF) |
 | Business case (final, real-data results) | `docs/JnJ_Business_Case_Final.pdf`, `docs/JnJ_Business_Case_Final.docx` · live: https://claude.ai/artifact/4igvcEzcavrtJf1t9koTqZ |
-| Power BI dashboard (open the .pbip in Power BI Desktop) | `powerbi/JnJ_Supplier_Rationalization.pbip` · PDF: `docs/JnJ_Supplier_Dashboard.pdf` |
+| Power BI dashboard (open the .pbip in Power BI Desktop) | `powerbi/JnJ_Supplier_Dashboard/JnJ_Supplier_Rationalization.pbip` · PDF: `docs/JnJ_Supplier_Dashboard.pdf` |
 | All step outputs in one workbook | `outputs/JnJ_Supplier_Rationalization_Outputs.xlsx` |
 | Agreement templates (MOU, MSA, supply, catalog, transition notices) | `docs/agreements/` |
 | Real J&J suppliers from SEC filings | `docs/07_real_jnj_suppliers.md` |
