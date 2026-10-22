@@ -100,7 +100,7 @@ table Scenarios
 		mode: import
 		source =
 				let
-				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"), null, true),
 				  Sheet = Source{[Item = "Scenarios", Kind = "Sheet"]}[Data],
 				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
 				  Typed = Table.TransformColumnTypes(Promoted, {{"Scenario", type text}, {"Run Rate $M", type number}, {"One Time Cost $M", type number}, {"NPV 3yr $M", type number}, {"Share Measured", type number}, {"Goal $M", type number}, {"Measured $M", type number}, {"Retender Needed", type number}, {"Scenario Order", Int64.Type}})

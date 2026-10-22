@@ -111,7 +111,7 @@ table Categories
 		mode: import
 		source =
 				let
-				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"), null, true),
 				  Sheet = Source{[Item = "Categories", Kind = "Sheet"]}[Data],
 				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
 				  Typed = Table.TransformColumnTypes(Promoted, {{"Category", type text}, {"UNSPSC Segment", type text}, {"Quadrant", type text}, {"Agreement", type text}, {"Spend 3yr", type number}, {"Suppliers", Int64.Type}, {"Active Suppliers", Int64.Type}, {"Pct Noncompetitive", type number}, {"Pct Top 3", type number}, {"Risk Score", type number}})

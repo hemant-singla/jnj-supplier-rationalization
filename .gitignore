@@ -2,7 +2,7 @@
 data/procurement.db
 data/raw/*.csv
 __pycache__/
-outputs/JnJ_Data_Raw_to_Decision.xlsx
+outputs/JnJ_Data_Raw_to_Decision*.xlsx
 outputs/powerbi/
 **/.pbi/localSettings.json
 **/.pbi/cache.abf

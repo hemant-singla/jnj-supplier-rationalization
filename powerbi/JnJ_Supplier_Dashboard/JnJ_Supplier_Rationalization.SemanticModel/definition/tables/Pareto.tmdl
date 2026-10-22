@@ -32,7 +32,7 @@ table Pareto
 		mode: import
 		source =
 				let
-				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"), null, true),
 				  Sheet = Source{[Item = "Pareto", Kind = "Sheet"]}[Data],
 				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
 				  Typed = Table.TransformColumnTypes(Promoted, {{"Supplier Rank", Int64.Type}, {"Pct Suppliers", type number}, {"Pct Spend", type number}})

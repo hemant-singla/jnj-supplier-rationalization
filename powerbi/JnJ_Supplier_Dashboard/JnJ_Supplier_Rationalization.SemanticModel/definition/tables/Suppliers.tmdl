@@ -223,7 +223,7 @@ table Suppliers
 		mode: import
 		source =
 				let
-				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"), null, true),
 				  Sheet = Source{[Item = "Suppliers", Kind = "Sheet"]}[Data],
 				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
 				  Typed = Table.TransformColumnTypes(Promoted, {{"Supplier Code", type text}, {"Supplier", type text}, {"Segment", type text}, {"Category", type text}, {"Quadrant", type text}, {"Decision", type text}, {"Rule", type text}, {"Reason", type text}, {"Agreement", type text}, {"Merge Into", type text}, {"Spend 3yr", type number}, {"Spend per Year", type number}, {"POs", Int64.Type}, {"Departments", Int64.Type}, {"Last PO", type datetime}, {"Score", type number}, {"Small or Diverse", type text}, {"Inactive 18m", Int64.Type}, {"One Time", Int64.Type}, {"Kept", Int64.Type}, {"Spend Rank", Int64.Type}, {"Decision Order", Int64.Type}})

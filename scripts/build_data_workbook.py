@@ -4,7 +4,7 @@ Tabs:
   README             how to read the workbook
   Cleaning_Steps     each cleaning step with rows and dollars before/after, plus the column dictionary
   Excluded_Payees    the 100 largest excluded payees and why they were excluded
-  Raw_Data_Traced    all 344,504 raw rows, all 32 original columns untouched, plus trace columns:
+  Raw_Data_Traced    all 344,504 raw rows (or a slice of them per part when split: build_data_workbook.py <csv> 5), all 32 original columns untouched, plus trace columns:
                      step 1 status + exclusion reason + parsed amount, step 2 supplier segment,
                      step 3 category quadrant, step 4 supplier decision + rule
 """
@@ -18,6 +18,8 @@ from openpyxl.cell import WriteOnlyCell
 from openpyxl.styles import Alignment, Font, PatternFill
 
 RAW = Path(sys.argv[1] if len(sys.argv) > 1 else "data/raw/purchase-order-data-2012-2015-.csv")
+# Optional 2nd argument: split Raw_Data_Traced into N workbooks (each small enough to copy or email)
+PARTS = int(sys.argv[2]) if len(sys.argv) > 2 else 1
 DB = Path("data/procurement.db")
 OUT = Path("outputs/JnJ_Data_Raw_to_Decision.xlsx")
 F = "Arial"
@@ -148,22 +150,45 @@ table(ws, [(r["name"], r["exclusion_reason"], (int(r["count"]), "#,##0"), (r["su
       [60, 30, 10, 14])
 
 # ---------------------------------------------------------------- Raw data traced
-ws = wb.create_sheet("Raw_Data_Traced")
 trace_cols = ["Step 1 status", "Step 1 exclusion reason", "Step 1 parsed amount ($)", "Step 2 supplier segment",
               "Step 3 category quadrant", "Step 4 supplier decision", "Step 4 rule"]
-ws.freeze_panes = "A2"
-ws.append([cell(ws, "Raw row #", bold=True, color="FFFFFF", fill=HDR)]
-          + [cell(ws, c, bold=True, color="FFFFFF", fill=HDR) for c in raw.columns]
-          + [cell(ws, c, bold=True, color="FFFFFF", fill=TRACE_HDR) for c in trace_cols])
 tvals = trace[["status", "exclusion_reason", "amount", "segment", "quadrant", "decision", "rule"]].astype(object)
 tvals = tvals.where(tvals.notna(), None).values.tolist()
-for i, (rv, tv) in enumerate(zip(raw.itertuples(index=False, name=None), tvals), start=1):
-    if tv[2] is not None and tv[2] != tv[2]:  # NaN amount
-        tv[2] = None
-    ws.append([i, *rv, *tv])
-    if i % 50000 == 0:
-        print(f"  wrote {i:,} rows", flush=True)
+rows = list(raw.itertuples(index=False, name=None))
+n = len(rows)
+bounds = [round(n * k / PARTS) for k in range(PARTS + 1)]
+
+
+def write_raw(book, lo, hi):
+    ws = book.create_sheet("Raw_Data_Traced")
+    ws.freeze_panes = "A2"
+    ws.append([cell(ws, "Raw row #", bold=True, color="FFFFFF", fill=HDR)]
+              + [cell(ws, c, bold=True, color="FFFFFF", fill=HDR) for c in raw.columns]
+              + [cell(ws, c, bold=True, color="FFFFFF", fill=TRACE_HDR) for c in trace_cols])
+    for i in range(lo, hi):
+        tv = list(tvals[i])
+        if tv[2] is not None and tv[2] != tv[2]:  # NaN amount
+            tv[2] = None
+        ws.append([i + 1, *rows[i], *tv])
+
 
 OUT.parent.mkdir(exist_ok=True)
-wb.save(OUT)
-print("saved", OUT, f"{OUT.stat().st_size/1e6:.1f} MB")
+if PARTS == 1:
+    write_raw(wb, 0, n)
+    wb.save(OUT)
+    print("saved", OUT, f"{OUT.stat().st_size/1e6:.1f} MB")
+else:
+    for k in range(PARTS):
+        lo, hi = bounds[k], bounds[k + 1]
+        if k == 0:
+            book = wb  # part 1 also carries README, Cleaning_Steps and Excluded_Payees
+        else:
+            book = Workbook(write_only=True)
+            w = book.create_sheet("README")
+            w.column_dimensions["A"].width = 120
+            w.append([cell(w, f"J&J Supplier Rationalization — raw data traced, part {k+1} of {PARTS}", bold=True, size=14)])
+            w.append([cell(w, f"Raw rows {lo+1:,} to {hi:,} of {n:,}. Tabs README, Cleaning_Steps and Excluded_Payees are in part 1.")])
+        write_raw(book, lo, hi)
+        out = OUT.with_name(f"{OUT.stem}_part{k+1}of{PARTS}.xlsx")
+        book.save(out)
+        print("saved", out, f"rows {lo+1:,}-{hi:,}", f"{out.stat().st_size/1e6:.1f} MB", flush=True)

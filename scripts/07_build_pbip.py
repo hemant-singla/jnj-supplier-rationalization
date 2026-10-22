@@ -1,7 +1,7 @@
 """Step 6: generate the Power BI project (PBIP: TMDL semantic model + PBIR report) for the dashboard.
 
 Output: outputs/powerbi/JnJ_Supplier_Dashboard/  (open JnJ_Supplier_Rationalization.pbip in Power BI Desktop)
-The model reads C:\\Users\\SAMSUNG\\Downloads\\JnJ_PowerBI_Data.xlsx (built by scripts/06_powerbi_data.py).
+The model reads powerbi\\JnJ_PowerBI_Data.xlsx inside the project folder (built by scripts/06_powerbi_data.py).
 File formats copied from a project saved by the user's Power BI Desktop (visualContainer 2.14.0, TMDL).
 """
 import json
@@ -10,7 +10,7 @@ import sys
 import uuid
 from pathlib import Path
 
-XLSX = r"C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"
+XLSX = r"C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"
 NAME = "JnJ_Supplier_Rationalization"
 ROOT = Path("outputs/powerbi/JnJ_Supplier_Dashboard")
 THEME_SRC = Path(sys.argv[1]) if len(sys.argv) > 1 else None   # Fluent2 base theme json from the template

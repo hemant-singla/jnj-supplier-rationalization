@@ -48,7 +48,7 @@ table TopFragmented
 		mode: import
 		source =
 				let
-				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"), null, true),
 				  Sheet = Source{[Item = "TopFragmented", Kind = "Sheet"]}[Data],
 				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
 				  Typed = Table.TransformColumnTypes(Promoted, {{"Category", type text}, {"Quadrant", type text}, {"Suppliers", Int64.Type}, {"Spend 3yr", type number}, {"Fragmentation Rank", Int64.Type}})

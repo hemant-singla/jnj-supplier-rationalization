@@ -6,7 +6,7 @@ Everything for the project lives in this one folder (a copy of the GitHub repo p
 
 | What | File / link |
 | --- | --- |
-| Final presentation (17 slides, incl. 4 dashboard pages) | https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK (Share › Export to download PPTX or PDF) |
+| Final presentation (17 slides, incl. 4 dashboard pages) | `JnJ_Supplier_Rationalization_Deck.pdf` / `.pptx` in this folder · live: https://claude.ai/artifact/PMEvigAodrVzwBANkQKpEK |
 | Business case (final, real-data results) | `docs/JnJ_Business_Case_Final.pdf`, `docs/JnJ_Business_Case_Final.docx` · live: https://claude.ai/artifact/4igvcEzcavrtJf1t9koTqZ |
 | Power BI dashboard (open the .pbip in Power BI Desktop) | `powerbi/JnJ_Supplier_Dashboard/JnJ_Supplier_Rationalization.pbip` · PDF: `docs/JnJ_Supplier_Dashboard.pdf` |
 | All step outputs in one workbook | `outputs/JnJ_Supplier_Rationalization_Outputs.xlsx` |
@@ -21,7 +21,8 @@ Everything for the project lives in this one folder (a copy of the GitHub repo p
 - `outputs/` step CSVs and the outputs workbook · `powerbi/` dashboard project + its data file
 - `data/` data README and SEC candidate list
 
-## Large files kept outside this folder
+## Raw data and full trace
 
-- Raw data: `Downloads\purchase-order-data-2012-2015-.csv` (164 MB, data.ca.gov)
-- Raw-to-decision trace workbook `JnJ_Data_Raw_to_Decision.xlsx` (100 MB): rebuild with `scripts/build_data_workbook.py`
+- `data/raw/purchase-order-data-2012-2015-.csv`: the raw California file exactly as downloaded (164 MB, not in GitHub)
+- `outputs/JnJ_Data_Raw_to_Decision_part1of5.xlsx` … `part5of5.xlsx`: all 344,504 raw rows traced through every step, split into 5 workbooks (part 1 also has README, Cleaning_Steps, Excluded_Payees). Rebuild: `python scripts/build_data_workbook.py data/raw/purchase-order-data-2012-2015-.csv 5`
+- The Power BI dashboard reads `powerbi/JnJ_PowerBI_Data.xlsx` in this folder, so the folder is self-contained.

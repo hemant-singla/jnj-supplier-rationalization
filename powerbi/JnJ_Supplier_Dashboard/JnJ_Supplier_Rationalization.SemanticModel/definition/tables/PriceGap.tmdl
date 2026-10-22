@@ -91,7 +91,7 @@ table PriceGap
 		mode: import
 		source =
 				let
-				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_PowerBI_Data.xlsx"), null, true),
+				  Source = Excel.Workbook(File.Contents("C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\JnJ_PowerBI_Data.xlsx"), null, true),
 				  Sheet = Source{[Item = "PriceGap", Kind = "Sheet"]}[Data],
 				  Promoted = Table.PromoteHeaders(Sheet, [PromoteAllScalars = true]),
 				  Typed = Table.TransformColumnTypes(Promoted, {{"UNSPSC", type text}, {"Item", type text}, {"Quadrant", type text}, {"Kept Median Price", type number}, {"Exiting Median Price", type number}, {"Price Gap", type number}, {"Kept Lines", Int64.Type}, {"Exiting Lines", Int64.Type}, {"Exiting Spend", type number}})

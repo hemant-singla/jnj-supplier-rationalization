@@ -11,7 +11,7 @@
 
 ## Open it
 
-1. Copy `JnJ_PowerBI_Data.xlsx` to `C:\Users\<you>\Downloads\` (or edit the file path in the `partition` block of each table under `JnJ_Supplier_Dashboard/JnJ_Supplier_Rationalization.SemanticModel/definition/tables/*.tmdl`).
+1. The model reads `JnJ_PowerBI_Data.xlsx` from this `powerbi` folder at `C:\Users\SAMSUNG\Downloads\JnJ_Supplier_Rationalization_Project\powerbi\`. On another computer, edit the file path in the `partition` block of each table under `JnJ_Supplier_Dashboard/JnJ_Supplier_Rationalization.SemanticModel/definition/tables/*.tmdl`).
 2. Open `JnJ_Supplier_Rationalization.pbip` in Power BI Desktop and click **Refresh**.
 
 ## Rebuild from scratch
