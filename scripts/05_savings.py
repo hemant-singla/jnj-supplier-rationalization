@@ -125,6 +125,19 @@ for sc in ["Low", "Base", "High"]:
                      jnj_process_m=jnj_process, jnj_run_rate_m=jnj_run,
                      jnj_one_time_m=jnj_one, jnj_3yr_savings_m=sum(flows), jnj_npv_m=npv,
                      data_backed_share=(jnj_price + jnj_process) / jnj_run))
+# value of each tier at the BASE rates: separates "how many suppliers we cut" from "how much we save"
+for sc, t in zip(["Low", "Base", "High"], tiers):
+    out = in_tier[sc] & dec.active_year
+    by_rule = dec.loc[out, "rule"].value_counts()
+    price_b = sum(annual(moves[sc] & (dec.quadrant == q)) * measured.rate_used_high[q] * PRICE_FACTOR["Base"]
+                  for q in measured.index) * spend_ratio
+    proc_b = t["ca_removed"] * COST_PER_SUPPLIER["Base"] / 1e6 * sup_ratio
+    ret_b = kept_leverage * RETENDER["Base"] * spend_ratio
+    trans_b = sum(by_rule.get(r, 0) * c for r, c in TRANSITION.items()) / 1e6
+    t.update(jnj_suppliers_cut=JNJ_SUPPLIERS - t["jnj_after"], base_rate_price_m=price_b, base_rate_process_m=proc_b,
+             base_rate_retender_m=ret_b, base_rate_run_rate_m=price_b + proc_b + ret_b,
+             base_rate_one_time_m=(program_ca * spend_ratio + trans_b * sup_ratio) * (1 + CONT))
+    t["savings_per_supplier_cut_k"] = t["base_rate_run_rate_m"] * 1e3 / t["jnj_suppliers_cut"]
 pd.DataFrame(tiers).to_csv(OUT / "step5_jnj_supplier_tiers.csv", index=False)
 res = pd.DataFrame(rows)
 res.to_csv(OUT / "step5_savings_scenarios.csv", index=False)

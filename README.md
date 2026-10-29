@@ -4,7 +4,13 @@ A supply chain case study: how a company like Johnson & Johnson decides which su
 
 **Portfolio page:** https://hemant-singla.github.io/projects/jnj-supplier-rationalization.html
 
-**Headline:** J&J has been quoted at **80,000 suppliers** and now reports **~39,000** (FY2025). Part of that drop is the 2023 **Kenvue spin-off**; the rest (a 30–42% reduction) is the size our rules produce on real purchase data. From ~39,000, a second, category-level model with supply-risk limits takes J&J to **~32,100**. Savings at J&J scale: **$414M a year** in the base case for $73M one-time, of which **$134M is measured in the data**; the $300M goal needs a **re-tender saving of at least 0.89%**.
+**Headline: small cut, big impact.** Every supplier cut has to be justified, noticed and defended with the people who buy from it, so the recommendation is the plan with the fewest cuts that still captures most of the value. Cutting just **27%** of suppliers (merging duplicate records and moving one-time vendors to catalogs, the two easiest cuts to defend) captures **$356M a year, 86% of the base-case value**, for $34M one-time. Cutting 44% adds only $58M a year; cutting 52% adds $12M more. The money is in renegotiating with the suppliers J&J keeps: **152 suppliers hold 80% of the spend** the re-tender saving applies to.
+
+![Small cut, big impact](docs/images/value_vs_cuts.png)
+
+This is cost saving, so it shows up in operating profit, not revenue. In the conservative plan only $76M of the $356M is measured in the data; the rest assumes the re-tender saves at least **1.20%** (0.89% in the base plan).
+
+**Context:** J&J has been quoted at **80,000 suppliers** and now reports **~39,000** (FY2025). Part of that drop is the 2023 **Kenvue spin-off**; the rest (a 30–42% reduction) is the size our rules produce on real purchase data. From ~39,000, a category-level model with supply-risk limits takes J&J to **~32,100**.
 
 > J&J does not publish supplier-level data, so every method runs on **real public procurement data** (State of California purchase orders FY2012–15: 344,504 lines, 16,933 suppliers over three years, 8,226 active in the last year) and the results are scaled to J&J's published totals. Every assumption is labeled. Full story: [docs/08_jnj_timeline_and_phase2.md](docs/08_jnj_timeline_and_phase2.md).
 
@@ -13,6 +19,7 @@ A supply chain case study: how a company like Johnson & Johnson decides which su
 | When | Suppliers | Source |
 | --- | --- | --- |
 | After 2014 (undated) | 80,000 | [State of Flux case study](https://stateofflux.co.uk/case-studies/johnson-and-johnson) |
+| 2021 | 78,000+ | [ArcGIS StoryMap, J&J Supply Chain](https://storymaps.arcgis.com/stories/efd9fb73ac4f4e8082036d6296aea5a2) (individual author, no source given; Google's top answer) |
 | 2023 | Kenvue (consumer health) separated: IPO May, completed 23 Aug | [NJBIZ](https://njbiz.com/kenvue-completes-separation-from-jj) |
 | 2024 | 29,000+ | [2024 Health for Humanity Report](https://healthforhumanityreport.jnj.com/2024/_assets/downloads/johnson-johnson-2024-health-for-humanity-report.pdf?h=EDX6Vl9g) |
 | FY2025 | ~39,000 (new counting method) | [Global Modern Slavery Statement 2025](https://www.jnj.com/innovativemedicine/uk/global-modern-slavery-act-statement) |
@@ -48,6 +55,7 @@ So the J&J figures show the **size of the opportunity if the same patterns hold*
 | 4d | Duplicate precision | Are matched records really one company? | 70 accepted pairs checked by hand | Python | [docs/05_step4_decisions.md](docs/05_step4_decisions.md#how-precise-is-the-duplicate-matching) |
 | 5 | Savings model | What is it worth? | Measured price gap + low / base / high scenarios | Python | [docs/06_step5_savings.md](docs/06_step5_savings.md) |
 | 5b | Sensitivity | How much rests on the assumption? | Savings vs re-tender rate, break-even | Python | [docs/06_step5_savings.md](docs/06_step5_savings.md#how-much-rests-on-the-re-tender-assumption) |
+| 5c | Value vs cuts | Does cutting more suppliers pay? | Savings and one-time cost per tier at the same rates | Python | [docs/08_jnj_timeline_and_phase2.md](docs/08_jnj_timeline_and_phase2.md#5-small-cut-big-impact) |
 | 8 | Phase 2 | How could J&J go further from ~39,000? | Category target count with supply-risk floors | Python | [docs/08_jnj_timeline_and_phase2.md](docs/08_jnj_timeline_and_phase2.md#4-phase-2-how-jj-could-go-further-from-39000) |
 | 9 | J&J back-test | Does the model explain J&J's real drop? | Reported counts over time, Kenvue spin-off, tiers applied | Python | [docs/08_jnj_timeline_and_phase2.md](docs/08_jnj_timeline_and_phase2.md#3-back-test-does-our-model-explain-jjs-own-reduction) |
 | 6 | Dashboard | — | 4-page Power BI report (9 tables, 21 DAX measures) | Power BI | [powerbi/](powerbi/README.md) |
@@ -96,7 +104,7 @@ python scripts/01_clean_load.py data/raw/purchase-order-data-2012-2015-.csv
 python scripts/02_spend_cube.py && python scripts/03_kraljic.py
 python scripts/04a_duplicates.py && python scripts/04b_decisions.py
 python scripts/04c_concentration.py && python scripts/04d_duplicate_precision.py
-python scripts/05_savings.py && python scripts/05b_retender_sensitivity.py
+python scripts/05_savings.py && python scripts/05b_retender_sensitivity.py && python scripts/05c_value_vs_cuts.py
 python scripts/08_phase2_category_targets.py && python scripts/09_jnj_timeline_backtest.py
 python scripts/build_outputs_workbook.py && python scripts/06_powerbi_data.py
 pytest

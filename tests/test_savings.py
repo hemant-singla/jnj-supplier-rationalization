@@ -60,3 +60,11 @@ def test_backtest_brackets_the_reported_count():
     bt = pd.read_csv(OUT / "step9_jnj_timeline_backtest.csv").set_index("kenvue_case")
     # J&J's reported ~39,000 sits inside the range our Phase 1 tiers give on the post-Kenvue base
     assert bt.model_base.min() <= 39_000 <= bt.model_conservative.max()
+
+
+def test_fewer_cuts_keep_most_of_the_value():
+    v = pd.read_csv(OUT / "step5c_value_vs_cuts.csv").set_index("tier")
+    assert v.loc["Conservative", "share_of_base_value"] > 0.8
+    assert v.loc["Conservative", "jnj_suppliers_cut"] < v.loc["Base", "jnj_suppliers_cut"] < v.loc["Aggressive", "jnj_suppliers_cut"]
+    # each deeper tier adds less value per extra supplier cut
+    assert v.loc["Conservative", "savings_per_supplier_cut_k"] > v.loc["Base", "savings_per_supplier_cut_k"] > v.loc["Aggressive", "savings_per_supplier_cut_k"]

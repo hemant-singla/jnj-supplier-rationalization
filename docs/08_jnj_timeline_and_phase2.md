@@ -7,6 +7,7 @@
 | When | Suppliers | Source | What it covers |
 | --- | --- | --- | --- |
 | After 2014 (undated) | 80,000 | [State of Flux case study](https://stateofflux.co.uk/case-studies/johnson-and-johnson) | J&J including its consumer business; procurement had just become one enterprise function |
+| 2021 | 78,000+ | [ArcGIS StoryMap, "Johnson & Johnson Supply Chain"](https://storymaps.arcgis.com/stories/efd9fb73ac4f4e8082036d6296aea5a2) | Individual author (Jan 2021), no source given; dates the ~80,000 figure to before the Kenvue spin-off |
 | Later (undated) | 50,000+ | [Procurement Magazine](https://procurementmag.com/digital-procurement/johnson-johnson-centralising-procurement-with-technology) | Whole company |
 | 2023 | 38,500+ | 2023 Health for Humanity Report | Year of the Kenvue separation |
 | 2024 | 29,000+ | [2024 Health for Humanity Report](https://healthforhumanityreport.jnj.com/2024/_assets/downloads/johnson-johnson-2024-health-for-humanity-report.pdf?h=EDX6Vl9g) | J&J after Kenvue |
@@ -58,6 +59,25 @@ For each category, keep the smallest set of suppliers that covers 90% of its spe
 | J&J process savings | ~$14M a year at $2,000 per supplier |
 
 Phase 2 is smaller than Phase 1, as it should be: the easy reductions are already done. Its value is fewer relationships to manage and audit at almost no supply-risk cost, not large price savings. The coverage target is the lever: 80% coverage cuts more, 95% keeps more redundancy.
+
+## 5. Small cut, big impact
+
+Cutting a supplier is not free: each one needs a reason, a transition notice and agreement from the people who buy from it. So the question is how much value each extra cut adds (`scripts/05c_value_vs_cuts.py`, same base savings rates in every tier):
+
+| Tier | Suppliers cut (from 80,000) | Savings a year | Of which measured | One-time cost |
+| --- | --- | --- | --- | --- |
+| **Conservative** (duplicates + one-time vendors to catalog) | **21,800 (−27%)** | **$356M** | $76M | **$34M** |
+| Base (+ consolidate Leverage and Non-critical) | 35,500 (−44%) | $414M | $134M | $73M |
+| Aggressive (+ consolidate Strategic and Bottleneck) | 41,700 (−52%) | $427M | $146M | $91M |
+
+![Small cut, big impact](images/value_vs_cuts.png)
+
+- The conservative tier captures **86% of the base-case value with 61% of the cuts**, and its cuts are the easiest to defend: a duplicate record is the same company, and a one-time vendor stays available through the catalog.
+- Going from conservative to base cuts 13,700 more suppliers for $58M a year and $39M more one-time cost. Going to aggressive cuts 6,200 more for $12M a year, roughly just the cost of managing them, and adds supply risk.
+- **The value is in the suppliers J&J keeps.** The re-tender saving ($280M) needs few cuts, and 152 of the 1,649 kept Leverage suppliers hold 80% of that spend. Negotiating with ~150 large suppliers is worth more than cutting thousands of small ones.
+- **Caveat:** in the conservative plan only $76M is measured; the $300M goal then needs a re-tender saving of at least 1.20% (0.89% in the base plan). The savings lower costs, so they show up in operating profit, not revenue.
+
+**Recommendation:** start with the conservative tier and a re-tender of the ~150 largest Leverage suppliers. Consolidate further only in Leverage and Non-critical categories where a category owner can show the price gap, and use the Phase 2 category targets as the guide.
 
 ## Savings with the 80,000 baseline
 
