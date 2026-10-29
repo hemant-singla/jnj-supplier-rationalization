@@ -95,7 +95,7 @@ title(ws, "Step 0 — Business case (J&J, base year)",
       "Inputs in blue drive every number below. $ in millions unless stated.")
 inputs = [
     ("Addressable spend ($M)", 35000, USD, "J&J careers posting: ~$35B across ~35,000 suppliers"),
-    ("Active suppliers", 29000, NUM, "J&J 2024 Health for Humanity Report: 29,000+ suppliers"),
+    ("Active suppliers", 29000, NUM, "Step-0 estimate only (2024 Health for Humanity Report: 29,000+). Superseded: step 5 scales to 80,000"),
     ("Annual cost to maintain one supplier ($M)", 0.002, '$#,##0.000', "Assumption: $2,000 per supplier per year"),
     ("Program team + analytics ($M)", 15, USD_M, "Assumption"),
     ("Contracting and legal ($M)", 5, USD_M, "Assumption"),
@@ -348,22 +348,18 @@ if Path("outputs/step5_model_inputs.csv").exists():
           "Blue = input. Data inputs come from steps 4-5; rates marked 'measured' come from the price-gap test. "
           "All $ in millions per year.")
     inp = dict(pd.read_csv("outputs/step5_model_inputs.csv").values)
+    tiers = pd.read_csv("outputs/step5_jnj_supplier_tiers.csv")
     gap = pd.read_csv("outputs/step5_measured_price_gap.csv").set_index("quadrant")
 
     header(ws, 4, ["Data input (from the real list)", "Value", "Source"])
     data_rows = [
         ("CA addressable spend per year ($M)", inp["CA addressable spend per year ($M)"], USD_M, "Step 1, 3-yr / 3"),
-        ("Re-routed spend, Leverage ($M/yr)", inp["Re-routed spend per year, Leverage ($M)"], USD_M, "Step 4 rules R5+R8"),
-        ("Re-routed spend, Non-critical ($M/yr)", inp["Re-routed spend per year, Non-critical ($M)"], USD_M, "Step 4 rules R5+R8"),
-        ("Re-routed spend, Bottleneck ($M/yr)", inp["Re-routed spend per year, Bottleneck ($M)"], USD_M, "Step 4 rules R5+R8"),
-        ("Re-routed spend, Strategic ($M/yr)", inp["Re-routed spend per year, Strategic ($M)"], USD_M, "Step 4 rules R5+R8"),
+        ("Re-routed spend, Leverage ($M/yr)", inp["Re-routed spend per year, base plan, Leverage ($M)"], USD_M, "Step 4: R5 + R8 in Leverage"),
+        ("Re-routed spend, Non-critical ($M/yr)", inp["Re-routed spend per year, base plan, Non-critical ($M)"], USD_M, "Step 4: R5 + R8 in Non-critical"),
+        ("Re-routed spend, Bottleneck ($M/yr)", inp["Re-routed spend per year, base plan, Bottleneck ($M)"], USD_M, "Step 4: R5 only (no consolidation in base plan)"),
+        ("Re-routed spend, Strategic ($M/yr)", inp["Re-routed spend per year, base plan, Strategic ($M)"], USD_M, "Step 4: R5 only (no consolidation in base plan)"),
         ("Kept spend, Leverage categories ($M/yr)", inp["Kept spend per year, Leverage categories ($M)"], USD_M, "Step 4 KEEP"),
-        ("Active supplier records removed", inp["Active supplier records removed (R3+R5+R8)"], NUM, "Step 4 R3+R5+R8"),
-        ("Suppliers consolidated (R8)", inp["Suppliers under R8"], NUM, "Step 4"),
-        ("One-time vendors exited (R5)", inp["Suppliers under R5"], NUM, "Step 4"),
-        ("Duplicates merged (R3)", inp["Suppliers under R3"], NUM, "Step 4"),
-        ("Inactive records closed (R4)", inp["Suppliers under R4"], NUM, "Step 4"),
-        ("CA suppliers", inp["CA suppliers"], NUM, "Step 1"),
+        ("CA suppliers active in FY2014-15", inp["CA suppliers active in FY2014-2015"], NUM, "One year of active suppliers, like J&J's annual count"),
         ("Measured price gap, Leverage", gap.loc["Leverage", "rate_used_high"], PCT,
          f"Price-gap test: median of {int(gap.loc['Leverage', 'items'])} goods items"),
         ("Measured price gap, Non-critical", gap.loc["Non-critical", "rate_used_high"], PCT,
@@ -373,12 +369,11 @@ if Path("outputs/step5_model_inputs.csv").exists():
         ("Measured price gap, Strategic (exiting suppliers cheaper → 0)", 0, PCT,
          f"Measured {gap.loc['Strategic', 'median_gap']:.1%}, floored at 0"),
         ("J&J addressable spend ($M/yr)", 35000, USD, "J&J careers posting"),
-        ("J&J suppliers", 29000, NUM, "J&J 2024 Health for Humanity Report"),
+        ("J&J suppliers", 80000, NUM, "J&J supplier count as reported (State of Flux case study); latest J&J statement FY2025: ~39,000"),
         ("Program cost as % of spend", 20 / 35000, '0.000%', "Business case: $20M on $35B"),
         ("Transition cost per R8 supplier ($)", 2500, USD, "Assumption"),
         ("Transition cost per R5 supplier ($)", 500, USD, "Assumption"),
         ("Transition cost per R3 supplier ($)", 200, USD, "Assumption"),
-        ("Transition cost per R4 supplier ($)", 50, USD, "Assumption"),
         ("Contingency", 0.15, PCT, "Assumption"),
         ("Discount rate", 0.08, PCT, "Assumption"),
         ("Savings goal, J&J ($M/yr)", 300, USD, "Project goal"),
@@ -392,37 +387,40 @@ if Path("outputs/step5_model_inputs.csv").exists():
         ref[lab] = f"$B${i}"
     R = lambda k: ref[k]
     spend_ratio = f"({R('J&J addressable spend ($M/yr)')}/{R('CA addressable spend per year ($M)')})"
-    sup_ratio = f"({R('J&J suppliers')}/{R('CA suppliers')})"
+    sup_ratio = f"({R('J&J suppliers')}/{R('CA suppliers active in FY2014-15')})"
 
     s0 = 5 + len(data_rows) + 2
     ws.cell(row=s0 - 1, column=1, value="Scenario levers (change these)").font = font(bold=True)
     header(ws, s0, ["Lever", "Low", "Base", "High", "Basis"])
     levers = [("Share of measured price gap captured", (0, 0.5, 1), PCT, "Data shows the gap; low assumes none is captured"),
               ("Re-tender saving on kept Leverage spend", (0.005, 0.015, 0.03), PCT, "ASSUMPTION — not measurable in this data"),
-              ("Cost to maintain one active supplier ($/yr)", (1000, 2000, 3000), USD, "Assumption")]
+              ("Cost to maintain one active supplier ($/yr)", (1000, 2000, 3000), USD, "Assumption"),
+              ("Duplicates merged (R3), active this year", tuple(int(t) for t in tiers.ca_removed_R3), NUM, "Tier: all scenarios"),
+              ("One-time vendors to catalog (R5), active this year", tuple(int(t) for t in tiers.ca_removed_R5), NUM, "Tier: all scenarios"),
+              ("Suppliers consolidated (R8), active this year", tuple(int(t) for t in tiers.ca_removed_R8), NUM,
+               "Conservative: none · Base: Leverage + Non-critical · Aggressive: all categories")]
     for i, (lab, vals, fmt, basis) in enumerate(levers, start=s0 + 1):
         ws.cell(row=i, column=1, value=lab).font = font()
         for j, v in enumerate(vals, start=2):
             c = ws.cell(row=i, column=j, value=v)
             c.font, c.number_format, c.fill = font(BLUE), fmt, KEY_FILL
         ws.cell(row=i, column=5, value=basis).font = font(italic=True, color="595959")
-    L_CAP, L_RET, L_COST = s0 + 1, s0 + 2, s0 + 3
+    L_CAP, L_RET, L_COST, L_R3, L_R5, L_R8 = s0 + 1, s0 + 2, s0 + 3, s0 + 4, s0 + 5, s0 + 6
 
-    r0 = L_COST + 3
+    r0 = L_R8 + 3
     ws.cell(row=r0 - 1, column=1, value="Results").font = font(bold=True)
     header(ws, r0, ["Result ($M per year unless stated)", "Low", "Base", "High", "How it's calculated"])
     price_ca = (f"({R('Re-routed spend, Leverage ($M/yr)')}*{R('Measured price gap, Leverage')}"
                 f"+{R('Re-routed spend, Non-critical ($M/yr)')}*{R('Measured price gap, Non-critical')}"
                 f"+{R('Re-routed spend, Bottleneck ($M/yr)')}*{R('Measured price gap, Bottleneck (exiting suppliers cheaper → 0)')}"
                 f"+{R('Re-routed spend, Strategic ($M/yr)')}*{R('Measured price gap, Strategic (exiting suppliers cheaper → 0)')})")
-    trans_ca = (f"({R('Suppliers consolidated (R8)')}*{R('Transition cost per R8 supplier ($)')}"
-                f"+{R('One-time vendors exited (R5)')}*{R('Transition cost per R5 supplier ($)')}"
-                f"+{R('Duplicates merged (R3)')}*{R('Transition cost per R3 supplier ($)')}"
-                f"+{R('Inactive records closed (R4)')}*{R('Transition cost per R4 supplier ($)')})/1000000")
+    trans_ca = lambda c: (f"({c}{L_R8}*{R('Transition cost per R8 supplier ($)')}"
+                          f"+{c}{L_R5}*{R('Transition cost per R5 supplier ($)')}"
+                          f"+{c}{L_R3}*{R('Transition cost per R3 supplier ($)')})/1000000")
     res_rows = [
         ("CA: price gap on re-routed spend", lambda c: f"={price_ca}*{c}{L_CAP}", USD_M, "Re-routed spend × measured gap × share captured"),
         ("CA: re-tender of kept Leverage suppliers", lambda c: f"={R('Kept spend, Leverage categories ($M/yr)')}*{c}{L_RET}", USD_M, "Kept leverage spend × re-tender %"),
-        ("CA: process savings", lambda c: f"={R('Active supplier records removed')}*{c}{L_COST}/1000000", USD_M, "Active records removed × cost per supplier"),
+        ("CA: process savings", lambda c: f"=({c}{L_R3}+{c}{L_R5}+{c}{L_R8})*{c}{L_COST}/1000000", USD_M, "Suppliers leaving the managed base × cost per supplier"),
         ("CA: run-rate savings", lambda c: f"=SUM({c}{r0+1}:{c}{r0+3})", USD_M, "Sum"),
         ("CA: savings as % of spend", lambda c: f"={c}{r0+4}/{R('CA addressable spend per year ($M)')}", PCT, ""),
         ("J&J: price gap", lambda c: f"={c}{r0+1}*{spend_ratio}", USD_M, "Scaled by spend"),
@@ -431,7 +429,7 @@ if Path("outputs/step5_model_inputs.csv").exists():
         ("J&J: run-rate savings", lambda c: f"=SUM({c}{r0+6}:{c}{r0+8})", USD_M, "Sum"),
         ("J&J: measured in data (price gap + process)", lambda c: f"={c}{r0+6}+{c}{r0+8}", USD_M, "Excludes the re-tender assumption"),
         ("J&J: share of savings measured in data", lambda c: f"=IF({c}{r0+9}=0,0,{c}{r0+10}/{c}{r0+9})", PCT, ""),
-        ("J&J: one-time cost ($M)", lambda c: f"=({R('Program cost as % of spend')}*{R('J&J addressable spend ($M/yr)')}+{trans_ca}*{sup_ratio})*(1+{R('Contingency')})", USD_M,
+        ("J&J: one-time cost ($M)", lambda c: f"=({R('Program cost as % of spend')}*{R('J&J addressable spend ($M/yr)')}+{trans_ca(c)}*{sup_ratio})*(1+{R('Contingency')})", USD_M,
          "Program (scaled by spend) + transition (scaled by suppliers) + contingency"),
         ("J&J: 3-yr NPV ($M)", lambda c: f"=-{c}{r0+12}+0.3*{c}{r0+9}/(1+{R('Discount rate')})+0.7*{c}{r0+9}/(1+{R('Discount rate')})^2+{c}{r0+9}/(1+{R('Discount rate')})^3",
          USD_M, "Ramp 30% / 70% / 100%"),

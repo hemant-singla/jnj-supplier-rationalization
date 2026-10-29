@@ -1,0 +1,4 @@
+tier,scenario,ca_active_suppliers,ca_removed,ca_removed_R3,ca_removed_R5,ca_removed_R8,reduction,jnj_before,jnj_after,jnj_latest_reported
+Conservative,Low,8226,2241,422,1819,0,0.2724288840262582,80000,58200.0,39000
+Base,Base,8226,3646,422,1819,1405,0.4432287867736445,80000,44500.0,39000
+Aggressive,High,8226,4286,422,1819,2045,0.5210308777048384,80000,38300.0,39000

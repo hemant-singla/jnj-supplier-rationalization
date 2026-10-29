@@ -86,3 +86,12 @@
 - **"What carries over and what doesn't"** section in the README: the method transfers to J&J, the exact percentages don't.
 - **Tests** (`tests/`): no strategic or sole-source exits, a reason code on every supplier and raw row, totals reconcile raw → decisions, savings add up and the break-even reproduces. 18 tests pass.
 - Repo cleanup: README and docs link to PDFs only; removed START_HERE.md and the empty notebooks folder; added requirements.txt; outputs workbook gains tabs 4_Concentration, 4_Duplicate_Check, 5b_Retender_Sensitivity.
+
+## 2026-10-28 — J&J baseline 80,000, the Kenvue spin-off, and Phase 2
+- Feedback: J&J has been quoted at ~80,000 suppliers, and cutting most of them is not realistic. Both points accepted.
+- **Annual view:** supplier counts now use one year of active suppliers (FY2014–15: 8,226), the same basis as J&J's reported count. Inactive records no longer count as reductions.
+- **Three tiers** (`scripts/05_savings.py`, `outputs/step5_jnj_supplier_tiers.csv`): conservative −27% (duplicates + one-time vendors to catalog), base −44% (+ consolidation in Leverage and Non-critical only), aggressive −52%.
+- **J&J baseline 80,000** (State of Flux case study). Savings: $414M a year base case, $73M one-time, NPV $619M; $134M measured; break-even re-tender 0.89%.
+- **Kenvue and back-test** (`scripts/09_jnj_timeline_backtest.py`, chart `docs/images/jnj_supplier_timeline.png`): Kenvue took an estimated 12,600–24,000 suppliers (15.7% sales share to 30% assumed); J&J's own reduction to ~39,000 (FY2025) is 30–42%, inside the range our tiers produce (31,200–49,000).
+- **Phase 2** (`scripts/08_phase2_category_targets.py`): category target count (90% spend coverage, two or more suppliers in Strategic/Bottleneck, strategic/sole-source/diverse always kept): −18%, ~39,000 → ~32,100 (30,500–33,700 by coverage); no change in dominated categories.
+- Write-up `docs/08_jnj_timeline_and_phase2.md`; README rewritten around the timeline; 21 tests pass.

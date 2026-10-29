@@ -9,13 +9,23 @@ Three savings levers, each tied to a step-4 decision. Spend is annualized (3-yea
      suppliers were not dearer get 0.
   2. Re-tender of kept suppliers in Leverage categories: more volume with fewer suppliers.
      ASSUMPTION (cannot be measured in this data): low 0.5% / base 1.5% / high 3%.
-  3. Process savings: active supplier records removed (R3 merge, R5, R8) x cost to maintain a
-     supplier per year. ASSUMPTION: $1,000 / $2,000 / $3,000. Inactive records (R4) save $0.
+  3. Process savings: suppliers no longer individually managed x cost to manage a supplier per
+     year. ASSUMPTION: $1,000 / $2,000 / $3,000.
+
+Supplier counts use ONE year of active suppliers (FY2014-15: every supplier with spend that year), so
+they compare like-for-like with J&J's reported supplier count. Inactive records are not in that base.
+Three tiers of reduction, which are also the Low / Base / High scenarios:
+  Conservative (Low)  : merge duplicate records (R3) + move one-time vendors to catalog (R5)
+  Base                : + consolidate within Leverage and Non-critical categories (R8 there)
+  Aggressive (High)   : + consolidate in Strategic and Bottleneck categories too (all R8)
+Strategic / Bottleneck consolidation is outside the base plan: those categories showed no price gap,
+so it adds supply risk for no measured saving.
 
 One-time cost: transition per supplier by rule + program cost (0.057% of annual spend, the same
 ratio as the J&J business case: $20M on $35B) + 15% contingency.
 Scale to J&J: price and re-tender savings and program cost scale with spend ($35B / CA annual spend);
-process savings and transition cost scale with supplier count (29,000 / 16,933).
+process savings and transition cost scale with supplier count (80,000 J&J suppliers / CA suppliers
+active in FY2014-15).
 """
 import sqlite3
 from pathlib import Path
@@ -27,10 +37,13 @@ import numpy as np
 import pandas as pd
 
 DB, OUT = Path("data/procurement.db"), Path("outputs")
-YEARS, JNJ_SPEND, JNJ_SUPPLIERS = 3, 35_000.0, 29_000
+YEARS, JNJ_SPEND, JNJ_SUPPLIERS = 3, 35_000.0, 80_000   # J&J supplier count as reported (State of Flux case study)
+JNJ_SUPPLIERS_LATEST = 39_000                                  # J&J Modern Slavery Statement FY2025: reality check
+BASE_YEAR = "2014-2015"
+TIER = {"Low": "Conservative", "Base": "Base", "High": "Aggressive"}
 RAMP, DISC, CONT = [0.3, 0.7, 1.0], 0.08, 0.15
 PROGRAM_RATIO = 20 / 35_000
-TRANSITION = {"R8": 2_500, "R5": 500, "R3": 200, "R4": 50}          # $ per supplier
+TRANSITION = {"R8": 2_500, "R5": 500, "R3": 200}                     # $ per supplier
 RETENDER = {"Low": 0.005, "Base": 0.015, "High": 0.03}
 COST_PER_SUPPLIER = {"Low": 1_000, "Base": 2_000, "High": 3_000}
 PRICE_FACTOR = {"Low": 0.0, "Base": 0.5, "High": 1.0}
@@ -59,7 +72,9 @@ def price_gap(con) -> pd.DataFrame:
 
 with sqlite3.connect(DB) as con:
     gaps = price_gap(con)
-    dec = pd.read_sql("SELECT rule, decision, quadrant, spend_usd FROM supplier_decisions", con)
+    dec = pd.read_sql("SELECT supplier_code, rule, decision, quadrant, spend_usd FROM supplier_decisions", con)
+    year_codes = set(pd.read_sql("SELECT DISTINCT supplier_code FROM spend_lines WHERE fiscal_year = ?", con,
+                                 params=(BASE_YEAR,)).supplier_code.astype(str))
 gaps.to_csv(OUT / "step5_price_gap_goods.csv", index=False)
 
 measured = gaps.groupby("quadrant").agg(items=("gap", "size"), median_gap=("gap", "median"),
@@ -70,20 +85,35 @@ measured.to_csv(OUT / "step5_measured_price_gap.csv")
 
 annual = lambda mask: dec.loc[mask, "spend_usd"].sum() / YEARS / 1e6       # $M per year
 ca_spend = annual(dec.index == dec.index)
-moved = {q: annual(dec.rule.isin(["R5", "R8"]) & (dec.quadrant == q)) for q in measured.index}
+dec["active_year"] = dec.supplier_code.astype(str).isin(year_codes)
+LEV_NC = dec.quadrant.isin(["Leverage", "Non-critical"])
+in_tier = {
+    "Low": dec.rule.isin(["R3", "R5"]),
+    "Base": dec.rule.isin(["R3", "R5"]) | ((dec.rule == "R8") & LEV_NC),
+    "High": dec.rule.isin(["R3", "R5", "R8"]),
+}
+moves = {sc: in_tier[sc] & dec.rule.isin(["R5", "R8"]) for sc in in_tier}           # spend that changes supplier
 kept_leverage = annual((dec.decision == "KEEP") & (dec.quadrant == "Leverage"))
-removed_active = int(dec.rule.isin(["R3", "R5", "R8"]).sum())
-counts = dec.rule.value_counts()
-transition_ca = sum(counts.get(r, 0) * c for r, c in TRANSITION.items()) / 1e6
+n_year = int(dec.active_year.sum())
 program_ca = PROGRAM_RATIO * ca_spend
-spend_ratio, sup_ratio = JNJ_SPEND / ca_spend, JNJ_SUPPLIERS / len(dec)
+spend_ratio, sup_ratio = JNJ_SPEND / ca_spend, JNJ_SUPPLIERS / n_year
 
-rows = []
+tiers, rows = [], []
 for sc in ["Low", "Base", "High"]:
-    price = sum(moved[q] * measured.rate_used_high[q] * PRICE_FACTOR[sc] for q in measured.index)
+    out = in_tier[sc] & dec.active_year                                  # leave the managed base this year
+    removed = int(out.sum())
+    by_rule = dec.loc[out, "rule"].value_counts()
+    tiers.append(dict(tier=TIER[sc], scenario=sc, ca_active_suppliers=n_year, ca_removed=removed,
+                      **{f"ca_removed_{r}": int(by_rule.get(r, 0)) for r in ["R3", "R5", "R8"]},
+                      reduction=removed / n_year, jnj_before=JNJ_SUPPLIERS,
+                      jnj_after=round(JNJ_SUPPLIERS * (1 - removed / n_year), -2),
+                      jnj_latest_reported=JNJ_SUPPLIERS_LATEST))
+    price = sum(annual(moves[sc] & (dec.quadrant == q)) * measured.rate_used_high[q] * PRICE_FACTOR[sc]
+                for q in measured.index)
     retender = kept_leverage * RETENDER[sc]
-    process = removed_active * COST_PER_SUPPLIER[sc] / 1e6
+    process = removed * COST_PER_SUPPLIER[sc] / 1e6
     run = price + retender + process
+    transition_ca = sum(by_rule.get(r, 0) * c for r, c in TRANSITION.items()) / 1e6
     one_time = (program_ca + transition_ca) * (1 + CONT)
     jnj_price, jnj_retender, jnj_process = price * spend_ratio, retender * spend_ratio, process * sup_ratio
     jnj_run = jnj_price + jnj_retender + jnj_process
@@ -95,16 +125,20 @@ for sc in ["Low", "Base", "High"]:
                      jnj_process_m=jnj_process, jnj_run_rate_m=jnj_run,
                      jnj_one_time_m=jnj_one, jnj_3yr_savings_m=sum(flows), jnj_npv_m=npv,
                      data_backed_share=(jnj_price + jnj_process) / jnj_run))
+pd.DataFrame(tiers).to_csv(OUT / "step5_jnj_supplier_tiers.csv", index=False)
 res = pd.DataFrame(rows)
 res.to_csv(OUT / "step5_savings_scenarios.csv", index=False)
 
 inputs = pd.DataFrame([
     ("CA addressable spend per year ($M)", ca_spend),
-    *[(f"Re-routed spend per year, {q} ($M)", moved[q]) for q in measured.index],
+    *[(f"Re-routed spend per year, base plan, {q} ($M)", annual(moves["Base"] & (dec.quadrant == q)))
+      for q in measured.index],
     ("Kept spend per year, Leverage categories ($M)", kept_leverage),
-    ("Active supplier records removed (R3+R5+R8)", removed_active),
-    *[(f"Suppliers under {r}", int(counts.get(r, 0))) for r in TRANSITION],
-    ("CA suppliers", len(dec)),
+    (f"CA suppliers active in FY{BASE_YEAR}", n_year),
+    *[(f"Suppliers leaving the managed base, {TIER[sc].lower()} tier", t["ca_removed"])
+      for sc, t in zip(["Low", "Base", "High"], tiers)],
+    ("CA suppliers, all records (3 years)", len(dec)),
+    ("J&J suppliers used for scaling", JNJ_SUPPLIERS),
 ], columns=["input", "value"])
 inputs.to_csv(OUT / "step5_model_inputs.csv", index=False)
 

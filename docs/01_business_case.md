@@ -1,6 +1,6 @@
 # J&J Supplier Rationalization: Business Case
 
-> **Update 2026-10-22:** this is the step-0 top-down estimate. The real-data result replaces it: base case **$366M a year** for **$40M one-time**, 3-year NPV **$572M**, of which **$86M is measured** in the data; the re-tender of kept leverage suppliers must save **≥ 1.15%** to clear $300M. See [06_step5_savings.md](06_step5_savings.md) and the [updated business case (PDF)](JnJ_Business_Case_Final.pdf).
+> **Update 2026-10-22:** this is the step-0 top-down estimate. The real-data result replaces it: base case **$414M a year** for **$73M one-time**, 3-year NPV **$619M**, of which **$134M is measured** in the data; the re-tender of kept leverage suppliers must save **≥ 0.89%** to clear $300M. The J&J baseline is now 80,000 suppliers (earlier reported count), with the Kenvue spin-off and today's ~39,000 in [08_jnj_timeline_and_phase2.md](08_jnj_timeline_and_phase2.md). See [06_step5_savings.md](06_step5_savings.md) and the [updated business case (PDF)](JnJ_Business_Case_Final.pdf).
 
 Oct 20, 2026 · Hemant Singla
 

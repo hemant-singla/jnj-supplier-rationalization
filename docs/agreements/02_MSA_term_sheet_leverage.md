@@ -11,7 +11,7 @@
 | Term | `[3]` years + one optional `[1]`-year extension | Long enough for volume commitment; short enough to re-tender |
 | Volume | Non-binding forecast of `[$X]`/yr; supplier gets share of wallet of `[x]%` while meeting KPIs | Volume moved from consolidated suppliers (step 4 rules R5, R8) |
 | Pricing | Fixed unit prices / rate card in Schedule 2 for year 1 | — |
-| **Volume tiers** | Rebate of `[1]%` above `$[A]`, `[2]%` above `$[B]`, `[3]%` above `$[C]` annual spend, paid quarterly | Captures the re-tender saving; **base case needs ≥ 1.15%** across kept leverage spend to reach the $300M goal (step 5) |
+| **Volume tiers** | Rebate of `[1]%` above `$[A]`, `[2]%` above `$[B]`, `[3]%` above `$[C]` annual spend, paid quarterly | Captures the re-tender saving; **base case needs ≥ 0.89%** across kept leverage spend to reach the $300M goal (step 5) |
 | Price adjustment | Annual change capped at the lower of `[index]` and `[x]%`; decreases passed through in full | Protects the saving from inflation creep |
 | **Benchmark clause** | Buyer may benchmark prices every `[12]` months; if > `[5]%` above market, parties re-price within 60 days or Buyer may re-tender | Keeps the savings measured, not assumed |
 | Payment terms | Net `[60]` days; `[2]%/10` early-payment option; small suppliers paid net `[15–30]` | Working capital without hurting small suppliers |
@@ -36,6 +36,6 @@
 | Price vs pre-award baseline, same items | PO lines vs step 5 price-gap baseline | Quarterly |
 | Rebates earned | Supplier rebate statements | Quarterly |
 | Share of category spend on contract | Spend cube (step 2 SQL) | Monthly |
-| Re-tender saving achieved vs 1.15% hurdle | Finance-validated savings log | Twice a year |
+| Re-tender saving achieved vs 0.89% hurdle | Finance-validated savings log | Twice a year |
 
 *Case-study term sheet, not legal advice.*

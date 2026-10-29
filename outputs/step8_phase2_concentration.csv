@@ -1,0 +1,383 @@
+category,quadrant,top_share_before,top_share_after
+Accommodation furniture,Non-critical,0.3851004577447356,0.3873598640410577
+Accounting and bookkeeping services,Bottleneck,0.6515391133920656,0.6515391133920656
+Additives,Non-critical,0.20819450062773986,0.20912110626381067
+Adhesives and sealants,Non-critical,0.2317895683957603,0.23261828171924886
+Advertising,Bottleneck,0.6003716625341705,0.6094819668934763
+Aerospace systems and components and equipment,Bottleneck,0.5321168776425088,0.5751594193214364
+Agents affecting water and electrolytes,Bottleneck,0.2483135247612171,0.2483135247612171
+Agricultural and forestry and landscape machinery and equipment,Bottleneck,0.2096550202919627,0.21687197939517175
+Aircraft,Bottleneck,0.5494515631575576,0.5497653421081697
+Alloys,Bottleneck,0.9848502622537441,0.9848502622537441
+Alternative and holistic medicine,Strategic,0.4096304453855901,0.4312258678182865
+Alternative educational systems,Bottleneck,0.6496558489474525,0.6496558489474525
+Animal containment and habitats,Bottleneck,0.9985917519046782,0.9985917519046782
+Animal feed,Bottleneck,0.264660838531957,0.270461485855302
+Anti infective drugs,Non-critical,0.39982632327704815,0.39982632327704815
+Antineoplastic agents,Bottleneck,1.0,1.0
+Arts and crafts equipment and accessories and supplies,Non-critical,0.4004917210097384,0.4015699878772908
+Atomic and nuclear energy machinery and equipment,Non-critical,0.29210637470904627,0.30141079201001725
+Audio and visual presentation and composing equipment,Non-critical,0.28233373470224893,0.28242153174294615
+Automation control devices and components and accessories,Non-critical,0.1654319268286002,0.16597265994718577
+Banking and investment,Bottleneck,0.4690942151004678,0.48050624517006196
+Batteries and generators and kinetic power transmission,Non-critical,0.16253919731310312,0.1635644009522887
+Bearings and bushings and wheels and gears,Non-critical,0.34805401158053756,0.34805401158053756
+Bedclothes and table and kitchen linen and towels,Bottleneck,0.7327567883497353,0.7328110026941834
+Beverages,Bottleneck,0.27528530091981124,0.28745728022739986
+Bread and bakery products,Bottleneck,0.3041018118670057,0.308735887181696
+Building and facility maintenance and repair services,Leverage,0.07273340306268311,0.07316855006678827
+Business administration services,Strategic,0.6067399119437511,0.6128957994414869
+Camping and outdoor equipment and accessories,Bottleneck,0.17189775558849593,0.1758477890572807
+Canned or jarred fruit,Bottleneck,0.2881102530798754,0.29084946180986604
+Canned or jarred organic fruit,Non-critical,0.7570515377415701,0.7570515377415701
+Canned or jarred organic vegetables,Non-critical,0.7164566153207821,0.7164566153207821
+Canned or jarred vegetables,Non-critical,0.2957104192123386,0.302628507330019
+Cardiovascular drugs,Non-critical,0.6201831730531687,0.6201831730531687
+Central nervous system drugs,Non-critical,0.24789541447954835,0.2521853955406284
+Cereal and pulse products,Bottleneck,0.2676013242175293,0.2722865067864887
+Chicken processing machinery and equipment,Bottleneck,0.47277796919324067,0.4887307411544013
+Chocolate and sugars and sweeteners and confectionary products,Bottleneck,0.4363660186465031,0.44715924506791394
+Civic organizations and associations and movements,Bottleneck,0.5305231315896379,0.5372562546802335
+Classroom and instructional and institutional furniture and fixtures,Non-critical,0.3601952282567613,0.36186647489028156
+Classroom decoratives and supplies,Non-critical,0.7680476642943577,0.7680476642943577
+Cleaning and janitorial services,Bottleneck,0.8508406771055045,0.8603635759377602
+Cleaning and janitorial supplies,Non-critical,0.12334963990632626,0.12445789046537563
+Clinical nutrition,Bottleneck,0.40591102433757137,0.4222781687840885
+Clothing,Bottleneck,0.5379957207071053,0.5511719072702235
+Clubs,Bottleneck,0.926937439254217,0.926937439254217
+Collectibles and awards,Non-critical,0.3681091952991699,0.3681091952991699
+Colorants,Non-critical,0.34744902868886074,0.34744902868886074
+Commercial and industrial furniture,Non-critical,0.45795737573107764,0.45795737573107764
+Communications Devices and Accessories,Strategic,0.8644711634225637,0.8808069854285036
+Community and social services,Strategic,0.4806672598675852,0.4820169473958112
+Components for information technology or broadcasting or telecommunications,Non-critical,0.318153201542927,0.32036215918989847
+Compounds and mixtures,Non-critical,0.30443321513279153,0.30443321513279153
+Comprehensive health services,Leverage,0.2241758448834365,0.22584105946797786
+Computer Equipment and Accessories,Leverage,0.3837963151760103,0.3842243154976028
+Computer services,Leverage,0.28638425952439245,0.28884514520823623
+Concrete and cement and plaster,Non-critical,0.27578956304999974,0.27816219394915326
+Construction and maintenance support equipment,Bottleneck,0.16327673121916958,0.1651121255019642
+Consumer electronics,Strategic,0.8623772362358059,0.8712767873881342
+Containers and storage,Non-critical,0.1232878188457205,0.12437699140592204
+Conventional war weapons,Bottleneck,0.5201983422428923,0.5453458167240883
+Credit agencies,Strategic,0.7904370160289561,0.7906738442533415
+Crop production and management and protection,Bottleneck,0.3553401354707948,0.36348964483589774
+Dairy products and eggs,Bottleneck,0.4597224648319998,0.47129590496702645
+Data Voice or Multimedia Network Equipment or Platforms and Accessories,Leverage,0.281400112048841,0.2832621683066664
+Death and dying support services,Bottleneck,0.6183365647144178,0.6639518413597734
+Decontamination services,Bottleneck,0.37686200092234373,0.38203843518233355
+Defense and law enforcement and security and safety training equipment,Non-critical,0.28346840150738317,0.28640157802197663
+Dental equipment and supplies,Non-critical,0.27129256289762976,0.27363485016817735
+Development finance,Strategic,0.8074022696200062,0.8448447145309589
+Developmental and professional teaching aids and materials and accessories and supplies,Leverage,0.2870253048955475,0.29167672795899574
+Dialysis equipment and supplies,Bottleneck,0.905213248659405,0.905213248659405
+Discrete semiconductor devices,Non-critical,0.6240512823879373,0.6240512823879373
+Disease prevention and control,Bottleneck,0.7971600549427309,0.8017311797253144
+Domestic and personal assistance,Bottleneck,0.19438879326221065,0.19438879326221065
+Domestic appliances,Non-critical,0.15421572733442324,0.15625774969818776
+Domestic kitchenware and kitchen supplies,Non-critical,0.21023998153438242,0.21377974668117888
+Domestic pet products,Bottleneck,0.5391245535790699,0.5465561795939811
+Domestic wall treatments,Bottleneck,1.0,1.0
+Doors and windows and glass,Non-critical,0.403256327059135,0.40991294807058076
+Dried cut blooms of high species or variety count flowers,Bottleneck,1.0,1.0
+Dried cut blooms of low species or variety count flowers,Bottleneck,0.5023649484536082,0.5023649484536082
+Dried cut roses,Bottleneck,1.0,1.0
+Dried fruit,Bottleneck,0.8439059847762135,0.8439059847762135
+Dried organic fruit,Non-critical,1.0,1.0
+Dried organic vegetables,Bottleneck,0.511921809318638,0.511921809318638
+Dried vegetables,Bottleneck,0.38496314613213334,0.38496314613213334
+"Drugs affecting the ears, eye, nose and skin",Non-critical,0.48268717302014824,0.4891583915495428
+Drugs affecting the gastrointestinal system,Non-critical,0.9848046772607429,0.9848046772607429
+Earth and stone,Non-critical,0.2106555318373465,0.21108355442593274
+Earth science services,Bottleneck,0.3444719667272134,0.3674856794215466
+Economics,Bottleneck,1.0,1.0
+Edible oils and fats,Bottleneck,0.3531718062157502,0.3531718062157502
+Educational facilities,Bottleneck,0.7793300388124443,0.780174514156342
+Educational institutions,Bottleneck,0.555498405513836,0.555498405513836
+Electrical equipment and components and supplies,Leverage,0.5539939397411845,0.5551752514096344
+Electrical wire and cable and harness,Non-critical,0.3305663648640263,0.33370284355637503
+Electrical wire management devices and accessories and supplies,Bottleneck,0.5957019758260784,0.6110647955848544
+Electron tube devices and accessories,Non-critical,0.7875630955467663,0.7875630955467663
+Electronic hardware and component parts and accessories,Non-critical,0.5020503519253088,0.5020503519253088
+Electronic manufacturing machinery and equipment and accessories,Bottleneck,1.0,1.0
+Electronic reference material,Bottleneck,0.4100525469563651,0.41527847091469294
+Elements and gases,Non-critical,0.27197515955283763,0.2736959921721548
+Emergency and field medical services products,Non-critical,0.18966227078586947,0.19420706419571312
+Entertainment services,Bottleneck,1.0,1.0
+Environmental management,Strategic,0.19919487530391874,0.20439261175522086
+Environmental protection,Bottleneck,0.7163932670896367,0.7463047008819299
+Explosive materials,Bottleneck,0.6840280343230861,0.6884523123751688
+Exterior finishing materials,Bottleneck,0.8308254326032252,0.8339149565128315
+Fabricated pipe assemblies,Bottleneck,0.8047147131764545,0.8047147131764545
+Fabricated structural assemblies,Bottleneck,1.0,1.0
+Fabricated tube assemblies,Non-critical,0.6197657757178422,0.6197657757178422
+Fabrics and leather materials,Non-critical,0.19373220767206656,0.19373220767206656
+Fertilizers and plant nutrients and herbicides,Bottleneck,0.5904338440445465,0.6178409237645669
+Fibers and textiles and fabric industries,Non-critical,0.7959965232388269,0.7959965232388269
+Fibers and threads and yarns,Non-critical,0.4548144566231628,0.4548144566231628
+Field and court sports equipment,Non-critical,0.20346772955214534,0.20980927493355558
+Fire protection,Strategic,0.3959337679436601,0.4009357048308474
+Fisheries and aquaculture,Bottleneck,0.3108729799703153,0.332974135773257
+Fishing and aquaculture equipment,Bottleneck,0.6946142773498324,0.6946142773498324
+Fishing and hunting equipment,Non-critical,0.36726733729361843,0.3802079338405004
+Fitness equipment,Non-critical,0.2900939182401747,0.2900939182401747
+Floor coverings,Non-critical,0.46932742786846704,0.46932742786846704
+Floriculture and silviculture products,Bottleneck,0.31770936060283467,0.3267746843472932
+Fluid and gas distribution,Bottleneck,0.1861665911353425,0.18972982291819498
+Food and beverage industries,Bottleneck,0.1567409671118562,0.16296994807345433
+Food and nutrition services,Bottleneck,0.9140508935313807,0.9140508935313807
+Footwear,Non-critical,0.22413903248227512,0.22480073346432553
+Forestry,Bottleneck,0.740597785608938,0.7629890883592462
+Forgings,Non-critical,0.46603441700719067,0.4675676267725222
+Foundry machines and equipment and supplies,Non-critical,0.9497510185604345,0.9497510185604345
+Fresh cut blooms of high species or variety count flowers,Non-critical,0.3199951189913534,0.3199951189913534
+Fresh cut blooms of low species or variety count flowers,Non-critical,0.510855476868477,0.510855476868477
+Fresh cut rose,Non-critical,0.39652498564364697,0.39652498564364697
+Fresh fruits,Non-critical,0.2226172690022583,0.22342010465672954
+Fresh vegetables,Non-critical,0.32486441525751325,0.32586278842700295
+Frozen fruit,Bottleneck,0.8764282402272945,0.8764282402272945
+Frozen organic fruit,Bottleneck,1.0,1.0
+Frozen organic vegetables,Non-critical,0.7379510450630101,0.7379510450630101
+Frozen vegetables,Bottleneck,0.944128132148006,0.944128132148006
+Fuel for nuclear reactors,Bottleneck,0.9290614838066954,0.9290614838066954
+Fuels,Strategic,0.502587004879318,0.5267425626878482
+Gaseous fuels and additives,Bottleneck,0.6794241634793087,0.7113163968192455
+Gaskets,Non-critical,0.723134016799587,0.723134016799587
+Graphic design,Non-critical,0.48867392654135094,0.48867392654135094
+Grinding and polishing and smoothing materials,Non-critical,0.7591606514946714,0.759392694288198
+Gymnastics and boxing equipment,Non-critical,0.6517244730728627,0.6517244730728627
+Hand tools,Non-critical,0.3379784538901829,0.34043009829439297
+Hardware,Non-critical,0.13047423821699744,0.13252615418860528
+Heating and ventilation and air circulation,Non-critical,0.20188157395705708,0.20262641471850687
+Heavy construction machinery and equipment,Non-critical,0.24014914531606787,0.24118909677306366
+Heavy construction services,Strategic,0.45385008738121774,0.4617396010334424
+Hematolic drugs,Bottleneck,0.5777059383341077,0.5777059383341077
+Home furnishing adornments,Non-critical,0.7780064456481428,0.7780064456481428
+Hormones and hormone antagonists,Bottleneck,0.19470876564896042,0.19470876564896042
+Horticulture,Bottleneck,0.22476599193270222,0.23266347867287013
+Hotels and lodging and meeting facilities,Bottleneck,0.34262914762964713,0.3712049670129142
+Housings and cabinets and casings,Non-critical,0.3430164654063195,0.3430164654063195
+Human resources services,Leverage,0.6982085647479932,0.7104947011831171
+Humanitarian aid and relief,Bottleneck,0.42734047162539196,0.4395084930664141
+Hydraulic machinery and equipment,Bottleneck,0.38404183957705645,0.4023200650831768
+Immunomodulating drugs,Bottleneck,0.3240759710630478,0.3248066621175776
+Independent living aids for the physically challenged,Bottleneck,0.5231907503607166,0.5292410284544414
+Industrial filtering and purification,Non-critical,0.24440167017191047,0.2462926560071791
+Industrial food and beverage equipment,Non-critical,0.14203978414476676,0.14203978414476676
+Industrial laundry and dry cleaning equipment,Non-critical,0.2055137194559592,0.2055137194559592
+Industrial machine tools,Non-critical,0.9552165698691484,0.9552165698691484
+Industrial optics,Non-critical,0.37116269963333764,0.37116269963333764
+Industrial process machinery and equipment and supplies,Non-critical,0.17004791966686272,0.170449172756801
+Industrial pumps and compressors,Non-critical,0.1060732007424547,0.10636605701528692
+Industrial refrigeration,Non-critical,0.49328648745528686,0.49608495880110304
+Industrial use papers,Bottleneck,0.7591046767904595,0.765258753129923
+Information Technology Service Delivery,Non-critical,0.2935164822625299,0.3002019908840672
+Information services,Bottleneck,0.6006660674108966,0.6071274561385377
+Institutional food services equipment,Non-critical,0.12276518174423838,0.12390416106448292
+Insulation,Non-critical,0.4092566666027382,0.4092566666027382
+Insurance and retirement services,Bottleneck,0.347172070506233,0.3823537994948735
+Interior finishing materials,Non-critical,0.22098699750147305,0.22185706526251328
+International relations,Bottleneck,0.8320824110902162,0.8320824110902162
+Intravenous and arterial administration products,Non-critical,0.37102732823933177,0.37102732823933177
+Janitorial equipment,Non-critical,0.11374139686358815,0.1141887023183815
+Jewelry,Non-critical,0.9712087686013811,0.9712087686013811
+Laboratory and scientific equipment,Non-critical,0.40560394867470123,0.40864737042745297
+Laboratory supplies and fixtures,Non-critical,0.7532315587568723,0.7628391498008962
+Lamps and lightbulbs and lamp components,Non-critical,0.3617658086689332,0.3670890596056347
+Land and soil preparation and management and protection,Strategic,0.19767687584688137,0.20390328626547627
+Land parcels,Bottleneck,0.7338351649494183,0.7338351649494183
+Lapidary machinery and equipment,Non-critical,0.7348022505206661,0.7348022505206661
+Launchers,Non-critical,1.0,1.0
+Law enforcement,Bottleneck,0.6785435519374995,0.6850884307018997
+Legal services,Strategic,0.7757319041727923,0.8101369553147771
+Light weapons and ammunition,Bottleneck,0.2775726687447785,0.2795919224748629
+Lighting Fixtures and Accessories,Non-critical,0.13092912641697066,0.13168175245480362
+Live animals,Bottleneck,0.13152458702921943,0.13152458702921943
+Live plants of high species or variety count flowers,Non-critical,0.27577032917034733,0.27577032917034733
+Live plants of low species or variety count flowers,Non-critical,0.9987761762306229,0.9987761762306229
+Live rose bushes,Non-critical,0.8501735860752329,0.8501735860752329
+Livestock services,Bottleneck,0.9555853171891655,0.9555853171891655
+Lubricants and oils and greases and anti corrosives,Non-critical,0.16689665376628737,0.17082104723508404
+Luggage and handbags and packs and cases,Non-critical,0.21094970004722494,0.2125168387156663
+Machined castings,Bottleneck,1.0,1.0
+Machined extrusions,Bottleneck,1.0,1.0
+Machined raw stock,Non-critical,1.0,1.0
+Machinery and transport equipment manufacture,Non-critical,0.2819539956297455,0.2824443112437952
+Machining and processing services,Bottleneck,0.1766460221633241,0.18096438149968902
+Magnets and magnetic materials,Bottleneck,0.9323723355313602,0.9323723355313602
+Mail and cargo transport,Bottleneck,0.36223125021601427,0.37734403317373694
+Management advisory services,Leverage,0.3399020580832737,0.3419318823199441
+Manufacture of electrical goods and precision instruments,Bottleneck,0.4167006457346977,0.42350471073983925
+Manufacturing support services,Bottleneck,0.7382517477587199,0.7501220167225451
+Manufacturing technologies,Bottleneck,0.30744606630860066,0.32228590669872276
+Marine transport,Bottleneck,0.5168728066444261,0.5258215818987741
+Marketing and distribution,Strategic,0.23806675926469012,0.24900698669779447
+Mass transfer equipment,Non-critical,0.7634255446705625,0.7634255446705625
+Material handling machinery and equipment,Non-critical,0.0855814873019122,0.08673993257509321
+Material packing and handling,Non-critical,0.2775027231353114,0.27812359060814085
+Measuring and observing and testing instruments,Non-critical,0.09729948098265125,0.09802598159155844
+Meat and poultry products,Bottleneck,0.2879159542358138,0.2984171445670918
+Medical Surgical Equipment Maintenance Refurbishment and Repair Services,Bottleneck,0.2277429409945562,0.23465153235099953
+Medical apparel and textiles,Non-critical,0.18180935542722537,0.1827347900968905
+Medical diagnostic imaging and nuclear medicine products,Bottleneck,0.8409559801465275,0.8497931334331291
+Medical facility products,Non-critical,0.14820388898952627,0.14951639672077266
+Medical practice,Leverage,0.10983318954726831,0.11400898214220946
+Medical science research and experimentation,Bottleneck,0.5098039215686274,0.5098039215686274
+Medical sterilization products,Non-critical,0.1795768212806647,0.17962916241510082
+Medical training and education supplies,Non-critical,0.8606296486877583,0.8704201095611056
+Merchandising furniture and accessories,Non-critical,1.0,1.0
+Metal and mineral industries,Non-critical,0.5374702086588377,0.5374702086588377
+Metal cutting machinery and accessories,Non-critical,0.23104247020866142,0.2329448648886853
+Metal forming machinery and accessories,Non-critical,0.5867734389423944,0.5993626014133481
+Metal treatment machinery,Bottleneck,0.4711122771784975,0.4736414724320753
+Metal waste scrap and by products,Strategic,0.5582496987212467,0.5582496987212467
+Military services and national defense,Non-critical,0.6716887190282652,0.6716887190282652
+Minerals and ores and metals,Non-critical,0.2512947245541053,0.2512947245541053
+Mining and quarrying machinery and equipment,Non-critical,0.1708823513630277,0.17340632907436984
+Mining services,Bottleneck,0.6240628108371762,0.6240628108371762
+Miscellaneous drug categories,Non-critical,0.6376811594202898,0.6376811594202898
+Missiles,Bottleneck,0.9864642302987295,0.9864642302987295
+Mixers and their parts and accessories,Non-critical,0.4631510446727818,0.4631510446727818
+Motor vehicles,Leverage,0.15427307717307912,0.15602305089631074
+Musical Instruments and parts and accessories,Non-critical,0.16099850896439696,0.16099850896439696
+Non edible plant and forestry products,Bottleneck,0.44758193805165797,0.4549415088604313
+Non motorized cycles,Non-critical,0.35040950901583523,0.35040950901583523
+Nonresidential building construction services,Leverage,0.4688290825943204,0.4690238481087397
+Nuts and seeds,Bottleneck,0.9311563130311364,0.9311563130311364
+Office and desk accessories,Non-critical,0.1893597291762934,0.18966505243015114
+Office machines and their supplies and accessories,Leverage,0.3104158229466221,0.31136974767420056
+Office supplies,Non-critical,0.26889350646745996,0.2691630213995584
+Oil and gas data management and processing services,Non-critical,0.37666850993080436,0.37666850993080436
+Oil and gas drilling and exploration equipment,Non-critical,0.7171252611836239,0.7240045811324852
+Oil and gas drilling and operation materials,Bottleneck,0.6663577672344047,0.6663577672344047
+Oil and gas exploration services,Bottleneck,0.9789705358812285,0.9789705358812285
+Oil and gas extraction and production enhancement services,Bottleneck,0.2735488717370082,0.2870425156161777
+Oil and gas operating and production equipment,Bottleneck,0.4577213259389328,0.4736575660469395
+Oil and gas restoration and reclamation services,Bottleneck,0.7006763017826689,0.7006763017826689
+Oil and gas well project management services,Bottleneck,0.3146199485407612,0.3146199485407612
+Organic fresh fruits,Non-critical,0.5433370832661186,0.5433370832661186
+Organic fresh vegetables,Non-critical,0.43798268903759247,0.43798268903759247
+Orthopedic and prosthetic and sports medicine products,Bottleneck,0.399584941411287,0.3996008679461591
+Orthopedic surgical implants,Non-critical,0.37516170763260026,0.37516170763260026
+Other sports,Non-critical,0.8350484899631224,0.8350484899631224
+Packaging materials,Non-critical,0.21169488075883994,0.21328564625098423
+Packing supplies,Non-critical,0.18535502035517692,0.18630377142350807
+Paints and primers and finishes,Non-critical,0.3933540306945164,0.3936422899160834
+Paper products,Non-critical,0.17222168034340296,0.1729444901619139
+Passenger transport,Bottleneck,0.23232394686603808,0.2414444957795683
+Passive discrete components,Non-critical,0.26308305177980257,0.26308305177980257
+Patient care and treatment products and supplies,Non-critical,0.15574099342161074,0.15640252714234318
+Patient exam and monitoring products,Non-critical,0.1577860658696852,0.1593761273179198
+Permanent buildings and structures,Bottleneck,0.35234267259286217,0.35460498049578915
+Personal appearance,Non-critical,1.0,1.0
+Personal care products,Non-critical,0.15031213849743166,0.15083669955828244
+Personal safety and protection,Non-critical,0.1928364388272149,0.19480189508760867
+Pest control products,Bottleneck,0.34503857989383085,0.35532607951293194
+Petroleum processing machinery,Non-critical,0.6641388850544666,0.6641388850544666
+Photographic and recording media,Non-critical,0.8228185998469302,0.8228185998469302
+Photographic filmmaking supplies,Bottleneck,0.9987390669095131,0.9987390669095131
+Photographic or filming or video equipment,Non-critical,0.2942002957940075,0.2957968985419156
+Photographic services,Bottleneck,0.5497218483846921,0.5654081358666072
+Physical and occupational therapy and rehabilitation products,Bottleneck,0.41295012042443047,0.4206751821293389
+Pipe piping and pipe fittings,Non-critical,0.3529877101065586,0.35639090977442844
+Plastic and chemical industries,Bottleneck,0.34063256550344334,0.3431746465201804
+Plumbing fixtures,Non-critical,0.338735687146516,0.3398186325204095
+Pneumatic and hydraulic and electric control systems,Non-critical,0.2251926625974615,0.2251926625974615
+Pneumatic machinery and equipment,Non-critical,0.32847423447374574,0.33467289427901986
+Political systems and institutions,Bottleneck,0.44940562481878804,0.44940562481878804
+Pollutants tracking and monitoring and rehabilitation services,Bottleneck,0.8328920116194433,0.8797892559854527
+Pollution tracking and monitoring and rehabilitation,Bottleneck,0.8161115957171964,0.8198350458419712
+Portable Structure Building Components,Non-critical,0.36171493878417627,0.36176023179622696
+Portable buildings and structures,Bottleneck,0.8210989160418125,0.8271921438933324
+Postmortem and mortuary equipment and supplies,Non-critical,0.7111400625746405,0.7111400625746405
+Power generation,Bottleneck,0.5223286193046273,0.5261694230653317
+Power sources,Bottleneck,0.13135844779765987,0.13452000534770484
+Prefabricated buildings and structures,Bottleneck,0.8960770651643518,0.8992062726934502
+Prepared and preserved foods,Bottleneck,0.15835722398732957,0.1653731831116982
+Printed circuits and integrated circuits and microassemblies,Non-critical,0.5286052695806503,0.5321651749139089
+Printed media,Bottleneck,0.30143363918312766,0.314411689504097
+Printing and publishing equipment,Bottleneck,0.5869396598795278,0.5989467497380829
+Professional artists and performers,Bottleneck,0.5090983500045555,0.5090983500045555
+Professional engineering services,Leverage,0.0911677125379798,0.0930183744001497
+Public administration and finance services,Leverage,0.2701115305706722,0.27457049644073744
+Public order and safety,Strategic,0.7243028815158472,0.7584384017318547
+Public safety and control,Bottleneck,0.8135758921430376,0.8317157662280521
+Pureed fruit,Bottleneck,1.0,1.0
+Railway and tramway machinery and equipment,Bottleneck,0.994725892193028,0.994725892193028
+Rapid prototyping machinery and accessories,Bottleneck,0.5054652457649789,0.5054652457649789
+Raw materials processing machinery,Bottleneck,0.8834280953130671,0.8834298050993358
+Real estate services,Bottleneck,0.22937209592735164,0.23352412215107868
+Recreation and playground and swimming and spa equipment and supplies,Non-critical,0.47818545444205374,0.47818545444205374
+Refractories,Non-critical,1.0,1.0
+Refuse disposal and treatment,Leverage,0.10071799941361871,0.10218039146460278
+Reproduction services,Non-critical,0.2558065143366555,0.25738324425708464
+Residential building construction services,Bottleneck,0.824542402252789,0.824542402252789
+Resins and rosins and other resin derived materials,Non-critical,0.1950061644720253,0.1950061644720253
+Respiratory and anesthesia and resuscitation products,Non-critical,0.18687773660575896,0.18949994451288726
+Restaurants and catering,Bottleneck,0.17904446489798037,0.18412760379686413
+Roads and landscape,Leverage,0.06591463442279233,0.06598404464894213
+Rockets and subsystems,Bottleneck,1.0,1.0
+Rope and chain and cable and wire and strap,Non-critical,0.31657626752116896,0.31862928480679614
+Rubber and elastomers,Bottleneck,0.7317979641023588,0.7317979641023588
+Saddlery and harness goods,Non-critical,0.2669672631729325,0.2669672631729325
+Sawmilling and lumber processing machinery and equipment,Non-critical,0.2460944260934664,0.2460944260934664
+Scrap and waste materials,Bottleneck,0.22930058693799518,0.22993461588673725
+Seafood,Bottleneck,0.9289077043697888,0.935855614231182
+Seals,Non-critical,0.720285818950341,0.7214405106758002
+Seasonings and preservatives,Non-critical,0.3726055919735475,0.37585238858000863
+Security and personal safety,Strategic,0.7816652539882676,0.8184978038841683
+Security surveillance and detection,Strategic,0.6507605896071468,0.6586762174077675
+Seeds and bulbs and seedlings and cuttings,Non-critical,0.184618177050237,0.1864382670798734
+Sewing supplies and accessories,Non-critical,0.9311308954455155,0.9311308954455155
+Signage and accessories,Non-critical,0.38595634276214774,0.38637142224604826
+Socio political conditions,Bottleneck,1.0,1.0
+Software,Leverage,0.5026673177730631,0.5092175589548747
+Solvents,Non-critical,0.5355239834415985,0.5355239834415985
+Spacecraft,Bottleneck,0.9996791030079344,0.9996791030079344
+Specialized educational services,Bottleneck,0.5582296617117086,0.5582296617117086
+Specialized trade construction and maintenance services,Leverage,0.3496883552447621,0.3508461717035907
+Sports equipment and accessories,Non-critical,0.4879363512153652,0.4879363512153652
+Stampings and sheet components,Non-critical,0.43227861264425027,0.43227861264425027
+Statistics,Bottleneck,0.7080149885639204,0.7080149885639204
+Storage,Bottleneck,0.23869661974834247,0.2423218034697
+Structural building products,Bottleneck,0.2052268579056121,0.20860038057682523
+Structural components and basic shapes,Non-critical,0.19062960960778713,0.19257004856596568
+Structural materials,Non-critical,0.43177717846211244,0.4317816354913362
+Surgical products,Non-critical,0.2131882834362958,0.2134323067317638
+Target and table games and equipment,Bottleneck,0.5636787826639023,0.5636787826639023
+Taxation,Strategic,0.9998267407774841,0.9998470367169756
+Telecommunications media services,Non-critical,0.37279209168154437,0.3780976979890429
+Textile and fabric machinery and accessories,Bottleneck,0.5813534825684367,0.5813534825684367
+Thoroughfares,Bottleneck,0.6451612903225806,0.6451612903225806
+Timepieces,Non-critical,0.30374872862254254,0.30374872862254254
+Toxic and hazardous waste cleanup,Bottleneck,0.3566223733779531,0.3822223497681121
+Toys and games,Non-critical,0.5340547962780279,0.5383181158002646
+Trade policy and services,Bottleneck,0.4004328344805024,0.40050990947061804
+Transport services,Non-critical,0.5774237115621758,0.5774237115621758
+Transportation components and systems,Non-critical,0.148605338569005,0.15008703713144478
+Transportation repair or maintenance services,Non-critical,0.08566090491514244,0.08676695114856041
+Transportation services equipment,Bottleneck,0.6693019326173795,0.6821673180523642
+Travel facilitation,Bottleneck,0.5605749280352331,0.5607883673805372
+Tubes tubing and tube fittings,Non-critical,0.3164924652799719,0.3164924652799719
+Unclassified,Non-critical,0.144980237141892,0.1469305013439145
+Utilities,Strategic,0.7751343462461346,0.7871893863544723
+Vehicle bodies and trailers,Bottleneck,0.3337200377356881,0.3399700902399298
+Vending machines,Bottleneck,0.4021010262879319,0.4045732268212524
+Veterinary equipment and supplies,Non-critical,0.4791418105946986,0.4791418105946986
+Vocational training,Leverage,0.19487720951060497,0.2005202047743881
+Water and wastewater treatment supply and disposal,Bottleneck,0.4573289215936453,0.4647481854959912
+Water resources development and oversight,Strategic,0.34414099725159675,0.3465892919812232
+Watersports equipment,Bottleneck,0.27549462191767277,0.27549462191767277
+Waxes and oils,Non-critical,0.4133222480511315,0.4133222480511315
+Welding and soldering and brazing machinery and accessories and supplies,Non-critical,0.30673793716291353,0.30673793716291353
+Well drilling and construction services,Bottleneck,0.666935711531469,0.68406107882834
+Well drilling and operation equipment,Bottleneck,0.22424220809748752,0.22424220809748752
+Wildlife and flora,Bottleneck,0.9281570127082152,0.9353919342364844
+Window treatments,Non-critical,0.28234816265078944,0.28234816265078944
+Winter sports equipment,Bottleneck,1.0,1.0
+Wire machinery and equipment,Non-critical,0.3751768607019391,0.3751768607019391
+Wood and paper industries,Non-critical,0.6827803305724714,0.6890298761533878
+Work related organizations,Bottleneck,0.890945840435817,0.9210864498784593
+Wound care products,Bottleneck,0.26180465519466445,0.2623287171974889
+Writing and translations,Non-critical,0.21737901142701163,0.21801399382443593
+lized trade construction and maintenance services,Bottleneck,1.0,1.0

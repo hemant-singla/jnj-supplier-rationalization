@@ -16,7 +16,7 @@ For the 12,284 suppliers that are not kept, [05_supplier_transition_notice.md](0
 
 ## How the templates tie back to the analysis
 
-- **The MSA's price and re-tender clauses** test the business case's critical assumption. To reach the $300M goal, the base case needs at least a **1.15% saving** on kept leverage spend (step 5). The MSA's tier structure and benchmark clause are how that saving is captured and measured.
+- **The MSA's price and re-tender clauses** test the business case's critical assumption. To reach the $300M goal, the base case needs at least a **0.89% saving** on kept leverage spend (step 5). The MSA's tier structure and benchmark clause are how that saving is captured and measured.
 - **Bottleneck agreements don't consolidate.** Step 5 found small bottleneck suppliers were *cheaper* than the kept ones (median −10%). These agreements secure supply and add a second source rather than squeezing price.
 - **The MOU is deliberately non-binding** on price and volume. It records shared intent (joint roadmap, capacity, innovation) and always sits on top of a binding supply agreement.
 - **Small and diverse suppliers kept under rule R7** go into the development program referenced in the MSA and catalog terms. That is how 96.6% of active small/diverse spend is retained.
