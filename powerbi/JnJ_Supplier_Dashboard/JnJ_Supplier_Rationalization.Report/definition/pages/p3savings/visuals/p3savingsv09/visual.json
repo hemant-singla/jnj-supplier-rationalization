@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Measured savings: $63M price gap on re-routed spend + $23M fewer suppliers to maintain.",
+                    "value": "Measured savings: $63M price gap on re-routed spend + $71M fewer suppliers to manage.",
                     "textStyle": {
                       "fontSize": "11px",
                       "color": "#1F2933"
@@ -42,7 +42,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "The other $280M assumes a 1.5% re-tender saving with kept leverage suppliers.",
+                    "value": "The other $280M assumes a 1.5% re-tender saving with kept leverage suppliers; 152 of them hold 80% of that spend.",
                     "textStyle": {
                       "fontSize": "11px",
                       "color": "#1F2933"
@@ -53,7 +53,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "To reach $300M, that re-tender must deliver at least 1.15%: test it in a pilot sourcing wave first.",
+                    "value": "To reach $300M, the re-tender must deliver at least 0.89% (1.2% in the conservative plan): pilot it first.",
                     "textStyle": {
                       "fontSize": "11px",
                       "color": "#1F2933"
@@ -64,7 +64,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Payback is fast: $40M one-time cost; even the low case has a positive NPV ($135M).",
+                    "value": "One-time cost $73M base ($34M conservative); even the low case has a positive NPV ($158M).",
                     "textStyle": {
                       "fontSize": "11px",
                       "color": "#1F2933"

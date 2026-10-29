@@ -1,7 +1,7 @@
 """Step 5b · How much of the case rests on the re-tender assumption?
 
 The re-tender saving on kept Leverage suppliers cannot be measured in the data, and it is $280M of the
-$366M base case. This script turns it into a testable claim: J&J run-rate savings as a function of the
+$414M base case. This script turns it into a testable claim: J&J run-rate savings as a function of the
 re-tender rate, with the rate needed to reach the $300M goal (the break-even).
 
     run-rate(r) = measured savings (price gap + fewer suppliers) + r x kept Leverage spend (J&J scale)

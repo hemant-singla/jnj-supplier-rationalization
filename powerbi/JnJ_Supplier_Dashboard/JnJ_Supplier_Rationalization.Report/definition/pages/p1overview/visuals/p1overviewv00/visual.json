@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Supplier Rationalization: cut 73% of supplier records, keep 87% of spend",
+                    "value": "Supplier Rationalization: one decision and a reason code per supplier; 87% of spend stays with kept suppliers",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "20px",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Real procurement data: State of California purchase orders FY2012-15 (16,933 addressable suppliers, $7.3B/yr), scaled to J&J's public totals (~29,000 suppliers, ~$35B addressable spend)",
+                    "value": "Real procurement data: California purchase orders FY2012-15 (16,933 supplier records, 8,226 active in FY2014-15, $7.3B/yr), scaled to J&J: 80,000 suppliers reported earlier, ~39,000 today after the 2023 Kenvue spin-off",
                     "textStyle": {
                       "fontSize": "11px",
                       "color": "#52606D"

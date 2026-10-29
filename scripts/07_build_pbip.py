@@ -346,11 +346,11 @@ def write_model(out):
 
 
 # ----------------------------------------------------------------------------- pages
-SUB = ("Real procurement data: State of California purchase orders FY2012-15 (16,933 addressable suppliers, "
-       "$7.3B/yr), scaled to J&J's public totals (~29,000 suppliers, ~$35B addressable spend)")
+SUB = ("Real procurement data: California purchase orders FY2012-15 (16,933 supplier records, 8,226 active in "
+       "FY2014-15, $7.3B/yr), scaled to J&J: 80,000 suppliers reported earlier, ~39,000 today after the 2023 Kenvue spin-off")
 
 p1 = Page("p1overview", "1 Executive Summary")
-p1.header("Supplier Rationalization: cut 73% of supplier records, keep 87% of spend", SUB)
+p1.header("Supplier Rationalization: one decision and a reason code per supplier; 87% of spend stays with kept suppliers", SUB)
 cards = [(meas("Suppliers", "Suppliers Today"), "Suppliers today", NAVY),
          (meas("Suppliers", "Suppliers Kept"), "Suppliers kept", TEAL),
          (meas("Suppliers", "Supplier Reduction %"), "Supplier reduction", TEAL),
@@ -392,8 +392,8 @@ p1.slicer(1064, 452, 200, 76, col("Quadrants", "Quadrant"), "Kraljic quadrant")
 p1.slicer(848, 540, 200, 76, col("Suppliers", "Small or Diverse"), "Small or diverse")
 p1.slicer(1064, 540, 200, 76, col("Suppliers", "Decision"), "Decision")
 p1.note(848, 628, 416, 76, "So what",
-        ["8,824 exits are inactive or one-time vendors: the easiest exits to defend.",
-         "Strategic (A) suppliers are never cut; they move to partnership agreements."])
+        ["Small cut, big impact: a 27% cut (duplicates + one-time vendors) keeps 86% of the value.",
+         "Strategic and sole-source suppliers are never cut."])
 
 p2 = Page("p2categories", "2 Category Strategy")
 p2.header("Category strategy: consolidate leverage and non-critical categories, protect bottlenecks",
@@ -433,9 +433,9 @@ p2.table(16, 504, 1248, 200,
          totals=False)
 
 p3 = Page("p3savings", "3 Savings Case")
-p3.header("Savings: $366M a year at J&J scale in the base case, but only $86M is measured in the data",
+p3.header("Savings: $414M a year at J&J scale in the base case; $134M is measured, and a 27% cut already captures $356M",
           "Price-gap test on 127 goods items bought from both kept and exiting suppliers; re-tender saving is an "
-          "assumption. Scaled to J&J by spend ($35B) and supplier count (29,000).")
+          "assumption. Scaled to J&J by spend ($35B) and supplier count (80,000 / 8,226 active suppliers in one year).")
 cards3 = [(meas("Scenarios", "Base Run-rate ($M)"), "Run-rate savings, base ($M/yr)", TEAL),
           (meas("Scenarios", "Base Measured ($M)"), "Measured in the data ($M/yr)", NAVY),
           (meas("Scenarios", "One-time Cost ($M)"), "One-time cost ($M)", MUTED),
@@ -469,10 +469,10 @@ p3.table(16, 490, 820, 214,
          "Price-gap evidence: same item, kept vs exiting suppliers", sort=(agg("PriceGap", "Exiting Spend", 0), "Descending"),
          totals=False)
 p3.note(848, 490, 416, 214, "What has to be true",
-        ["Measured savings: $63M price gap on re-routed spend + $23M fewer suppliers to maintain.",
-         "The other $280M assumes a 1.5% re-tender saving with kept leverage suppliers.",
-         "To reach $300M, that re-tender must deliver at least 1.15%: test it in a pilot sourcing wave first.",
-         "Payback is fast: $40M one-time cost; even the low case has a positive NPV ($135M)."])
+        ["Measured savings: $63M price gap on re-routed spend + $71M fewer suppliers to manage.",
+         "The other $280M assumes a 1.5% re-tender saving with kept leverage suppliers; 152 of them hold 80% of that spend.",
+         "To reach $300M, the re-tender must deliver at least 0.89% (1.2% in the conservative plan): pilot it first.",
+         "One-time cost $73M base ($34M conservative); even the low case has a positive NPV ($158M)."])
 
 p4 = Page("p4explorer", "4 Supplier Explorer")
 p4.header("Supplier explorer: decision and reason code for all 16,933 suppliers",

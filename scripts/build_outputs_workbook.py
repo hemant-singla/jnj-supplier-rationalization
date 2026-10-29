@@ -79,14 +79,17 @@ rows = [
     ("4_Duplicate_Check", "4d Duplicate precision", "How often is a matched pair really one company?", "70 accepted pairs judged by hand"),
     ("5_Savings_Real_List", "5 Savings on real list", "What is it worth?", "Measured price gap + scenarios, live formulas"),
     ("5b_Retender_Sensitivity", "5b Sensitivity", "How much rests on the re-tender assumption?", "Savings vs re-tender rate, break-even, live formulas"),
+    ("5c_Value_vs_Cuts", "5c Small cut, big impact", "Does cutting more suppliers pay?", "Savings and one-time cost per tier at the same rates"),
+    ("8_Phase2", "8 Phase 2", "How could J&J go further from ~39,000?", "Category target count with supply-risk floors"),
+    ("9_JnJ_Timeline", "9 Back-test", "Does the model explain J&J's 80,000 to ~39,000?", "Reported counts, Kenvue spin-off estimate, tiers applied"),
     ("SQL_Code", "2", "The SQL behind the segmentation", "Full query text"),
 ]
 for r, rec in enumerate(rows, start=4):
     for c, v in enumerate(rec, start=1):
         ws.cell(row=r, column=c, value=v).font = font(bold=(r == 4))
 header(ws, 4, list(rows[0]))
-ws["A20"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
-ws["A20"].font = font(italic=True)
+ws["A23"] = "Colour code: blue = input you can change; black = formula; yellow fill = key assumption."
+ws["A23"].font = font(italic=True)
 widths(ws, [26, 26, 40, 44])
 
 # ---------------------------------------------------------------- Step 0
@@ -533,6 +536,65 @@ if Path("outputs/step5b_retender_sensitivity.csv").exists():
         ws.cell(row=i, column=3, value=f'=IF(B{i}>=$B$7,"Yes","No")')
     widths(ws, [58, 28, 14])
 
+
+# ---------------------------------------------------------------- Step 5c / 8 / 9
+if Path("outputs/step5c_value_vs_cuts.csv").exists():
+    ws = wb.create_sheet("5c_Value_vs_Cuts")
+    title(ws, "Step 5c — Small cut, big impact: savings vs number of suppliers cut (J&J scale, base savings rates)",
+          "Every cut has to be justified, so compare what each tier adds. J&J baseline: 80,000 suppliers.")
+    v = pd.read_csv("outputs/step5c_value_vs_cuts.csv")
+    v = v[["tier", "reduction", "jnj_suppliers_cut", "jnj_after", "base_rate_price_m", "base_rate_process_m",
+           "base_rate_retender_m", "base_rate_run_rate_m", "base_rate_one_time_m", "share_of_base_value",
+           "savings_per_supplier_cut_k", "suppliers_holding_80pct_of_kept_leverage_spend"]]
+    v.columns = ["Tier", "Share of active suppliers cut", "J&J suppliers cut", "J&J suppliers after", "Price gap ($M/yr)",
+                 "Fewer suppliers ($M/yr)", "Re-tender, assumed ($M/yr)", "Run-rate ($M/yr)", "One-time ($M)",
+                 "Share of base-case value", "Savings per supplier cut ($k/yr)", "Suppliers holding 80% of kept Leverage spend"]
+    write_df(ws, v, 4, {"Share of active suppliers cut": PCT, "J&J suppliers cut": NUM, "J&J suppliers after": NUM,
+                        "Price gap ($M/yr)": USD_M, "Fewer suppliers ($M/yr)": USD_M, "Re-tender, assumed ($M/yr)": USD_M,
+                        "Run-rate ($M/yr)": USD_M, "One-time ($M)": USD_M, "Share of base-case value": PCT,
+                        "Savings per supplier cut ($k/yr)": '$#,##0.0', "Suppliers holding 80% of kept Leverage spend": NUM})
+    widths(ws, [14, 14, 14, 14, 14, 14, 16, 14, 12, 14, 16, 18])
+
+if Path("outputs/step8_phase2_summary.csv").exists():
+    ws = wb.create_sheet("8_Phase2")
+    title(ws, "Phase 2 — Category target count from ~39,000 suppliers",
+          "Per category: fewest suppliers covering 90% of spend; at least 2 in Strategic/Bottleneck; strategic, "
+          "sole-source and small/diverse suppliers always kept.")
+    ps = pd.read_csv("outputs/step8_phase2_summary.csv")
+    ps.columns = ["Metric", "Value"]
+    end = write_df(ws, ps, 4)
+    for r in range(5, end + 1):
+        c = ws.cell(row=r, column=2)
+        c.number_format = PCT if isinstance(c.value, float) and c.value < 1 else '#,##0.0'
+    pq = pd.read_csv("outputs/step8_phase2_by_quadrant.csv")
+    pq.columns = ["Quadrant", "Suppliers before", "Suppliers after", "Reduction"]
+    end = write_df(ws, pq, end + 3, {"Suppliers before": NUM, "Suppliers after": NUM, "Reduction": PCT})
+    sv = pd.read_csv("outputs/step8_phase2_coverage_sensitivity.csv")
+    sv.columns = ["Spend coverage target", "California suppliers kept", "Reduction", "J&J suppliers after"]
+    write_df(ws, sv, end + 3, {"Spend coverage target": PCT, "California suppliers kept": NUM, "Reduction": PCT,
+                               "J&J suppliers after": NUM})
+    widths(ws, [62, 18, 16, 18])
+
+if Path("outputs/step9_jnj_timeline_backtest.csv").exists():
+    ws = wb.create_sheet("9_JnJ_Timeline")
+    title(ws, "Back-test — J&J's supplier count over time and the Kenvue spin-off",
+          "80,000 (State of Flux; ~78,000 in a 2021 StoryMap) to ~39,000 (FY2025). Kenvue's share is estimated.")
+    rep_rows = pd.DataFrame([
+        ("After 2014 (undated)", 80000, "State of Flux case study"),
+        ("2021", 78000, "ArcGIS StoryMap, individual author, no source given"),
+        ("2023", 38500, "2023 Health for Humanity Report"),
+        ("2024", 29000, "2024 Health for Humanity Report (after Kenvue)"),
+        ("FY2025", 39000, "Global Modern Slavery Statement 2025 (new counting method)"),
+    ], columns=["When", "Suppliers reported", "Source"])
+    end = write_df(ws, rep_rows, 4, {"Suppliers reported": NUM})
+    bt = pd.read_csv("outputs/step9_jnj_timeline_backtest.csv")
+    bt.columns = ["Kenvue case", "Kenvue share of suppliers", "Kenvue suppliers", "J&J base after Kenvue",
+                  "Reported now", "J&J's own reduction", "Our model: conservative", "Our model: base",
+                  "Our model: aggressive", "Phase 2 (90% coverage)", "Phase 2 low", "Phase 2 high"]
+    write_df(ws, bt, end + 3, {**{c: NUM for c in bt.columns[2:5]}, "Kenvue share of suppliers": PCT,
+                               "J&J's own reduction": PCT, **{c: NUM for c in bt.columns[6:]}})
+    widths(ws, [22, 18, 52, 18, 14, 16, 16, 16, 16, 18, 14, 14])
+
 # ---------------------------------------------------------------- Files and sources
 REPO = "https://github.com/hemant-singla/jnj-supplier-rationalization/blob/main/"
 ws = wb.create_sheet("Files_and_Sources", 1)
@@ -567,6 +629,15 @@ files = [
     ("Code", "4", "scripts/04d_duplicate_precision.py", REPO + "scripts/04d_duplicate_precision.py", "Precision of duplicate matching from a hand-checked sample"),
     ("Code", "5", "scripts/05_savings.py", REPO + "scripts/05_savings.py", "Price-gap test and savings model"),
     ("Code", "5", "scripts/05b_retender_sensitivity.py", REPO + "scripts/05b_retender_sensitivity.py", "Savings vs re-tender rate; break-even"),
+    ("Code", "5", "scripts/05c_value_vs_cuts.py", REPO + "scripts/05c_value_vs_cuts.py", "Small cut, big impact: savings vs suppliers cut"),
+    ("Code", "8", "scripts/08_phase2_category_targets.py", REPO + "scripts/08_phase2_category_targets.py", "Phase 2 category target model"),
+    ("Code", "9", "scripts/09_jnj_timeline_backtest.py", REPO + "scripts/09_jnj_timeline_backtest.py", "J&J timeline, Kenvue estimate, back-test"),
+    ("Write-up", "8-9", "docs/08_jnj_timeline_and_phase2.md", REPO + "docs/08_jnj_timeline_and_phase2.md", "80,000 to ~39,000, Kenvue, small cut big impact, Phase 2"),
+    ("Data source", "9", "State of Flux: J&J case study", "https://stateofflux.co.uk/case-studies/johnson-and-johnson", "80,000 suppliers (undated)"),
+    ("Data source", "9", "ArcGIS StoryMap: J&J Supply Chain (2021)", "https://storymaps.arcgis.com/stories/efd9fb73ac4f4e8082036d6296aea5a2", "78,000+ suppliers (individual author)"),
+    ("Data source", "9", "J&J Global Modern Slavery Statement 2025", "https://www.jnj.com/innovativemedicine/uk/global-modern-slavery-act-statement", "~39,000 suppliers (FY2025)"),
+    ("Data source", "9", "J&J Q4 and full-year 2022 results", "https://www.businesswire.com/news/home/20230124005275/en", "Consumer Health $14,953M of $94,943M sales (Kenvue share estimate)"),
+    ("Data source", "9", "NJBIZ: Kenvue completes separation", "https://njbiz.com/kenvue-completes-separation-from-jj", "Separation completed 23 Aug 2023"),
     ("Tests", "All", "tests/", REPO + "tests", "Checks: no strategic or sole-source exits, a reason code on every row, totals match the raw data"),
     ("Code", "All", "scripts/build_outputs_workbook.py", REPO + "scripts/build_outputs_workbook.py", "Builds this workbook"),
     ("Code", "1-4", "scripts/build_data_workbook.py", REPO + "scripts/build_data_workbook.py",

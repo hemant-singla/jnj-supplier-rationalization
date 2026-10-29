@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Savings: $366M a year at J&J scale in the base case, but only $86M is measured in the data",
+                    "value": "Savings: $414M a year at J&J scale in the base case; $134M is measured, and a 27% cut already captures $356M",
                     "textStyle": {
                       "fontWeight": "bold",
                       "fontSize": "20px",
@@ -31,7 +31,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Price-gap test on 127 goods items bought from both kept and exiting suppliers; re-tender saving is an assumption. Scaled to J&J by spend ($35B) and supplier count (29,000).",
+                    "value": "Price-gap test on 127 goods items bought from both kept and exiting suppliers; re-tender saving is an assumption. Scaled to J&J by spend ($35B) and supplier count (80,000 / 8,226 active suppliers in one year).",
                     "textStyle": {
                       "fontSize": "11px",
                       "color": "#52606D"
